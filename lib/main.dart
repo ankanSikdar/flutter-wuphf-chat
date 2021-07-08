@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Wuphf Chat',
       theme: ThemeData(
         brightness: Brightness.light,
-        primarySwatch: Colors.lightBlueAccent[300],
+        primaryColor: Colors.lightBlueAccent.shade700,
         accentColor: Colors.black,
         scaffoldBackgroundColor: Colors.white,
         textTheme: TextTheme().copyWith(
