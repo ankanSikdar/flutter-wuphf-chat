@@ -24,6 +24,13 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w900,
             color: Colors.black,
           ),
+          headline6: TextStyle(
+            fontWeight: FontWeight.w600,
+          ),
+          bodyText1: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+          ),
         ),
         fontFamily: GoogleFonts.nunitoSans().fontFamily,
       ),
@@ -34,10 +41,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// 
-
-// TextStyle(
-//               fontSize: 48.0,
-//               fontWeight: FontWeight.w900,
-//               fontFamily: GoogleFonts.nunitoSans().fontFamily,
-//             ),
