@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/config.dart';
-import 'package:wuphf_chat/screens/signup/signup_screen.dart';
+import 'screens/screens.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: SignUpScreen.routeName,
       routes: {
         SignUpScreen.routeName: (context) => SignUpScreen(),
+        HomeScreen.routeName: (context) => HomeScreen(),
       },
     );
   }
