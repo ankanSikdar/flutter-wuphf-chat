@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 
 import 'base_auth_repository.dart';
 
-class AuthenticationRepository extends BaseAuthenticationRepository {
+class AuthRepository extends BaseAuthRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
 
-  AuthenticationRepository({
+  AuthRepository({
     firebase_auth.FirebaseAuth firebaseAuth,
     FirebaseFirestore firebaseFirestore,
   })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
