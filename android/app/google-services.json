@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "402730700966",
+    "project_id": "wuphf-chat",
+    "storage_bucket": "wuphf-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402730700966:android:a44f3fc8a0342285a7a467",
+        "android_client_info": {
+          "package_name": "dev.ankan.wuphf_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402730700966-io2efu3u64ctqmduj52iiesjlmv3fe5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBstaKk-jx3A1nH8trSh-EDsFJffdZpwgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402730700966-io2efu3u64ctqmduj52iiesjlmv3fe5l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
