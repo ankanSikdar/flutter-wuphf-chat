@@ -46,7 +46,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     EmailWidget(),
                     SizedBox(height: 16.0),
-                    if (_userAction == UserAction.signUp) UsernameWidget(),
+                    if (_userAction == UserAction.signUp) DisplayNameWidget(),
                     if (_userAction == UserAction.signUp)
                       SizedBox(height: 16.0),
                     PasswordWidget(),
@@ -121,8 +121,8 @@ class EmailWidget extends StatelessWidget {
   }
 }
 
-class UsernameWidget extends StatelessWidget {
-  const UsernameWidget({
+class DisplayNameWidget extends StatelessWidget {
+  const DisplayNameWidget({
     Key key,
   }) : super(key: key);
 
@@ -131,10 +131,10 @@ class UsernameWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InputTitle(title: 'Username'),
+        InputTitle(title: 'Display Name'),
         InputTextField(
-          hintText: 'something unique',
-          textInputType: TextInputType.emailAddress,
+          hintText: 'Your Name',
+          textInputType: TextInputType.name,
         ),
       ],
     );
@@ -153,8 +153,8 @@ class PasswordWidget extends StatelessWidget {
       children: [
         InputTitle(title: 'Password'),
         InputTextField(
-          hintText: '8+ characters',
-          textInputType: TextInputType.emailAddress,
+          hintText: '5+ characters',
+          textInputType: TextInputType.visiblePassword,
           obscureText: true,
         ),
       ],
