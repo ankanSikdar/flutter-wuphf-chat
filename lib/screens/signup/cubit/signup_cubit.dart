@@ -12,6 +12,10 @@ class SignUpCubit extends Cubit<SignUpState> {
       : _authRepository = authRepository,
         super(SignUpState.initial());
 
+  void reset() {
+    emit(SignUpState.initial());
+  }
+
   void emailChanged(String value) {
     emit(state.copyWith(email: value));
   }
