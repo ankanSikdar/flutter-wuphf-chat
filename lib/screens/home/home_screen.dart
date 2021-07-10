@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,17 +17,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: AppBar(
-        title: Text(context.read<AuthBloc>().state.user.email),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () {
-                context.read<AuthBloc>().add(AuthUserLogOut());
-              })
-        ],
-      ),
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          title: Text(context.read<AuthBloc>().state.user.displayName),
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () {
+                  context.read<AuthBloc>().add(AuthUserLogOut());
+                })
+          ],
+        )
+      ],
     );
   }
 }

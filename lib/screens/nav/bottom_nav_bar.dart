@@ -43,24 +43,24 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        items: [
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.comments), label: 'Chat'),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.userCircle), label: 'Profile'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).accentColor,
-        onTap: _onItemTapped,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: _screens.elementAt(_selectedIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.comments), label: 'Chat'),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.userCircle), label: 'Profile'),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }

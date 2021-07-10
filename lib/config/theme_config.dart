@@ -26,5 +26,11 @@ class ThemeConfig {
       ),
     ),
     fontFamily: GoogleFonts.nunitoSans().fontFamily,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 20.0,
+      backgroundColor: Colors.white,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: Colors.lightBlueAccent.shade700,
+    ),
   );
 }
