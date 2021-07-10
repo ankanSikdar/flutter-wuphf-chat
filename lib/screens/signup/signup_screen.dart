@@ -63,13 +63,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         _userAction == UserAction.signUp
                             ? InkWellButton(
-                                onTap: () {},
+                                onTap: () {
+                                  print(_formKey.currentState.validate());
+                                },
                                 buttonColor: Theme.of(context).primaryColor,
                                 title: 'Create Account',
                                 titleColor: Colors.white,
                               )
                             : InkWellButton(
-                                onTap: () {},
+                                onTap: () {
+                                  print(_formKey.currentState.validate());
+                                },
                                 buttonColor: Theme.of(context).primaryColor,
                                 title: 'Sign In',
                                 titleColor: Colors.white,
@@ -122,6 +126,18 @@ class EmailWidget extends StatelessWidget {
         InputTextField(
           hintText: 'you@example.com',
           textInputType: TextInputType.emailAddress,
+          onChanged: (String value) {},
+          validator: (String value) {
+            if (value.trim().isEmpty) {
+              return "Email cannot be empty";
+            }
+            if (!RegExp(
+                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                .hasMatch(value)) {
+              return "Please Enter a valid email";
+            }
+            return null;
+          },
         ),
       ],
     );
@@ -142,6 +158,19 @@ class DisplayNameWidget extends StatelessWidget {
         InputTextField(
           hintText: 'Your Name',
           textInputType: TextInputType.name,
+          onChanged: (String value) {},
+          validator: (String value) {
+            if (value.trim().isEmpty) {
+              return 'Name cannot be empty';
+            }
+            if (!RegExp(r"^[a-zA-Z][a-zA-Z ]+").hasMatch(value)) {
+              return 'Please enter a valid full name';
+            }
+            if (value.trim().length < 3) {
+              return 'Name must be atleast 3 characters';
+            }
+            return null;
+          },
         ),
       ],
     );
@@ -163,6 +192,16 @@ class PasswordWidget extends StatelessWidget {
           hintText: '5+ characters',
           textInputType: TextInputType.visiblePassword,
           obscureText: true,
+          onChanged: (String value) {},
+          validator: (String value) {
+            if (value.trim().isEmpty) {
+              return 'Password cannot be empty';
+            }
+            if (value.trim().length < 6) {
+              return 'Password must be atleast 5+ characters';
+            }
+            return null;
+          },
         ),
       ],
     );

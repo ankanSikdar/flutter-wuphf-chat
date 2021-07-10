@@ -4,11 +4,15 @@ class InputTextField extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final bool obscureText;
+  final Function onChanged;
+  final Function validator;
 
   const InputTextField({
     Key key,
     @required this.hintText,
     @required this.textInputType,
+    @required this.onChanged,
+    @required this.validator,
     this.obscureText = false,
   }) : super(key: key);
 
@@ -34,6 +38,8 @@ class InputTextField extends StatelessWidget {
       style: Theme.of(context).textTheme.bodyText1,
       keyboardType: textInputType,
       obscureText: obscureText,
+      onChanged: onChanged,
+      validator: validator,
     );
   }
 }
