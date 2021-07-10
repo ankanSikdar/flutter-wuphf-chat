@@ -34,6 +34,9 @@ class InputTextField extends StatelessWidget {
           horizontal: 12.0,
           vertical: 4.0,
         ),
+        errorStyle: Theme.of(context).textTheme.bodyText2.apply(
+              color: Theme.of(context).errorColor,
+            ),
       ),
       style: Theme.of(context).textTheme.bodyText1,
       keyboardType: textInputType,

@@ -7,6 +7,7 @@ class ThemeConfig {
     primaryColor: Colors.lightBlueAccent.shade700,
     accentColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
+    errorColor: Colors.red.shade900,
     textTheme: TextTheme().copyWith(
       headline3: TextStyle(
         fontSize: 50,
@@ -19,6 +20,9 @@ class ThemeConfig {
       bodyText1: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 16.0,
+      ),
+      bodyText2: TextStyle(
+        fontWeight: FontWeight.bold,
       ),
     ),
     fontFamily: GoogleFonts.nunitoSans().fontFamily,
