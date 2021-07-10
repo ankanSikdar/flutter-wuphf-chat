@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 import 'base_auth_repository.dart';
 
@@ -37,7 +38,7 @@ class AuthRepository extends BaseAuthRepository {
       await user.updateDisplayName(displayName);
 
       //* Storing the user information in Cloud Firestore
-      await _firebaseFirestore.collection('users').doc(user.uid).set({
+      await _firebaseFirestore.collection(Paths.user).doc(user.uid).set({
         'email': email,
         'displayName': displayName,
         'bio': '',
