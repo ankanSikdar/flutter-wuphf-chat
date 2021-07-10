@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
 
 import 'input_text_field.dart';
 import 'input_title.dart';
@@ -17,7 +19,7 @@ class DisplayNameWidget extends StatelessWidget {
         InputTextField(
           hintText: 'Your Name',
           textInputType: TextInputType.name,
-          onChanged: (String value) {},
+          onChanged: context.read<SignUpCubit>().displayNameChanged,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return 'Name cannot be empty';

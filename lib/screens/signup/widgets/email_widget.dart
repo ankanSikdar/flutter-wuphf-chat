@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
 
 import 'input_text_field.dart';
 import 'input_title.dart';
@@ -17,7 +19,7 @@ class EmailWidget extends StatelessWidget {
         InputTextField(
           hintText: 'you@example.com',
           textInputType: TextInputType.emailAddress,
-          onChanged: (String value) {},
+          onChanged: context.read<SignUpCubit>().emailChanged,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return "Email cannot be empty";

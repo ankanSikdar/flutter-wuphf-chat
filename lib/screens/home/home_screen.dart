@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/home-page";
@@ -14,6 +16,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(context.read<AuthBloc>().state.user.email),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                context.read<AuthBloc>().add(AuthUserLogOut());
+              })
+        ],
+      ),
+    );
   }
 }
