@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const String routeName = "/home-page";
+  static const String routeName = "/home-screen";
 
   static Route route() {
     return MaterialPageRoute(
