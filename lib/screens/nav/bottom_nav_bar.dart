@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wuphf_chat/screens/home/home_screen.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
+import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/screens/screens.dart';
+import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   static const String routeName = '/nav-screen';
@@ -28,10 +32,12 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   }
 
   List<Widget> _screens = [
-    Container(
-      child: Center(
-        child: Text('Users'),
-      ),
+    BlocProvider<UsersBloc>(
+      create: (context) => UsersBloc(
+        authBloc: context.read<AuthBloc>(),
+        userRepository: context.read<UserRepository>(),
+      )..add(UsersFetchUser()),
+      child: UsersScreen(),
     ),
     HomeScreen(),
     Container(
