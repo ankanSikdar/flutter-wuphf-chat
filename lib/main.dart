@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'config/theme_config.dart';
+import 'config/configs.dart';
 import 'screens/screens.dart';
 
 Future<void> main() async {
@@ -21,10 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Wuphf Chat',
       theme: ThemeConfig.themeData,
       initialRoute: SignUpScreen.routeName,
-      routes: {
-        SignUpScreen.routeName: (context) => SignUpScreen(),
-        HomeScreen.routeName: (context) => HomeScreen(),
-      },
+      onGenerateRoute: CustomRouter.onGenerateRoute,
     );
   }
 }

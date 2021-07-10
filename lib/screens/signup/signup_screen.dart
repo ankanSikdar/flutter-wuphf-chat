@@ -9,7 +9,14 @@ enum UserAction {
 }
 
 class SignUpScreen extends StatefulWidget {
-  static const String routeName = 'signup-screen';
+  static const String routeName = '/signup-screen';
+
+  static Route route() {
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
+      builder: (context) => SignUpScreen(),
+    );
+  }
 
   const SignUpScreen({Key key}) : super(key: key);
 
