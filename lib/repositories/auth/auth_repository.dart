@@ -38,7 +38,7 @@ class AuthRepository extends BaseAuthRepository {
       await user.updateDisplayName(displayName);
 
       //* Storing the user information in Cloud Firestore
-      await _firebaseFirestore.collection(Paths.user).doc(user.uid).set({
+      await _firebaseFirestore.collection(Paths.users).doc(user.uid).set({
         'email': email,
         'displayName': displayName,
         'bio': '',
