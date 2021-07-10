@@ -33,6 +33,8 @@ class AuthRepository extends BaseAuthRepository {
 
       // Getting the created user (to get the id of the user)
       final user = userCredentail.user;
+      // Adding displayName to FirebaseAuth User
+      await user.updateDisplayName(displayName);
 
       //* Storing the user information in Cloud Firestore
       await _firebaseFirestore.collection('users').doc(user.uid).set({
