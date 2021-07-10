@@ -29,7 +29,8 @@ class SplashScreen extends StatelessWidget {
 
           // User is found and user is logged in
           if (state.status == AuthStatus.authenticated) {
-            return Navigator.of(context).pushNamed(HomeScreen.routeName);
+            return Navigator.of(context)
+                .pushNamed(BottomNavBarScreen.routeName);
           }
         },
         // When status is unknown

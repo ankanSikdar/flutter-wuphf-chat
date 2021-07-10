@@ -10,6 +10,8 @@ class CustomRouter {
           settings: RouteSettings(name: '/'),
           builder: (context) => Scaffold(),
         );
+      case BottomNavBarScreen.routeName:
+        return BottomNavBarScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
       case HomeScreen.routeName:
