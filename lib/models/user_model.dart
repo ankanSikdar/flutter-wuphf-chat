@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,6 +16,28 @@ class User extends Equatable {
     @required this.profileImageUrl,
     @required this.bio,
   });
+
+  Map<String, dynamic> toDocument() {
+    return {
+      'email': email,
+      'displayName': displayName,
+      'profileImageUrl': profileImageUrl,
+      'bio': bio,
+    };
+  }
+
+  factory User.fromDocument(DocumentSnapshot doc) {
+    if (doc == null) return null;
+    final data = doc.data() as Map;
+
+    return User(
+      id: doc.id,
+      displayName: data['displayName'] ?? '',
+      email: data['email'] ?? '',
+      profileImageUrl: data['profileImageUrl'] ?? '',
+      bio: data['bio'] ?? '',
+    );
+  }
 
   //* It's useful to define a static empty User so that we don't have to handle null Users and can always work with a concrete User object.
   static const empty =
