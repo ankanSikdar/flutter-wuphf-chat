@@ -12,24 +12,36 @@ class UserRepository extends BaseUserRepository {
 
   @override
   Future<List<User>> getAllUsers() async {
-    final usersSnap = await _firebaseFirestore.collection(Paths.users).get();
-    final List<User> usersList =
-        usersSnap.docs.map((doc) => User.fromDocument(doc)).toList();
-    return usersList;
+    try {
+      final usersSnap = await _firebaseFirestore.collection(Paths.users).get();
+      final List<User> usersList =
+          usersSnap.docs.map((doc) => User.fromDocument(doc)).toList();
+      return usersList;
+    } catch (e) {
+      throw Exception('GET USERS ERROR: ${e.message}');
+    }
   }
 
   @override
   Future<User> getUserWithId({String userId}) async {
-    final doc =
-        await _firebaseFirestore.collection(Paths.users).doc(userId).get();
-    return doc.exists ? User.fromDocument(doc) : User.empty;
+    try {
+      final doc =
+          await _firebaseFirestore.collection(Paths.users).doc(userId).get();
+      return doc.exists ? User.fromDocument(doc) : User.empty;
+    } catch (e) {
+      throw Exception('GET USER ERROR: ${e.message}');
+    }
   }
 
   @override
   Future<void> updateUser({User user}) async {
-    await _firebaseFirestore
-        .collection(Paths.users)
-        .doc(user.id)
-        .update(user.toDocument());
+    try {
+      await _firebaseFirestore
+          .collection(Paths.users)
+          .doc(user.id)
+          .update(user.toDocument());
+    } catch (e) {
+      throw Exception('UPDATE USER ERROR: ${e.message}');
+    }
   }
 }
