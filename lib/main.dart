@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Wuphf Chat',
           theme: ThemeConfig.themeData,
-          initialRoute: SignUpScreen.routeName,
+          initialRoute: SplashScreen.routeName,
           onGenerateRoute: CustomRouter.onGenerateRoute,
         ),
       ),
