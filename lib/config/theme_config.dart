@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeConfig {
   static ThemeData themeData = ThemeData(
     brightness: Brightness.light,
-    primaryColor: Colors.lightBlueAccent.shade700,
+    primaryColor: Colors.amberAccent.shade700,
     accentColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
     errorColor: Colors.red.shade900,
@@ -30,7 +30,7 @@ class ThemeConfig {
       elevation: 20.0,
       backgroundColor: Colors.white,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Colors.lightBlueAccent.shade700,
+      selectedItemColor: Colors.amberAccent.shade700,
     ),
   );
 }
