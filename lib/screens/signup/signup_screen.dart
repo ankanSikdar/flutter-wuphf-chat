@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/screens/signup/widgets/inkwell_button.dart';
-import 'package:wuphf_chat/screens/signup/widgets/input_text_field.dart';
-import 'package:wuphf_chat/screens/signup/widgets/input_title.dart';
+import 'package:wuphf_chat/screens/signup/widgets/widgets.dart';
 
 enum UserAction {
   signUp,
@@ -108,102 +107,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class EmailWidget extends StatelessWidget {
-  const EmailWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InputTitle(title: 'Email'),
-        InputTextField(
-          hintText: 'you@example.com',
-          textInputType: TextInputType.emailAddress,
-          onChanged: (String value) {},
-          validator: (String value) {
-            if (value.trim().isEmpty) {
-              return "Email cannot be empty";
-            }
-            if (!RegExp(
-                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                .hasMatch(value)) {
-              return "Please Enter a valid email";
-            }
-            return null;
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class DisplayNameWidget extends StatelessWidget {
-  const DisplayNameWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InputTitle(title: 'Display Name'),
-        InputTextField(
-          hintText: 'Your Name',
-          textInputType: TextInputType.name,
-          onChanged: (String value) {},
-          validator: (String value) {
-            if (value.trim().isEmpty) {
-              return 'Name cannot be empty';
-            }
-            if (!RegExp(r"^[a-zA-Z][a-zA-Z ]+").hasMatch(value)) {
-              return 'Please enter a valid full name';
-            }
-            if (value.trim().length < 3) {
-              return 'Name must be atleast 3 characters';
-            }
-            return null;
-          },
-        ),
-      ],
-    );
-  }
-}
-
-class PasswordWidget extends StatelessWidget {
-  const PasswordWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InputTitle(title: 'Password'),
-        InputTextField(
-          hintText: '5+ characters',
-          textInputType: TextInputType.visiblePassword,
-          obscureText: true,
-          onChanged: (String value) {},
-          validator: (String value) {
-            if (value.trim().isEmpty) {
-              return 'Password cannot be empty';
-            }
-            if (value.trim().length < 6) {
-              return 'Password must be atleast 5+ characters';
-            }
-            return null;
-          },
-        ),
-      ],
     );
   }
 }
