@@ -14,8 +14,8 @@ class CustomRouter {
         return BottomNavBarScreen.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
-      case HomeScreen.routeName:
-        return HomeScreen.route();
+      case ChatsScreen.routeName:
+        return ChatsScreen.route();
       case SignUpScreen.routeName:
         return SignUpScreen.route();
       default:

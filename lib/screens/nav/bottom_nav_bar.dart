@@ -39,7 +39,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       )..add(UsersFetchUser()),
       child: UsersScreen(),
     ),
-    HomeScreen(),
+    ChatsScreen(),
     Container(
       child: Center(
         child: Text('Profile'),

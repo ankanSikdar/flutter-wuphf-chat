@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 
-class HomeScreen extends StatelessWidget {
-  static const String routeName = "/home-screen";
+class ChatsScreen extends StatelessWidget {
+  static const String routeName = "/chats-screen";
 
   static Route route() {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
-      builder: (context) => HomeScreen(),
+      builder: (context) => ChatsScreen(),
     );
   }
 
-  const HomeScreen({Key key}) : super(key: key);
+  const ChatsScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
