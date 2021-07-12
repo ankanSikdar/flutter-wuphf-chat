@@ -111,7 +111,7 @@ class MessagesRepository extends BaseMessagesRepository {
     return documentReference;
   }
 
-  Future<void> sendFirstMessage({
+  Future<DocumentReference<Object>> sendFirstMessage({
     @required User user,
     @required String message,
   }) async {
@@ -121,6 +121,7 @@ class MessagesRepository extends BaseMessagesRepository {
       documentReference: messagesDbRef,
       message: message,
     );
+    return messagesDbRef;
   }
 
   Stream<List<Message>> getMessagesList(
