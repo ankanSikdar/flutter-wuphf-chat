@@ -73,4 +73,69 @@ class MessagesRepository extends BaseMessagesRepository {
               );
             }).toList());
   }
+
+  Future<bool> checkMessagesExists({@required User user}) async {
+    final docSnapshot = await _firebaseFirestore
+        .collection(Paths.messages)
+        .doc(_firebaseAuth.currentUser.uid)
+        .collection(Paths.userMessages)
+        .doc(user.id)
+        .get();
+
+    return docSnapshot.exists;
+  }
+
+  Future<DocumentReference<Object>> createMessagesDb(
+      {@required User user}) async {
+    final documentReference =
+        await _firebaseFirestore.collection(Paths.messagesDb).add({});
+
+    await _firebaseFirestore
+        .collection(Paths.messages)
+        .doc(_firebaseAuth.currentUser.uid)
+        .collection(Paths.userMessages)
+        .doc(user.id)
+        .set({
+      Paths.messagesDb: documentReference,
+    });
+
+    await _firebaseFirestore
+        .collection(Paths.messages)
+        .doc(user.id)
+        .collection(Paths.userMessages)
+        .doc(_firebaseAuth.currentUser.uid)
+        .set({
+      Paths.messagesDb: documentReference,
+    });
+
+    return documentReference;
+  }
+
+  Future<void> sendFirstMessage({
+    @required User user,
+    @required String message,
+  }) async {
+    final messagesDbRef = await createMessagesDb(user: user);
+    await sendMessage(
+      recipientId: user.id,
+      documentReference: messagesDbRef,
+      message: message,
+    );
+  }
+
+  Stream<List<Message>> getMessagesList(
+      {@required DocumentReference messagesDbRef}) {
+    return messagesDbRef
+        .collection(Paths.messagesData)
+        .snapshots()
+        .map((QuerySnapshot snap) => snap.docs.map((QueryDocumentSnapshot doc) {
+              final data = doc.data() as Map;
+              return Message(
+                id: doc.id,
+                sentAt: data['sentAt'],
+                sentBy: data['sentBy'],
+                text: data['text'],
+              );
+            }).toList());
+  }
 }

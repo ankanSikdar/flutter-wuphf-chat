@@ -11,4 +11,16 @@ abstract class BaseMessagesRepository {
   });
 
   Stream<List<Future<ChatUser>>> getUserChatList();
+
+  Future<DocumentReference<Object>> createMessagesDb({@required User user});
+
+  Future<bool> checkMessagesExists({@required User user});
+
+  Future<void> sendFirstMessage({
+    @required User user,
+    @required String message,
+  });
+
+  Stream<List<Message>> getMessagesList(
+      {@required DocumentReference messagesDbRef});
 }
