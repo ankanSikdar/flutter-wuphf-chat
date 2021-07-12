@@ -19,7 +19,7 @@ class CustomRouter {
       case SignUpScreen.routeName:
         return SignUpScreen.route();
       case ChattingScreen.routeName:
-        return ChattingScreen.route();
+        return ChattingScreen.route(args: settings.arguments);
       default:
         return _errorRoute();
     }

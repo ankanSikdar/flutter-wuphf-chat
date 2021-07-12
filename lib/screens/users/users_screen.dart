@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -52,6 +53,12 @@ class UsersScreen extends StatelessWidget {
                         title: user.displayName,
                         subtitle: user.bio.isEmpty ? user.email : user.bio,
                         imageUrl: user.profileImageUrl,
+                        onChat: () {
+                          Navigator.of(context).pushNamed(
+                            ChattingScreen.routeName,
+                            arguments: ChattingScreenArgs(user: user),
+                          );
+                        },
                       );
                     },
                     childCount: usersList.length,
