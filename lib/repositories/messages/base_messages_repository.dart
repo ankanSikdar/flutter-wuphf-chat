@@ -14,6 +14,9 @@ abstract class BaseMessagesRepository {
 
   Future<DocumentReference<Object>> createMessagesDb({@required User user});
 
+  Future<DocumentReference<Object>> getAlreadyPresentMessagesDb(
+      {@required User user});
+
   Future<bool> checkMessagesExists({@required User user});
 
   Future<DocumentReference<Object>> sendFirstMessage({

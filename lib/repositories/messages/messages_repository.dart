@@ -111,6 +111,20 @@ class MessagesRepository extends BaseMessagesRepository {
     return documentReference;
   }
 
+  Future<DocumentReference<Object>> getAlreadyPresentMessagesDb(
+      {@required User user}) async {
+    final docSnapshot = await _firebaseFirestore
+        .collection(Paths.messages)
+        .doc(_firebaseAuth.currentUser.uid)
+        .collection(Paths.userMessages)
+        .doc(user.id)
+        .get();
+
+    final data = docSnapshot.data();
+    final messagesDb = data['messagesDb'];
+    return messagesDb;
+  }
+
   Future<DocumentReference<Object>> sendFirstMessage({
     @required User user,
     @required String message,
