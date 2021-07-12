@@ -66,6 +66,7 @@ class ChattingScreen extends StatelessWidget {
           if (state.status == ChattingStatus.loaded) {
             return ListView.builder(
               itemCount: state.messagesList.length,
+              reverse: true,
               itemBuilder: (context, index) {
                 final message = state.messagesList[index];
                 return Container(

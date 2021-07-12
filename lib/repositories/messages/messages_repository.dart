@@ -65,6 +65,7 @@ class MessagesRepository extends BaseMessagesRepository {
           .collection(Paths.messages)
           .doc(_firebaseAuth.currentUser.uid)
           .collection(Paths.userMessages)
+          .orderBy('sentAt', descending: true)
           .snapshots()
           .map((QuerySnapshot snap) =>
               snap.docs.map((QueryDocumentSnapshot doc) async {
@@ -167,8 +168,12 @@ class MessagesRepository extends BaseMessagesRepository {
   Stream<List<Message>> getMessagesList(
       {@required DocumentReference messagesDbRef}) {
     try {
-      return messagesDbRef.collection(Paths.messagesData).snapshots().map(
-          (QuerySnapshot snap) => snap.docs.map((QueryDocumentSnapshot doc) {
+      return messagesDbRef
+          .collection(Paths.messagesData)
+          .orderBy('sentAt', descending: true)
+          .snapshots()
+          .map((QuerySnapshot snap) =>
+              snap.docs.map((QueryDocumentSnapshot doc) {
                 final data = doc.data() as Map;
                 return Message(
                   id: doc.id,
