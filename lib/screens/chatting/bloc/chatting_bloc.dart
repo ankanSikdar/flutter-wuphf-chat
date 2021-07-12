@@ -42,55 +42,67 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   }
 
   Stream<ChattingState> _mapCheckHasMessagedBeforeToState() async* {
-    if (state.messagesDbRef != null) {
-      // Navigated from chatScreen
-      yield (state.copyWith(hasMessagedBefore: true));
-      add(ChattingFetchMessages());
-    } else {
-      // Navigated from usersScreen
-      final check =
-          await _messagesRepository.checkMessagesExists(user: state.user);
-      if (check == true) {
-        final messagesDb = await _messagesRepository
-            .getAlreadyPresentMessagesDb(user: state.user);
-        yield (state.copyWith(
-            messagesDbRef: messagesDb, hasMessagedBefore: true));
+    try {
+      if (state.messagesDbRef != null) {
+        // Navigated from chatScreen
+        yield (state.copyWith(hasMessagedBefore: true));
         add(ChattingFetchMessages());
       } else {
-        yield (state.copyWith(hasMessagedBefore: false));
+        // Navigated from usersScreen
+        final check =
+            await _messagesRepository.checkMessagesExists(user: state.user);
+        if (check == true) {
+          final messagesDb = await _messagesRepository
+              .getAlreadyPresentMessagesDb(user: state.user);
+          yield (state.copyWith(
+              messagesDbRef: messagesDb, hasMessagedBefore: true));
+          add(ChattingFetchMessages());
+        } else {
+          yield (state.copyWith(hasMessagedBefore: false));
+        }
       }
+    } catch (e) {
+      yield (state.copyWith(status: ChattingStatus.error, error: e.message));
     }
   }
 
   Stream<ChattingState> _mapSendMessageToState(
       ChattingSendMessage event) async* {
-    if (state.hasMessagedBefore) {
-      await _messagesRepository.sendMessage(
-        recipientId: state.user.id,
-        documentReference: state.messagesDbRef,
-        message: event.message,
-      );
-    } else {
-      final messagesDbRef = await _messagesRepository.sendFirstMessage(
-          user: state.user, message: event.message);
-      yield (state.copyWith(
-          hasMessagedBefore: true, messagesDbRef: messagesDbRef));
-      add(ChattingFetchMessages());
+    try {
+      if (state.hasMessagedBefore) {
+        await _messagesRepository.sendMessage(
+          recipientId: state.user.id,
+          documentReference: state.messagesDbRef,
+          message: event.message,
+        );
+      } else {
+        final messagesDbRef = await _messagesRepository.sendFirstMessage(
+            user: state.user, message: event.message);
+        yield (state.copyWith(
+            hasMessagedBefore: true, messagesDbRef: messagesDbRef));
+        add(ChattingFetchMessages());
+      }
+    } catch (e) {
+      yield (state.copyWith(status: ChattingStatus.error, error: e.message));
     }
   }
 
   Stream<ChattingState> _mapFetchMessagesToState() async* {
-    yield (state.copyWith(status: ChattingStatus.loading));
-    if (state.hasMessagedBefore == false) {
-      yield (state.copyWith(status: ChattingStatus.loaded));
-    } else {
-      _messagesSubscription?.cancel();
-      _messagesSubscription = _messagesRepository
-          .getMessagesList(messagesDbRef: state.messagesDbRef)
-          .listen((messages) {
-        add(ChattingUpdateMessages(messagesList: messages));
-      });
-      yield (state.copyWith(status: ChattingStatus.loaded));
+    try {
+      yield (state.copyWith(status: ChattingStatus.loading));
+      if (state.hasMessagedBefore == false) {
+        yield (state.copyWith(status: ChattingStatus.loaded));
+      } else {
+        _messagesSubscription?.cancel();
+        _messagesSubscription = _messagesRepository
+            .getMessagesList(messagesDbRef: state.messagesDbRef)
+            .listen((messages) {
+          add(ChattingUpdateMessages(messagesList: messages));
+        });
+        yield (state.copyWith(status: ChattingStatus.loaded));
+      }
+    } catch (e) {
+      yield (state.copyWith(status: ChattingStatus.error, error: e.message));
     }
   }
 
