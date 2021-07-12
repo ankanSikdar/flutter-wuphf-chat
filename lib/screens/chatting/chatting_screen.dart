@@ -57,7 +57,11 @@ class ChattingScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state.hasMessagedBefore == false) {
-            return Container();
+            return Center(
+              child: Container(
+                child: Text('No Chats To Show'),
+              ),
+            );
           }
           if (state.status == ChattingStatus.loaded) {
             return ListView.builder(
@@ -84,8 +88,9 @@ class ChattingScreen extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.send_rounded),
               onPressed: () {
-                context.read<ChattingBloc>().add(
-                    ChattingSendMessage(message: 'Is this thing updating?'));
+                context
+                    .read<ChattingBloc>()
+                    .add(ChattingSendMessage(message: 'Hi Josh!'));
               })
         ],
       ),
