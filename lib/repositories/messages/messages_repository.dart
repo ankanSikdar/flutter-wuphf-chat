@@ -147,7 +147,7 @@ class MessagesRepository extends BaseMessagesRepository {
               final data = doc.data() as Map;
               return Message(
                 id: doc.id,
-                sentAt: data['sentAt'],
+                sentAt: (data['sentAt'] as Timestamp).toDate(),
                 sentBy: data['sentBy'],
                 text: data['text'],
               );

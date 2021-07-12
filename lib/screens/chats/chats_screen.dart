@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
+import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 
 class ChatsScreen extends StatelessWidget {
   static const String routeName = "/chats-screen";
@@ -61,6 +62,12 @@ class ChatsScreen extends StatelessWidget {
                       title: chatUser.user.displayName,
                       subtitle: chatUser.lastMessage.text,
                       imageUrl: chatUser.user.profileImageUrl,
+                      onChat: () {
+                        Navigator.of(context).pushNamed(
+                          ChattingScreen.routeName,
+                          arguments: ChattingScreenArgs(user: chatUser.user),
+                        );
+                      },
                     );
                   },
                   childCount: state.chatUsers.length,
