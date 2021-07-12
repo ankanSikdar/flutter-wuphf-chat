@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
-import 'package:wuphf_chat/models/models.dart';
-import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
+import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 
 class ChatsScreen extends StatelessWidget {
   static const String routeName = "/chats-screen";
@@ -18,46 +18,84 @@ class ChatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatUsers = context.read<MessagesRepository>().getUserChatList();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(context.read<AuthBloc>().state.user.email),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: () {
-                context.read<AuthBloc>().add(AuthUserLogOut());
-              })
-        ],
-      ),
-      body: StreamBuilder(
-        stream: chatUsers,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error'),
-            );
-          }
-          if (snapshot.hasData) {
-            final data = snapshot.data as List<Future<ChatUser>>;
-            print(data.length);
-            // data.first.then((chatUser) {
-            //   Future.delayed(Duration(seconds: 15), () {
-            //     context.read<MessagesRepository>().sendMessage(
-            //         recipientId: chatUser.user.id,
-            //         documentReference: chatUser.messagesDbRef,
-            //         message: 'This is another check! Hopefully Final!');
-            //   });
-            // });
-            return Center(
-              child: Text('Data'),
-            );
-          }
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
-    );
+    return BlocConsumer<ChatsBloc, ChatsState>(listener: (context, state) {
+      if (state.status == ChatsStatus.error) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(content: Text('${state.error}')),
+          );
+      }
+    }, builder: (context, state) {
+      if (state.status == ChatsStatus.loading) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      if (state.chatUsers.length > 0) {
+        return CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text(
+                'Chats',
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              automaticallyImplyLeading: false,
+              toolbarHeight: 200,
+              backgroundColor: Colors.white,
+              actions: [
+                IconButton(
+                    icon: Icon(Icons.logout),
+                    onPressed: () {
+                      context.read<AuthBloc>().add(AuthUserLogOut());
+                    }),
+              ],
+            ),
+            SliverPadding(
+              padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final chatUser = state.chatUsers[index];
+                    return UserRow(
+                      title: chatUser.user.displayName,
+                      subtitle: chatUser.lastMessage.text,
+                      imageUrl: chatUser.user.profileImageUrl,
+                    );
+                  },
+                  childCount: state.chatUsers.length,
+                ),
+              ),
+            ),
+          ],
+        );
+      } else {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('No Chats'),
+              IconButton(
+                  icon: Icon(Icons.logout),
+                  onPressed: () {
+                    context.read<AuthBloc>().add(AuthUserLogOut());
+                  }),
+            ],
+          ),
+        );
+      }
+    });
   }
 }
+
+// AppBar(
+//         title: Text(context.read<AuthBloc>().state.user.email),
+//         automaticallyImplyLeading: false,
+//         actions: [
+//           IconButton(
+//               icon: Icon(Icons.logout),
+//               onPressed: () {
+//                 context.read<AuthBloc>().add(AuthUserLogOut());
+//               })
+//         ],
+//       ),

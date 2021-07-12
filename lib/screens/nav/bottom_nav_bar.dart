@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
@@ -39,7 +40,12 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       )..add(UsersFetchUser()),
       child: UsersScreen(),
     ),
-    ChatsScreen(),
+    BlocProvider<ChatsBloc>(
+      create: (context) => ChatsBloc(
+        messagesRepository: context.read<MessagesRepository>(),
+      )..add(FetchChats()),
+      child: ChatsScreen(),
+    ),
     Container(
       child: Center(
         child: Text('Profile'),
