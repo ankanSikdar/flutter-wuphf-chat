@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class UserRow extends StatelessWidget {
   final String title;
   final String subtitle;
+  final String date;
   final String imageUrl;
   final Function onChat;
   final Function onView;
@@ -15,6 +16,7 @@ class UserRow extends StatelessWidget {
     @required this.imageUrl,
     this.onChat,
     this.onView,
+    this.date,
   }) : super(key: key);
 
   @override
@@ -43,27 +45,40 @@ class UserRow extends StatelessWidget {
             ),
           ),
           SizedBox(width: 16.0),
-          GestureDetector(
-            onTap: onChat,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
+          Expanded(
+            child: GestureDetector(
+              onTap: onChat,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (date != null) Text('12/01/99'),
+                    ],
                   ),
-                ),
-                SizedBox(height: 4.0),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
+                  SizedBox(height: 4.0),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

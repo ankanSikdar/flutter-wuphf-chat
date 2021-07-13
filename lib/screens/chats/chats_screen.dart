@@ -60,8 +60,12 @@ class ChatsScreen extends StatelessWidget {
                     final chatUser = state.chatUsers[index];
                     return UserRow(
                       title: chatUser.user.displayName,
-                      subtitle: chatUser.lastMessage.text,
+                      subtitle: context.read<AuthBloc>().state.user.uid ==
+                              chatUser.lastMessage.sentBy
+                          ? 'You: ' + chatUser.lastMessage.text
+                          : chatUser.lastMessage.text,
                       imageUrl: chatUser.user.profileImageUrl,
+                      date: '1212',
                       onChat: () {
                         Navigator.of(context).pushNamed(
                           ChattingScreen.routeName,
