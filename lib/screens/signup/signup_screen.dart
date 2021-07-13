@@ -63,6 +63,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               context.read<SignUpCubit>().reset();
               _formKey.currentState.reset();
             }
+            if (state.status == SignUpStatus.submitting) {
+              _formKey.currentState.deactivate();
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(
+                    content: Text('Checking...'),
+                  ),
+                );
+            }
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
