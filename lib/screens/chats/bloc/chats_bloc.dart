@@ -41,15 +41,14 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         final chatUsers = await Future.wait(chatUsersFuture);
         add(UpdateChats(chatUsers: chatUsers));
       });
-
-      yield (state.copyWith(status: ChatsStatus.loaded));
     } catch (e) {
       yield (state.copyWith(status: ChatsStatus.error, error: e.message));
     }
   }
 
   Stream<ChatsState> _mapChatsUpdateChatsToState(UpdateChats event) async* {
-    yield (state.copyWith(chatUsers: event.chatUsers));
+    yield (state.copyWith(
+        chatUsers: event.chatUsers, status: ChatsStatus.loaded));
   }
 
   @override
