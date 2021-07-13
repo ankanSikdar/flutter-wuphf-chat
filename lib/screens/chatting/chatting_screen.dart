@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
+import 'package:wuphf_chat/screens/chatting/widgets/send_message_widget.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/widgets.dart';
 
 class ChattingScreenArgs {
@@ -90,18 +92,7 @@ class ChattingScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomSheet: Row(
-        children: [
-          Expanded(child: TextField()),
-          IconButton(
-              icon: Icon(Icons.send_rounded),
-              onPressed: () {
-                context
-                    .read<ChattingBloc>()
-                    .add(ChattingSendMessage(message: 'Hi Josh!'));
-              })
-        ],
-      ),
+      bottomSheet: SendMessageWidget(),
     );
   }
 }
