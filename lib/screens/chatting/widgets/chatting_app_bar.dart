@@ -10,8 +10,14 @@ class ChattingAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      elevation: 2.0,
+      shadowColor: Colors.grey[500],
       backgroundColor: Colors.white,
       toolbarHeight: 100,
+      floating: true,
+      pinned: true,
+      forceElevated: true,
+      automaticallyImplyLeading: false,
       title: Container(
         child: Row(
           children: [
@@ -58,9 +64,6 @@ class ChattingAppBar extends StatelessWidget {
           ],
         ),
       ),
-      floating: true,
-      pinned: true,
-      automaticallyImplyLeading: false,
     );
   }
 }
