@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
+import 'package:wuphf_chat/screens/chatting/widgets/widgets.dart';
 
 class ChattingScreenArgs {
   final User user;
@@ -20,8 +21,6 @@ class ChattingScreen extends StatelessWidget {
   static const String routeName = '/chatting-screen';
 
   static Route route({@required ChattingScreenArgs args}) {
-    print('MessageDbRef: ${args.messagesDbRef}');
-    print('User: ${args.user.displayName}');
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
       builder: (context) => BlocProvider<ChattingBloc>(
@@ -42,46 +41,54 @@ class ChattingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(user.displayName),
-      ),
-      body: BlocConsumer<ChattingBloc, ChattingState>(
-        listener: (context, state) {
-          if (state.status == ChattingStatus.error) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text('${state.error}')),
-              );
-          }
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            ChattingAppBar(
+              user: user,
+            )
+          ];
         },
-        builder: (context, state) {
-          if (state.hasMessagedBefore == false) {
-            return Center(
-              child: Container(
-                child: Text('No Chats To Show'),
-              ),
-            );
-          }
-          if (state.status == ChattingStatus.loaded) {
-            return ListView.builder(
-              itemCount: state.messagesList.length,
-              reverse: true,
-              itemBuilder: (context, index) {
-                final message = state.messagesList[index];
-                return Container(
-                  height: 100,
-                  margin: EdgeInsets.all(16.0),
-                  color: Colors.amber,
-                  child: Text(message.text),
+        body: BlocConsumer<ChattingBloc, ChattingState>(
+          listener: (context, state) {
+            if (state.status == ChattingStatus.error) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('${state.error}')),
                 );
-              },
+            }
+          },
+          builder: (context, state) {
+            if (state.hasMessagedBefore == false) {
+              return Center(
+                child: Container(
+                  child: Text('No Chats To Show'),
+                ),
+              );
+            }
+            if (state.status == ChattingStatus.loaded) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 50.0),
+                child: ListView.builder(
+                  primary: false,
+                  reverse: true,
+                  itemBuilder: (context, index) {
+                    final message = state.messagesList[index];
+                    return MessageWidget(
+                      message: message,
+                      isAuthor: message.sentBy != user.id,
+                    );
+                  },
+                  itemCount: state.messagesList.length,
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
       bottomSheet: Row(
         children: [
