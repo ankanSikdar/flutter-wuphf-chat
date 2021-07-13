@@ -16,10 +16,13 @@ class ChattingAppBar extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 70,
-              width: 70,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(35.0)),
+              height: 75,
+              width: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(35.0),
+                color: Colors.grey[200],
+              ),
+              padding: EdgeInsets.all(3.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35.0),
                 child: CachedNetworkImage(
