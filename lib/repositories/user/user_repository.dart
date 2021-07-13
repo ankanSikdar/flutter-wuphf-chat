@@ -13,7 +13,10 @@ class UserRepository extends BaseUserRepository {
   @override
   Future<List<User>> getAllUsers() async {
     try {
-      final usersSnap = await _firebaseFirestore.collection(Paths.users).get();
+      final usersSnap = await _firebaseFirestore
+          .collection(Paths.users)
+          .orderBy('displayName')
+          .get();
       final List<User> usersList =
           usersSnap.docs.map((doc) => User.fromDocument(doc)).toList();
       return usersList;
