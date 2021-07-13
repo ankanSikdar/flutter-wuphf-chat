@@ -41,7 +41,6 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
               children: [
                 if (state.isSending) LinearProgressIndicator(),
                 Container(
-                  // height: 70.0,
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   margin: EdgeInsets.only(top: 8.0),
                   child: Row(
@@ -65,6 +64,11 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                               vertical: 4.0,
                             ),
                           ),
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.send,
+                          onSubmitted: (value) {
+                            _sendMessage();
+                          },
                         ),
                       ),
                       IconButton(
