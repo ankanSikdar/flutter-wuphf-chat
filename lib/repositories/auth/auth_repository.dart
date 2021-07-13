@@ -42,7 +42,8 @@ class AuthRepository extends BaseAuthRepository {
         'email': email,
         'displayName': displayName,
         'bio': '',
-        'profileImageUrl': '',
+        'profileImageUrl':
+            'https://www.chocolatebayou.org/wp-content/uploads/No-Image-Person-1536x1536.jpeg',
       });
     } catch (e) {
       throw Exception('SIGNUP ERROR: ${e.message}');
