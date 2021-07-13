@@ -81,6 +81,8 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   // Sending a new message
   Stream<ChattingState> _mapSendMessageToState(
       ChattingSendMessage event) async* {
+    yield (state.copyWith(
+        isSending: true)); // To show the LinearProgressIndicator
     try {
       if (state.hasMessagedBefore) {
         // User already has a messageDb with this person therefore we just add the message to it
@@ -100,8 +102,11 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
             hasMessagedBefore: true, messagesDbRef: messagesDbRef));
         add(ChattingFetchMessages());
       }
+      yield (state.copyWith(
+          isSending: false)); // To hide the LinearProgressIndicator
     } catch (e) {
-      yield (state.copyWith(status: ChattingStatus.error, error: e.message));
+      yield (state.copyWith(
+          status: ChattingStatus.error, error: e.message, isSending: false));
     }
   }
 
@@ -120,7 +125,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
             .listen((messages) {
           add(ChattingUpdateMessages(messagesList: messages));
         });
-        yield (state.copyWith(status: ChattingStatus.loaded));
+        // yield (state.copyWith(status: ChattingStatus.loaded, isSending: false));
       }
     } catch (e) {
       yield (state.copyWith(status: ChattingStatus.error, error: e.message));
@@ -131,6 +136,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   Stream<ChattingState> _mapUpdateMessagesToState(
       ChattingUpdateMessages event) async* {
     // Adding the messagesList with the new messageList
-    yield (state.copyWith(messagesList: event.messagesList));
+    yield (state.copyWith(
+        messagesList: event.messagesList, status: ChattingStatus.loaded));
   }
 }

@@ -12,6 +12,7 @@ class ChattingState extends Equatable {
   final List<Message> messagesList;
   final DocumentReference messagesDbRef;
   final bool hasMessagedBefore;
+  final bool isSending;
   final ChattingStatus status;
   final String error;
 
@@ -20,6 +21,7 @@ class ChattingState extends Equatable {
     @required this.messagesList,
     @required this.messagesDbRef,
     @required this.hasMessagedBefore,
+    @required this.isSending,
     @required this.status,
     @required this.error,
   });
@@ -31,6 +33,7 @@ class ChattingState extends Equatable {
       messagesList: [],
       messagesDbRef: messagesDbRef,
       hasMessagedBefore: null,
+      isSending: false,
       status: ChattingStatus.intial,
       error: '',
     );
@@ -42,6 +45,7 @@ class ChattingState extends Equatable {
         messagesList,
         hasMessagedBefore,
         messagesDbRef,
+        isSending,
         status,
         error,
       ];
@@ -51,6 +55,7 @@ class ChattingState extends Equatable {
     List<Message> messagesList,
     DocumentReference messagesDbRef,
     bool hasMessagedBefore,
+    bool isSending,
     ChattingStatus status,
     String error,
   }) {
@@ -59,6 +64,7 @@ class ChattingState extends Equatable {
       messagesList: messagesList ?? this.messagesList,
       messagesDbRef: messagesDbRef ?? this.messagesDbRef,
       hasMessagedBefore: hasMessagedBefore ?? this.hasMessagedBefore,
+      isSending: isSending ?? this.isSending,
       status: status ?? this.status,
       error: error ?? this.error,
     );
