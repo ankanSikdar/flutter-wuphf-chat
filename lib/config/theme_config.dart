@@ -6,7 +6,7 @@ class ThemeConfig {
     brightness: Brightness.light,
     primaryColor: Colors.amberAccent.shade700,
     accentColor: Colors.black,
-    scaffoldBackgroundColor: Colors.grey[200],
+    scaffoldBackgroundColor: Colors.white,
     errorColor: Colors.red.shade900,
     textTheme: TextTheme().copyWith(
       headline3: TextStyle(
@@ -58,4 +58,6 @@ class ThemeConfig {
     fontSize: 12,
     color: Colors.grey[800],
   );
+
+  static final chattingScreenScaffoldBackgroundColor = Colors.grey[200];
 }
