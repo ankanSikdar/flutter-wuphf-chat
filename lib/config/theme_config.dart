@@ -6,7 +6,7 @@ class ThemeConfig {
     brightness: Brightness.light,
     primaryColor: Colors.amberAccent.shade700,
     accentColor: Colors.black,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.grey[200],
     errorColor: Colors.red.shade900,
     textTheme: TextTheme().copyWith(
       headline3: TextStyle(
