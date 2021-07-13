@@ -64,7 +64,7 @@ class UserRow extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (date != null) Text('12/01/99'),
+                      if (date != null) Text(date),
                     ],
                   ),
                   SizedBox(height: 4.0),

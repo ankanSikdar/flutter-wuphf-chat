@@ -4,6 +4,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
+import 'package:wuphf_chat/helper/time_helper.dart';
 
 class ChatsScreen extends StatelessWidget {
   static const String routeName = "/chats-screen";
@@ -65,7 +66,7 @@ class ChatsScreen extends StatelessWidget {
                           ? 'You: ' + chatUser.lastMessage.text
                           : chatUser.lastMessage.text,
                       imageUrl: chatUser.user.profileImageUrl,
-                      date: '1212',
+                      date: chatUser.lastMessage.sentAt.forLastMessage(),
                       onChat: () {
                         Navigator.of(context).pushNamed(
                           ChattingScreen.routeName,

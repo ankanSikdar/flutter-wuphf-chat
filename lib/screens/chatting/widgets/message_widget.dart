@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/helper/time_helper.dart';
 
 class MessageWidget extends StatelessWidget {
   final Message message;
@@ -31,7 +32,7 @@ class MessageWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('12/01/99'),
+              Text(message.sentAt.forMessages()),
             ],
           ),
         ],
