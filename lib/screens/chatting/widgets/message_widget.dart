@@ -39,11 +39,17 @@ class MessageWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(message.text),
+          Text(
+            message.text,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(message.sentAt.forMessages()),
+              Text(
+                message.sentAt.forMessages(),
+                style: ThemeConfig.messageTimeTextStyle,
+              ),
             ],
           ),
         ],

@@ -43,4 +43,9 @@ class ThemeConfig {
     Colors.blue[200],
     Colors.deepPurple[100],
   ];
+
+  static final messageTimeTextStyle = TextStyle(
+    fontSize: 12,
+    color: Colors.grey[800],
+  );
 }
