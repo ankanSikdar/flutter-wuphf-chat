@@ -33,4 +33,14 @@ class ThemeConfig {
       selectedItemColor: Colors.amberAccent.shade700,
     ),
   );
+
+  static final userMessageColors = [
+    Colors.deepOrange[100],
+    Colors.orange[200],
+  ];
+
+  static final recipientMessageColors = [
+    Colors.blue[200],
+    Colors.deepPurple[100],
+  ];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
@@ -22,7 +23,17 @@ class MessageWidget extends StatelessWidget {
           : EdgeInsets.fromLTRB(8.0, 0.0, marginSide, 16.0),
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: Colors.grey[350],
+        gradient: isAuthor
+            ? LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: ThemeConfig.userMessageColors,
+              )
+            : LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: ThemeConfig.recipientMessageColors,
+              ),
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Column(
