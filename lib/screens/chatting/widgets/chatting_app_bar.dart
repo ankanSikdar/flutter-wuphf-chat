@@ -10,6 +10,7 @@ class ChattingAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      backgroundColor: Colors.white,
       toolbarHeight: 100,
       title: Container(
         child: Row(
@@ -35,9 +36,19 @@ class ChattingAppBar extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(user.displayName),
+                  Text(
+                    user.displayName,
+                    style: Theme.of(context).textTheme.headline5,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   SizedBox(height: 8.0),
-                  Text(user.email),
+                  Text(
+                    user.email,
+                    style: Theme.of(context).textTheme.subtitle1,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),

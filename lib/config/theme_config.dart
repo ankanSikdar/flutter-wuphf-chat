@@ -14,6 +14,11 @@ class ThemeConfig {
         fontWeight: FontWeight.w900,
         color: Colors.black,
       ),
+      headline5: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w800,
+        color: Colors.black,
+      ),
       headline6: TextStyle(
         fontWeight: FontWeight.w600,
       ),
@@ -23,6 +28,11 @@ class ThemeConfig {
       ),
       bodyText2: TextStyle(
         fontWeight: FontWeight.bold,
+      ),
+      subtitle1: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: Colors.grey[600],
       ),
     ),
     fontFamily: GoogleFonts.nunitoSans().fontFamily,
