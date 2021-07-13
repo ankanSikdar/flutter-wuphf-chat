@@ -71,7 +71,7 @@ class ChattingScreen extends StatelessWidget {
             }
             if (state.status == ChattingStatus.loaded) {
               return Padding(
-                padding: const EdgeInsets.only(bottom: 50.0),
+                padding: const EdgeInsets.only(bottom: 70.0),
                 child: ListView.builder(
                   primary: false,
                   reverse: true,
