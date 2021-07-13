@@ -37,22 +37,7 @@ class ChatsScreen extends StatelessWidget {
       if (state.chatUsers.length > 0) {
         return CustomScrollView(
           slivers: [
-            SliverAppBar(
-              title: Text(
-                'Chats',
-                style: Theme.of(context).textTheme.headline3,
-              ),
-              automaticallyImplyLeading: false,
-              toolbarHeight: 200,
-              backgroundColor: Colors.white,
-              actions: [
-                IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () {
-                      context.read<AuthBloc>().add(AuthUserLogOut());
-                    }),
-              ],
-            ),
+            FlexibleAppBar(title: 'Chats'),
             SliverPadding(
               padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
               sliver: SliverList(
