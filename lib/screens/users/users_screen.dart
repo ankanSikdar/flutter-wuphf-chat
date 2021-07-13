@@ -21,55 +21,49 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UsersBloc, UsersState>(
-      builder: (context, state) {
-        print('Status: ${state.status}');
-        if (state.status == UsersStateStatus.error) {
-          return Center(
-            child: Text(state.error),
-          );
-        }
-        if (state.status == UsersStateStatus.loaded) {
-          final List<User> usersList = state.usersList;
+    return Scaffold(
+      body: BlocBuilder<UsersBloc, UsersState>(
+        builder: (context, state) {
+          print('Status: ${state.status}');
+          if (state.status == UsersStateStatus.error) {
+            return Center(
+              child: Text(state.error),
+            );
+          }
+          if (state.status == UsersStateStatus.loaded) {
+            final List<User> usersList = state.usersList;
 
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                title: Text(
-                  'Users',
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                automaticallyImplyLeading: false,
-                toolbarHeight: 200,
-                backgroundColor: Colors.white,
-              ),
-              SliverPadding(
-                padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final user = usersList[index];
-                      return UserRow(
-                        title: user.displayName,
-                        subtitle: user.bio.isEmpty ? user.email : user.bio,
-                        imageUrl: user.profileImageUrl,
-                        onChat: () {
-                          Navigator.of(context).pushNamed(
-                            ChattingScreen.routeName,
-                            arguments: ChattingScreenArgs(user: user),
-                          );
-                        },
-                      );
-                    },
-                    childCount: usersList.length,
+            return CustomScrollView(
+              slivers: [
+                FlexibleAppBar(title: 'Users'),
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final user = usersList[index];
+                        return UserRow(
+                          title: user.displayName,
+                          subtitle: user.bio.isEmpty ? user.email : user.bio,
+                          imageUrl: user.profileImageUrl,
+                          onChat: () {
+                            Navigator.of(context).pushNamed(
+                              ChattingScreen.routeName,
+                              arguments: ChattingScreenArgs(user: user),
+                            );
+                          },
+                        );
+                      },
+                      childCount: usersList.length,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-        }
-        return Center(child: CircularProgressIndicator());
-      },
+              ],
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }
