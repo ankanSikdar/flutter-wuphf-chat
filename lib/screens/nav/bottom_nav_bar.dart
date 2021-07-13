@@ -46,11 +46,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       )..add(FetchChats()),
       child: ChatsScreen(),
     ),
-    Container(
-      child: Center(
-        child: Text('Profile'),
-      ),
-    ),
+    UserProfileScreen(),
   ];
 
   @override
