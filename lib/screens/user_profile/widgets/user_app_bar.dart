@@ -62,9 +62,6 @@ class UserAppBar extends StatelessWidget {
           ],
         ),
       ),
-      actions: [
-        IconButton(icon: Icon(Icons.navigate_next), onPressed: () {}),
-      ],
     );
   }
 }
