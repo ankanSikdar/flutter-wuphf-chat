@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/user_profile/widgets/widgets.dart';
 
 import 'bloc/userprofile_bloc.dart';
@@ -37,7 +38,12 @@ class UserProfileScreen extends StatelessWidget {
                   UserHeader(
                     title: 'Settings',
                   ),
-                  SettingsWidget(),
+                  SettingsWidget(
+                    name: 'Edit Profile',
+                    icon: Icons.edit,
+                    color: Colors.deepOrange[100],
+                    onTap: () {},
+                  ),
                   SignOutButton(),
                 ],
               ),

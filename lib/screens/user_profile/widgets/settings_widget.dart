@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 
 class SettingsWidget extends StatelessWidget {
-  const SettingsWidget({Key key}) : super(key: key);
+  final Function onTap;
+  final IconData icon;
+  final String name;
+  final Color color;
+
+  const SettingsWidget({
+    Key key,
+    @required this.onTap,
+    @required this.icon,
+    @required this.name,
+    @required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
-      splashColor: Colors.deepOrange[100],
+      onTap: onTap,
+      splashColor: color,
       child: Container(
         padding: EdgeInsets.all(4.0),
         margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -15,16 +26,16 @@ class SettingsWidget extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(8.0),
-              child: Icon(Icons.edit, size: 32),
+              child: Icon(icon, size: 32),
               decoration: BoxDecoration(
-                color: Colors.deepOrange[100],
+                color: color,
                 borderRadius: BorderRadius.circular(15.0),
               ),
             ),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
-                'Edit Profile',
+                name,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
