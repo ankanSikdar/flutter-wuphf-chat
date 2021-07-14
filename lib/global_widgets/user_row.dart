@@ -46,7 +46,7 @@ class UserRow extends StatelessWidget {
           ),
           SizedBox(width: 16.0),
           Expanded(
-            child: GestureDetector(
+            child: InkWell(
               onTap: onChat,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
