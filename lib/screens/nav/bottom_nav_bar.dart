@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/screens.dart';
+import 'package:wuphf_chat/screens/user_profile/bloc/userprofile_bloc.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
@@ -46,7 +48,13 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       )..add(FetchChats()),
       child: ChatsScreen(),
     ),
-    UserProfileScreen(),
+    BlocProvider<UserProfileBloc>(
+      create: (context) => UserProfileBloc(
+        userRepository: context.read<UserRepository>(),
+        userId: context.read<AuthBloc>().state.user.uid,
+      ),
+      child: UserProfileScreen(),
+    ),
   ];
 
   @override
