@@ -9,32 +9,41 @@ class ThemeConfig {
     scaffoldBackgroundColor: Colors.white,
     errorColor: Colors.red.shade900,
     textTheme: TextTheme().copyWith(
-      headline3: TextStyle(
-        fontSize: 50,
-        fontWeight: FontWeight.w900,
-        color: Colors.black,
-      ),
-      headline5: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w800,
-        color: Colors.black,
-      ),
-      headline6: TextStyle(
-        fontWeight: FontWeight.w600,
-      ),
-      bodyText1: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 16.0,
-      ),
-      bodyText2: TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-      subtitle1: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: Colors.grey[600],
-      ),
-    ),
+        headline3: TextStyle(
+          fontSize: 50,
+          fontWeight: FontWeight.w900,
+          color: Colors.black,
+        ),
+        headline4: TextStyle(
+          fontWeight: FontWeight.w900,
+          fontSize: 22,
+          color: Colors.black,
+        ),
+        headline5: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w800,
+          color: Colors.black,
+        ),
+        headline6: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
+        bodyText1: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16.0,
+        ),
+        bodyText2: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        subtitle1: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey[600],
+        ),
+        subtitle2: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.grey[600],
+        )),
     fontFamily: GoogleFonts.nunitoSans().fontFamily,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 20.0,

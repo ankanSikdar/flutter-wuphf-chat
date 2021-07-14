@@ -56,10 +56,7 @@ class UserRow extends StatelessWidget {
                       Expanded(
                         child: Text(
                           title,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                          ),
+                          style: Theme.of(context).textTheme.headline4,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -70,10 +67,7 @@ class UserRow extends StatelessWidget {
                   SizedBox(height: 4.0),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context).textTheme.subtitle2,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
