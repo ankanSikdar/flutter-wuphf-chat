@@ -42,7 +42,10 @@ class UserProfileScreen extends StatelessWidget {
                     name: 'Edit Profile',
                     icon: Icons.edit,
                     color: Colors.deepOrange[100],
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(EditProfileScreen.routeName);
+                    },
                   ),
                   SignOutButton(),
                 ],
