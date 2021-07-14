@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/config/configs.dart';
 
 import 'package:wuphf_chat/models/user_model.dart';
@@ -26,7 +27,7 @@ class UserRepository extends BaseUserRepository {
   }
 
   @override
-  Future<User> getUserWithId({String userId}) async {
+  Future<User> getUserWithId({@required String userId}) async {
     try {
       final doc =
           await _firebaseFirestore.collection(Paths.users).doc(userId).get();
@@ -37,7 +38,7 @@ class UserRepository extends BaseUserRepository {
   }
 
   @override
-  Future<void> updateUser({User user}) async {
+  Future<void> updateUser({@required User user}) async {
     try {
       await _firebaseFirestore
           .collection(Paths.users)
