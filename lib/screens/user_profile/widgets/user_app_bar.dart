@@ -2,7 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class UserAppBar extends StatelessWidget {
-  const UserAppBar({Key key}) : super(key: key);
+  final String email;
+  final String displayName;
+  final String profileImageUrl;
+
+  const UserAppBar({
+    Key key,
+    @required this.email,
+    @required this.displayName,
+    @required this.profileImageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +38,7 @@ class UserAppBar extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35.0),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://www.rollingstone.com/wp-content/uploads/2018/10/green-day-band-portrait.jpg',
+                  imageUrl: profileImageUrl,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Container(color: Colors.grey),
                   errorWidget: (context, url, error) =>
@@ -44,14 +52,14 @@ class UserAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ross Geller',
+                    displayName,
                     style: Theme.of(context).textTheme.headline5,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    'ross@friends.com',
+                    email,
                     style: Theme.of(context).textTheme.subtitle1,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

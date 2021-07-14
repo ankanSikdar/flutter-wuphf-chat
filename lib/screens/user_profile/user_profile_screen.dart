@@ -13,13 +13,16 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
-        print('Status: ${state.status}');
         if (state.status == UserProfileStatus.loaded) {
           return Scaffold(
             body: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
-                  UserAppBar(),
+                  UserAppBar(
+                    displayName: state.user.displayName,
+                    profileImageUrl: state.user.profileImageUrl,
+                    email: state.user.email,
+                  ),
                 ];
               },
               body: ListView(
