@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/repositories/user/user_repository.dart';
@@ -28,6 +29,7 @@ class UserProfileScreen extends StatelessWidget {
             UserHeader(
               title: 'Settings',
             ),
+            SettingsWidget(),
             ElevatedButton.icon(
                 icon: Icon(Icons.exit_to_app),
                 label: Text('Sign Out'),
