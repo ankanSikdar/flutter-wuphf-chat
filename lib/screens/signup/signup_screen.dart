@@ -73,6 +73,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 );
             }
+            if (state.status == SignUpStatus.success) {
+              ScaffoldMessenger.of(context)..hideCurrentSnackBar();
+            }
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
