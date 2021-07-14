@@ -31,7 +31,9 @@ class UserProfileScreen extends StatelessWidget {
                   UserHeader(
                     title: 'About',
                   ),
-                  AboutContainer(),
+                  AboutContainer(
+                    about: state.user.bio,
+                  ),
                   UserHeader(
                     title: 'Settings',
                   ),

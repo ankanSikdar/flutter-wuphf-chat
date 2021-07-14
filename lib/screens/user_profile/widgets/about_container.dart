@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AboutContainer extends StatelessWidget {
-  const AboutContainer({Key key}) : super(key: key);
+  final String about;
+
+  const AboutContainer({Key key, @required this.about}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,9 @@ class AboutContainer extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.grey[200], borderRadius: BorderRadius.circular(15.0)),
       child: Text(
-          '25 y.o Engineering Student from Petrozasdavosk Qui placeat voluptatem ea iste corporis eius voluptate accusamus. Alias ex temporibus nihil. Et dolores est excepturi assumenda sequi dolorem. '),
+        about.isEmpty ? 'No About' : about,
+        style: TextStyle(fontSize: 18.0),
+      ),
     );
   }
 }
