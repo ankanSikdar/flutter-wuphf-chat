@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:wuphf_chat/global_widgets/global_widgets.dart';
+import 'input_text_field.dart';
+import 'input_title.dart';
 
-class DisplayNameWidget extends StatelessWidget {
+class EmailWidget extends StatelessWidget {
   final String initialValue;
   final Function onChaned;
 
-  const DisplayNameWidget({
+  const EmailWidget({
     Key key,
     @required this.onChaned,
     this.initialValue,
@@ -17,21 +18,20 @@ class DisplayNameWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InputTitle(title: 'Display Name'),
+        InputTitle(title: 'Email'),
         InputTextField(
-          hintText: 'Your Name',
-          textInputType: TextInputType.name,
+          hintText: 'you@example.com',
+          textInputType: TextInputType.emailAddress,
           initialValue: initialValue,
           onChanged: onChaned,
           validator: (String value) {
             if (value.trim().isEmpty) {
-              return 'Name cannot be empty';
+              return "Email cannot be empty";
             }
-            if (!RegExp(r"^[a-zA-Z][a-zA-Z ]+").hasMatch(value)) {
-              return 'Please enter a valid full name';
-            }
-            if (value.trim().length < 3) {
-              return 'Name must be atleast 3 characters';
+            if (!RegExp(
+                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                .hasMatch(value)) {
+              return "Please Enter a valid email";
             }
             return null;
           },
