@@ -64,6 +64,26 @@ class AuthRepository extends BaseAuthRepository {
     }
   }
 
+  // Updating user email
+  @override
+  Future<void> updateEmail({@required String email}) async {
+    try {
+      await _firebaseAuth.currentUser.updateEmail(email);
+    } catch (e) {
+      throw Exception('EMAIL UPDATE ERROR: ${e.message}');
+    }
+  }
+
+  // Updating user displayName
+  @override
+  Future<void> updateDisplayName({@required String displayName}) async {
+    try {
+      await _firebaseAuth.currentUser.updateDisplayName(displayName);
+    } catch (e) {
+      throw Exception('NAME UPDATE ERROR: ${e.message}');
+    }
+  }
+
   // Logging out user
   @override
   Future<void> logOut() async {

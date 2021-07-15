@@ -16,5 +16,9 @@ abstract class BaseAuthRepository {
     @required String password,
   });
 
+  Future<void> updateEmail({@required String email});
+
+  Future<void> updateDisplayName({@required String displayName});
+
   Future<void> logOut();
 }
