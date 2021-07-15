@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/screens/edit_profile/cubit/editprofile_cubit.dart';
 
 class EditProfileArgs {
   final User user;
@@ -11,10 +14,16 @@ class EditProfileScreen extends StatelessWidget {
   static const String routeName = '/edit-profile-screen';
 
   static Route route({@required EditProfileArgs args}) {
-    print('Args: ${args.user.displayName}');
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
-      builder: (context) => EditProfileScreen(),
+      builder: (context) => BlocProvider<EditProfileCubit>(
+        create: (context) => EditProfileCubit(
+          user: args.user,
+          authRepository: context.read<AuthRepository>(),
+          userRepository: context.read<UserRepository>(),
+        ),
+        child: EditProfileScreen(),
+      ),
     );
   }
 
@@ -23,8 +32,26 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Edit Profile'),
+      body: BlocConsumer<EditProfileCubit, EditProfileState>(
+        listener: (context, state) {
+          if (state.status == EditProfileStatus.error) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text('${state.error}')),
+              );
+          }
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                children: [Text(state.email)],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
