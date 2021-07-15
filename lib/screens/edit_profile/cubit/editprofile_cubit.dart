@@ -37,7 +37,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future<void> bioChanged(String value) {
-    emit(state.copyWith(bio: value));
+    emit(state.copyWith(bio: value.trimLeft().trimRight()));
   }
 
   Future<void> _updateEmailAndDisplayNameIfChangedInAuthRepo() async {
