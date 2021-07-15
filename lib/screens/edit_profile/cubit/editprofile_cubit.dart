@@ -49,7 +49,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         await _authRepository.updateDisplayName(displayName: state.displayName);
       }
     } catch (e) {
-      emit(state.copyWith(status: EditProfileStatus.error, error: e.message));
+      throw Exception(e.message);
     }
   }
 
@@ -69,5 +69,12 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     } catch (e) {
       emit(state.copyWith(status: EditProfileStatus.error, error: e.message));
     }
+  }
+
+  void reset() {
+    emit(state.copyWith(
+      status: EditProfileStatus.intial,
+      error: '',
+    ));
   }
 }
