@@ -25,6 +25,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       displayName: _user.displayName,
       email: _user.email,
       bio: _user.bio,
+      profileImageUrl: _user.profileImageUrl,
     ));
   }
 

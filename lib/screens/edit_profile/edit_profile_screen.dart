@@ -80,8 +80,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Form(
                 key: _formkey,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // ProfilePictureWidget(),
+                    ProfilePictureWidget(
+                      imageUrl: state.profileImageUrl,
+                    ),
                     SizedBox(height: 24.0),
                     EmailWidget(
                       initialValue: state.email,

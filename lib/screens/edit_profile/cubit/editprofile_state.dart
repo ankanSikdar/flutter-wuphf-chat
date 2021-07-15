@@ -11,7 +11,8 @@ class EditProfileState extends Equatable {
   final String displayName;
   final String email;
   final String bio;
-  final File profileImage;
+  final String profileImageUrl;
+  final File newProfileImage;
   final EditProfileStatus status;
   final String error;
 
@@ -19,7 +20,8 @@ class EditProfileState extends Equatable {
     @required this.displayName,
     @required this.email,
     @required this.bio,
-    @required this.profileImage,
+    @required this.profileImageUrl,
+    @required this.newProfileImage,
     @required this.status,
     @required this.error,
   });
@@ -29,7 +31,8 @@ class EditProfileState extends Equatable {
       displayName: '',
       email: '',
       bio: '',
-      profileImage: null,
+      profileImageUrl: '',
+      newProfileImage: null,
       status: EditProfileStatus.intial,
       error: '',
     );
@@ -40,7 +43,8 @@ class EditProfileState extends Equatable {
         displayName,
         email,
         bio,
-        profileImage,
+        profileImageUrl,
+        newProfileImage,
         status,
         error,
       ];
@@ -49,7 +53,8 @@ class EditProfileState extends Equatable {
     String displayName,
     String email,
     String bio,
-    File profileImage,
+    String profileImageUrl,
+    File newProfileImage,
     EditProfileStatus status,
     String error,
   }) {
@@ -57,7 +62,8 @@ class EditProfileState extends Equatable {
       displayName: displayName ?? this.displayName,
       email: email ?? this.email,
       bio: bio ?? this.bio,
-      profileImage: profileImage ?? this.profileImage,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      newProfileImage: newProfileImage ?? this.newProfileImage,
       status: status ?? this.status,
       error: error ?? this.error,
     );
