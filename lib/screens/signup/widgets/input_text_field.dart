@@ -6,6 +6,7 @@ class InputTextField extends StatelessWidget {
   final bool obscureText;
   final Function onChanged;
   final Function validator;
+  final String initialValue;
 
   const InputTextField({
     Key key,
@@ -13,6 +14,7 @@ class InputTextField extends StatelessWidget {
     @required this.textInputType,
     @required this.onChanged,
     @required this.validator,
+    this.initialValue,
     this.obscureText = false,
   }) : super(key: key);
 
@@ -38,6 +40,7 @@ class InputTextField extends StatelessWidget {
               color: Theme.of(context).errorColor,
             ),
       ),
+      initialValue: initialValue,
       style: Theme.of(context).textTheme.bodyText1,
       keyboardType: textInputType,
       obscureText: obscureText,
