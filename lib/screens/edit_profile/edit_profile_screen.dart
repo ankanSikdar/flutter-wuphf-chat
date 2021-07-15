@@ -71,7 +71,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ..showSnackBar(
                 SnackBar(content: Text('Profile Updated')),
               );
-            Navigator.of(context).pop();
           }
         },
         builder: (context, state) {
