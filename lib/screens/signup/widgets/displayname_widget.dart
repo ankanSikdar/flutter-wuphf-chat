@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
 
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 class DisplayNameWidget extends StatelessWidget {
+  final String initialValue;
+  final Function onChaned;
+
   const DisplayNameWidget({
     Key key,
+    @required this.onChaned,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -18,7 +21,8 @@ class DisplayNameWidget extends StatelessWidget {
         InputTextField(
           hintText: 'Your Name',
           textInputType: TextInputType.name,
-          onChanged: context.read<SignUpCubit>().displayNameChanged,
+          initialValue: initialValue,
+          onChanged: onChaned,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return 'Name cannot be empty';

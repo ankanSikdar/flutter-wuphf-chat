@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
-
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 class EmailWidget extends StatelessWidget {
+  final String initialValue;
+  final Function onChaned;
+
   const EmailWidget({
     Key key,
+    @required this.onChaned,
+    this.initialValue,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,8 @@ class EmailWidget extends StatelessWidget {
         InputTextField(
           hintText: 'you@example.com',
           textInputType: TextInputType.emailAddress,
-          onChanged: context.read<SignUpCubit>().emailChanged,
+          initialValue: initialValue,
+          onChanged: onChaned,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return "Email cannot be empty";

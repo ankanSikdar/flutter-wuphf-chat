@@ -97,9 +97,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                   child: Column(
                     children: [
-                      EmailWidget(),
+                      EmailWidget(
+                        onChaned: context.read<SignUpCubit>().emailChanged,
+                      ),
                       SizedBox(height: 16.0),
-                      if (_userAction == UserAction.signUp) DisplayNameWidget(),
+                      if (_userAction == UserAction.signUp)
+                        DisplayNameWidget(
+                          onChaned:
+                              context.read<SignUpCubit>().displayNameChanged,
+                        ),
                       if (_userAction == UserAction.signUp)
                         SizedBox(height: 16.0),
                       PasswordWidget(),
