@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:wuphf_chat/screens/edit_profile/cubit/editprofile_cubit.dart';
 
 class ProfilePictureWidget extends StatefulWidget {
   ProfilePictureWidget({Key key, @required this.imageUrl}) : super(key: key);
@@ -39,6 +41,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
         ),
       );
       if (croppedFile != null) {
+        context.read<EditProfileCubit>().profileImageChanged(croppedFile);
         setState(() {
           file = croppedFile;
         });

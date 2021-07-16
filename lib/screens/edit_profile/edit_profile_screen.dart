@@ -23,6 +23,7 @@ class EditProfileScreen extends StatefulWidget {
           user: args.user,
           authRepository: context.read<AuthRepository>(),
           userRepository: context.read<UserRepository>(),
+          storageRepository: context.read<StorageRepository>(),
         ),
         child: EditProfileScreen(),
       ),
