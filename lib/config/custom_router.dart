@@ -22,6 +22,8 @@ class CustomRouter {
         return EditProfileScreen.route(args: settings.arguments);
       case ChattingScreen.routeName:
         return ChattingScreen.route(args: settings.arguments);
+      case ViewProfileScreen.routeName:
+        return ViewProfileScreen.route(args: settings.arguments);
       default:
         return _errorRoute();
     }

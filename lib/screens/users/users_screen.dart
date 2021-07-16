@@ -4,6 +4,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -50,6 +51,12 @@ class UsersScreen extends StatelessWidget {
                             Navigator.of(context).pushNamed(
                               ChattingScreen.routeName,
                               arguments: ChattingScreenArgs(user: user),
+                            );
+                          },
+                          onView: () {
+                            Navigator.of(context).pushNamed(
+                              ViewProfileScreen.routeName,
+                              arguments: ViewProfileScreenArgs(user: user),
                             );
                           },
                         );
