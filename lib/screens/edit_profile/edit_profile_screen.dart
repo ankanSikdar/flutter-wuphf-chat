@@ -53,74 +53,83 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<EditProfileCubit, EditProfileState>(
-        listener: (context, state) {
-          if (state.status == EditProfileStatus.error) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text('${state.error}')),
-              );
-            context.read<EditProfileCubit>().reset();
-          }
-          if (state.status == EditProfileStatus.submitting) {
-            _formkey.currentState.deactivate();
-          }
-          if (state.status == EditProfileStatus.success) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(content: Text('Profile Updated')),
-              );
-          }
-        },
-        builder: (context, state) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(16.0, 64.0, 16.0, 0.0),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ProfilePictureWidget(
-                      imageUrl: state.profileImageUrl,
+      body: CustomScrollView(
+        slivers: [
+          TwoTextAppBar(
+              title: 'Edit Profile', subtitle: 'Edit your details here'),
+          BlocConsumer<EditProfileCubit, EditProfileState>(
+            listener: (context, state) {
+              if (state.status == EditProfileStatus.error) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(content: Text('${state.error}')),
+                  );
+                context.read<EditProfileCubit>().reset();
+              }
+              if (state.status == EditProfileStatus.submitting) {
+                _formkey.currentState.deactivate();
+              }
+              if (state.status == EditProfileStatus.success) {
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    SnackBar(content: Text('Profile Updated')),
+                  );
+              }
+            },
+            builder: (context, state) {
+              return SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ProfilePictureWidget(
+                          imageUrl: state.profileImageUrl,
+                        ),
+                        SizedBox(height: 24.0),
+                        EmailWidget(
+                          initialValue: state.email,
+                          onChaned:
+                              context.read<EditProfileCubit>().emailChanged,
+                        ),
+                        SizedBox(height: 16.0),
+                        DisplayNameWidget(
+                          initialValue: state.displayName,
+                          onChaned: context
+                              .read<EditProfileCubit>()
+                              .displayNameChanged,
+                        ),
+                        SizedBox(height: 16.0),
+                        AboutWidget(
+                          initialValue: state.bio,
+                          onChanged:
+                              context.read<EditProfileCubit>().bioChanged,
+                        ),
+                        SizedBox(height: 16.0),
+                        InkWellButton(
+                          onTap: state.status == EditProfileStatus.submitting
+                              ? null
+                              : () {
+                                  _submitForm();
+                                },
+                          buttonColor: Theme.of(context).primaryColor,
+                          title: state.status == EditProfileStatus.submitting
+                              ? 'Submitting...'
+                              : 'Submit',
+                          titleColor: Colors.white,
+                        )
+                      ],
                     ),
-                    SizedBox(height: 24.0),
-                    EmailWidget(
-                      initialValue: state.email,
-                      onChaned: context.read<EditProfileCubit>().emailChanged,
-                    ),
-                    SizedBox(height: 16.0),
-                    DisplayNameWidget(
-                      initialValue: state.displayName,
-                      onChaned:
-                          context.read<EditProfileCubit>().displayNameChanged,
-                    ),
-                    SizedBox(height: 16.0),
-                    AboutWidget(
-                      initialValue: state.bio,
-                      onChanged: context.read<EditProfileCubit>().bioChanged,
-                    ),
-                    SizedBox(height: 16.0),
-                    InkWellButton(
-                      onTap: state.status == EditProfileStatus.submitting
-                          ? null
-                          : () {
-                              _submitForm();
-                            },
-                      buttonColor: Theme.of(context).primaryColor,
-                      title: state.status == EditProfileStatus.submitting
-                          ? 'Submitting...'
-                          : 'Submit',
-                      titleColor: Colors.white,
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }
