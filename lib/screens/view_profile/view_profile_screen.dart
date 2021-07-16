@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:wuphf_chat/models/models.dart';
+
+import 'package:wuphf_chat/screens/view_profile/widgets/detials_widget.dart';
+import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
 
 class ViewProfileScreenArgs {
   final User user;
@@ -25,9 +27,25 @@ class ViewProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(user.displayName),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16.0, statusBarHeight + 100, 16.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ProfilePictureWidget(imageUrl: user.profileImageUrl),
+              SizedBox(height: 32.0),
+              DetialsWidget(title: 'Name', content: user.displayName),
+              DetialsWidget(title: 'Email', content: user.email),
+              DetialsWidget(
+                title: 'About',
+                content: user.bio.isEmpty ? 'No About' : user.bio,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
