@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 
 import 'package:wuphf_chat/screens/view_profile/widgets/detials_widget.dart';
@@ -27,25 +28,29 @@ class ViewProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, statusBarHeight + 100, 16.0, 0.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ProfilePictureWidget(imageUrl: user.profileImageUrl),
-              SizedBox(height: 32.0),
-              DetialsWidget(title: 'Name', content: user.displayName),
-              DetialsWidget(title: 'Email', content: user.email),
-              DetialsWidget(
-                title: 'About',
-                content: user.bio.isEmpty ? 'No About' : user.bio,
+      body: CustomScrollView(
+        slivers: [
+          TwoTextAppBar(title: 'Details', subtitle: 'Showing all details'),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ProfilePictureWidget(imageUrl: user.profileImageUrl),
+                  SizedBox(height: 32.0),
+                  DetialsWidget(title: 'Name', content: user.displayName),
+                  DetialsWidget(title: 'Email', content: user.email),
+                  DetialsWidget(
+                    title: 'About',
+                    content: user.bio.isEmpty ? 'No About' : user.bio,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
