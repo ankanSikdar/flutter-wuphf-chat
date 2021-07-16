@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 
 class ChattingAppBar extends StatelessWidget {
   final User user;
@@ -18,9 +19,12 @@ class ChattingAppBar extends StatelessWidget {
       pinned: true,
       forceElevated: true,
       automaticallyImplyLeading: false,
+      leadingWidth: 35.0,
+      titleSpacing: 0.0,
       title: Container(
         child: Row(
           children: [
+            SizedBox(width: 8.0),
             Container(
               height: 75,
               width: 75,
@@ -62,6 +66,14 @@ class ChattingAppBar extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+      leading: InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Icon(
+          Icons.navigate_before,
         ),
       ),
     );
