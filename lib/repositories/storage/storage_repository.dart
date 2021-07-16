@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 import 'package:wuphf_chat/repositories/storage/base_storage_repository.dart';
 
@@ -29,7 +30,7 @@ class StorageRepository extends BaseStorageRepository {
   @override
   Future<String> uploadProfileImage(
       {@required String userId, @required File file}) async {
-    final url = 'images/profilePictures/$userId.jpg';
+    final url = '${Paths.profileImage}$userId.jpg';
 
     try {
       final downloadUrl = await uploadImage(url: url, file: file);
