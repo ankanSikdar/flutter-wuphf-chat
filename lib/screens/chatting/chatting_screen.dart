@@ -54,7 +54,8 @@ class ChattingScreen extends StatelessWidget {
         },
         body: Column(
           children: [
-            Expanded(
+            Flexible(
+              flex: 1,
               child: BlocConsumer<ChattingBloc, ChattingState>(
                 listener: (context, state) {
                   if (state.status == ChattingStatus.error) {
@@ -98,7 +99,7 @@ class ChattingScreen extends StatelessWidget {
                 },
               ),
             ),
-            SendMessageWidget(),
+            Flexible(flex: 0, child: SendMessageWidget()),
           ],
         ),
       ),

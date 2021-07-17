@@ -116,7 +116,7 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                 Offstage(
                   offstage: !emojiShowing,
                   child: SizedBox(
-                    height: 250,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     child: EmojiWidget(
                       onBackspacePressed: _onBackspacePressed,
                       onEmojiSelected: (Category category, Emoji emoji) {
