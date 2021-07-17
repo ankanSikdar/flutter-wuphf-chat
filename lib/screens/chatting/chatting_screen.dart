@@ -52,53 +52,56 @@ class ChattingScreen extends StatelessWidget {
             )
           ];
         },
-        body: BlocConsumer<ChattingBloc, ChattingState>(
-          listener: (context, state) {
-            if (state.status == ChattingStatus.error) {
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(content: Text('${state.error}')),
-                );
-            }
-          },
-          builder: (context, state) {
-            if (state.hasMessagedBefore == false) {
-              return Center(
-                child: Container(
-                  child: Text('No Chats To Show'),
-                ),
-              );
-            }
-            if (state.status == ChattingStatus.loaded) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 70.0),
-                child: ListView.builder(
-                  primary: false,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    final message = state.messagesList[index];
-                    return MessageWidget(
-                      message: message,
-                      isAuthor: message.sentBy != user.id,
+        body: Column(
+          children: [
+            Expanded(
+              child: BlocConsumer<ChattingBloc, ChattingState>(
+                listener: (context, state) {
+                  if (state.status == ChattingStatus.error) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(content: Text('${state.error}')),
+                      );
+                  }
+                },
+                builder: (context, state) {
+                  if (state.hasMessagedBefore == false) {
+                    return Center(
+                      child: Container(
+                        child: Text('No Chats To Show'),
+                      ),
                     );
-                  },
-                  itemCount: state.messagesList.length,
-                ),
-              );
-            }
-            if (state.status == ChattingStatus.error) {
-              return Center(
-                child: Text('Something Went Wrong!'),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+                  }
+                  if (state.status == ChattingStatus.loaded) {
+                    return ListView.builder(
+                      primary: false,
+                      reverse: true,
+                      itemBuilder: (context, index) {
+                        final message = state.messagesList[index];
+                        return MessageWidget(
+                          message: message,
+                          isAuthor: message.sentBy != user.id,
+                        );
+                      },
+                      itemCount: state.messagesList.length,
+                    );
+                  }
+                  if (state.status == ChattingStatus.error) {
+                    return Center(
+                      child: Text('Something Went Wrong!'),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
+            SendMessageWidget(),
+          ],
         ),
       ),
-      bottomSheet: SendMessageWidget(),
     );
   }
 }
