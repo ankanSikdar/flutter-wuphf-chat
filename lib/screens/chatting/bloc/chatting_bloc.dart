@@ -97,10 +97,10 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
         final messagesDbRef = await _messagesRepository.sendFirstMessage(
             user: state.user, message: event.message);
 
-        // Now hasMessagedBefore must be set to true and we also add the messagesDb to state
-        yield (state.copyWith(
-            hasMessagedBefore: true, messagesDbRef: messagesDbRef));
-        add(ChattingFetchMessages());
+        // We add the messagesDb to state
+        yield state.copyWith(messagesDbRef: messagesDbRef);
+        // Now checking for has messaged before will be true and it will load the messages
+        add(ChattingCheckHasMessagedBefore());
       }
       yield (state.copyWith(
           isSending: false)); // To hide the LinearProgressIndicator
