@@ -87,6 +87,11 @@ class ChattingScreen extends StatelessWidget {
                 ),
               );
             }
+            if (state.status == ChattingStatus.error) {
+              return Center(
+                child: Text('Something Went Wrong!'),
+              );
+            }
             return Center(
               child: CircularProgressIndicator(),
             );

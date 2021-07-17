@@ -79,6 +79,18 @@ class ChatsScreen extends StatelessWidget {
                   ),
                 );
               }
+              if (state.status == ChatsStatus.error) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Center(
+                        child: Text('Something Went Wrong!'),
+                      ),
+                    ),
+                  ),
+                );
+              }
               return SliverToBoxAdapter(
                 child: Center(
                   child: Container(
