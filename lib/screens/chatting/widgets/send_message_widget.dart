@@ -36,19 +36,19 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
           elevation: 8.0,
           shadowColor: Colors.grey[500],
           child: Container(
-            height: 70.0,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 if (state.isSending) LinearProgressIndicator(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  margin: EdgeInsets.only(top: 8.0),
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
                   child: Row(
                     children: [
                       Expanded(
                         child: TextField(
                           controller: _textEditingController,
-                          style: Theme.of(context).textTheme.bodyText2,
+                          style: Theme.of(context).textTheme.bodyText1,
                           decoration: InputDecoration(
                             fillColor: Colors.grey[200],
                             filled: true,
@@ -62,11 +62,9 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                               vertical: 4.0,
                             ),
                           ),
-                          keyboardType: TextInputType.text,
-                          textInputAction: TextInputAction.send,
-                          onSubmitted: (value) {
-                            _sendMessage();
-                          },
+                          minLines: 1,
+                          maxLines: 3,
+                          keyboardType: TextInputType.multiline,
                         ),
                       ),
                       IconButton(
