@@ -22,17 +22,11 @@ class AboutWidget extends StatelessWidget {
             fillColor: Colors.grey[200],
             filled: true,
             hintText: 'Write something about yourself',
-            hintStyle: TextStyle(
-              color: Colors.grey,
-            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.0),
               borderSide: BorderSide.none,
             ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 4.0,
-            ),
+            contentPadding: EdgeInsets.all(12.0),
             errorStyle: Theme.of(context).textTheme.bodyText2.apply(
                   color: Theme.of(context).errorColor,
                 ),

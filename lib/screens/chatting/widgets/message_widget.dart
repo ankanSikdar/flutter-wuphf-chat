@@ -48,7 +48,7 @@ class MessageWidget extends StatelessWidget {
             children: [
               Text(
                 message.sentAt.forMessages(),
-                style: ThemeConfig.messageTimeTextStyle,
+                style: Theme.of(context).textTheme.overline,
               ),
             ],
           ),

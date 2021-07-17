@@ -27,7 +27,7 @@ class DetialsWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15.0)),
             child: Text(
               content,
-              style: TextStyle(fontSize: 18.0),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
         ),

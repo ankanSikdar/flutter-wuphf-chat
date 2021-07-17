@@ -15,7 +15,7 @@ class AboutContainer extends StatelessWidget {
           color: Colors.grey[200], borderRadius: BorderRadius.circular(15.0)),
       child: Text(
         about.isEmpty ? 'No About' : about,
-        style: TextStyle(fontSize: 18.0),
+        style: Theme.of(context).textTheme.bodyText1,
       ),
     );
   }

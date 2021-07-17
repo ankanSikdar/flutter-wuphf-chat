@@ -14,10 +14,10 @@ class UserHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         title,
-        style: TextStyle(
-          fontSize: 36,
-          fontWeight: FontWeight.w600,
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .headline4
+            .copyWith(fontWeight: FontWeight.w600),
       ),
     );
   }

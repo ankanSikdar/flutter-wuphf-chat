@@ -25,9 +25,6 @@ class InputTextField extends StatelessWidget {
         fillColor: Colors.grey[200],
         filled: true,
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: Colors.grey,
-        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none,
@@ -36,12 +33,12 @@ class InputTextField extends StatelessWidget {
           horizontal: 12.0,
           vertical: 4.0,
         ),
-        errorStyle: Theme.of(context).textTheme.bodyText2.apply(
+        errorStyle: Theme.of(context).textTheme.bodyText1.apply(
               color: Theme.of(context).errorColor,
             ),
       ),
       initialValue: initialValue,
-      style: Theme.of(context).textTheme.bodyText1,
+      style: Theme.of(context).textTheme.bodyText2,
       keyboardType: textInputType,
       obscureText: obscureText,
       onChanged: onChanged,

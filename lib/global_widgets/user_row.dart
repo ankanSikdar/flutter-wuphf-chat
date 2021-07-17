@@ -56,12 +56,16 @@ class UserRow extends StatelessWidget {
                       Expanded(
                         child: Text(
                           title,
-                          style: Theme.of(context).textTheme.headline4,
+                          style: Theme.of(context).textTheme.headline6,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      if (date != null) Text(date),
+                      if (date != null)
+                        Text(
+                          date,
+                          style: Theme.of(context).textTheme.overline,
+                        ),
                     ],
                   ),
                   SizedBox(height: 4.0),

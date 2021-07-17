@@ -36,10 +36,7 @@ class SettingsWidget extends StatelessWidget {
             Expanded(
               child: Text(
                 name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(context).textTheme.button,
               ),
             ),
             Icon(Icons.navigate_next),

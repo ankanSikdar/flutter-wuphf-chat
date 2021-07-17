@@ -21,11 +21,7 @@ class FlexibleAppBar extends StatelessWidget {
         titlePadding: EdgeInsets.only(left: 16.0),
         title: Text(
           title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 36.0,
-            fontWeight: FontWeight.w900,
-          ),
+          style: Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.left,
         ),
       ),
