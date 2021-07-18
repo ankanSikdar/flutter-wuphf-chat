@@ -14,11 +14,11 @@ extension StringParsing on DateTime {
   String forMessages() {
     final timePassed = DateTime.now().difference(this);
 
-    final dateString = timePassed <= Duration(days: 1)
-        ? intl.DateFormat.jm().format(this)
-        : intl.DateFormat.yMd().format(this) +
-            ' ' +
-            intl.DateFormat.jm().format(this);
+    final dateString = timePassed < Duration(days: 1)
+        ? timeago.format(this)
+        : intl.DateFormat.jm().format(this) +
+            ' | ' +
+            intl.DateFormat.yMd().format(this);
     return dateString;
   }
 }
