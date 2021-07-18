@@ -24,19 +24,18 @@ class MessagesRepository extends BaseMessagesRepository {
       @required DocumentReference<Object> documentReference,
       @required String message}) async {
     try {
-      final date = DateTime.now();
-
-      String messageId = '';
-      await documentReference.collection(Paths.messagesData).add({
-        'sentAt': date,
+      final docReference =
+          await documentReference.collection(Paths.messagesData).add({
+        'sentAt': FieldValue.serverTimestamp(),
         'sentBy': _firebaseAuth.currentUser.uid,
         'text': message,
-      }).then((doc) => messageId = doc.id);
+      });
+      final docSnapshot = await docReference.get();
 
       final createdMessage = Message(
-        id: messageId,
+        id: docSnapshot.id,
         sentBy: _firebaseAuth.currentUser.uid,
-        sentAt: date,
+        sentAt: (docSnapshot['sentAt'] as Timestamp).toDate(),
         text: message,
       );
 
