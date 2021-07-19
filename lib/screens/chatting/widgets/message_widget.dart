@@ -36,20 +36,37 @@ class MessageWidget extends StatelessWidget {
                 end: Alignment.centerRight,
                 colors: ThemeConfig.recipientMessageColors,
               ),
-        borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(ThemeConfig.borderRadius),
+          topRight: Radius.circular(ThemeConfig.borderRadius),
+          bottomLeft: Radius.circular(isAuthor ? ThemeConfig.borderRadius : 0),
+          bottomRight: Radius.circular(isAuthor ? 0 : ThemeConfig.borderRadius),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).accentColor.withOpacity(0.3),
+            blurRadius: 4,
+            offset: Offset(4, 8),
+          )
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (message.imageUrl != null || message.imageUrl != '')
+          if (message.imageUrl != null && message.imageUrl.trim().isNotEmpty)
             Container(
+              height: 200.0,
+              width: double.infinity,
               margin: EdgeInsets.only(bottom: 4.0),
-              child: CachedNetworkImage(
-                imageUrl: message.imageUrl,
-                fit: BoxFit.fitWidth,
-                placeholder: (context, url) => Container(color: Colors.grey),
-                errorWidget: (context, url, error) =>
-                    Container(color: Colors.grey),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
+                child: CachedNetworkImage(
+                  imageUrl: message.imageUrl,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(color: Colors.grey),
+                  errorWidget: (context, url, error) =>
+                      Container(color: Colors.grey),
+                ),
               ),
             ),
           Text(
