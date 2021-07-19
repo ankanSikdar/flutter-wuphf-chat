@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
+import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
@@ -18,6 +19,18 @@ class ChatsScreen extends StatelessWidget {
   }
 
   const ChatsScreen({Key key}) : super(key: key);
+
+  String createLastMessage({@required Message message, @required bool addYou}) {
+    String text = '';
+    if (addYou) {
+      text = 'You: ';
+    }
+    if (message.imageUrl != null && message.imageUrl.trim().isNotEmpty) {
+      text = text + '📷 ' + message.text;
+      return text;
+    }
+    return text + message.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +55,13 @@ class ChatsScreen extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
                       final chatUser = state.chatUsers[index];
+                      final addYou = context.read<AuthBloc>().state.user.uid ==
+                          chatUser.lastMessage.sentBy;
+                      final text = createLastMessage(
+                          message: chatUser.lastMessage, addYou: addYou);
                       return UserRow(
                         title: chatUser.user.displayName,
-                        subtitle: context.read<AuthBloc>().state.user.uid ==
-                                chatUser.lastMessage.sentBy
-                            ? 'You: ' + chatUser.lastMessage.text
-                            : chatUser.lastMessage.text,
+                        subtitle: text,
                         imageUrl: chatUser.user.profileImageUrl,
                         date: chatUser.lastMessage.sentAt.forLastMessage(),
                         onChat: () {
