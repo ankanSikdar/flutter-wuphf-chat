@@ -79,8 +79,8 @@ class _AttachImageState extends State<AttachImage> {
           ),
           SizedBox(width: 32.0),
           IconButton(
-              icon: FaIcon(
-                FontAwesomeIcons.times,
+              icon: Icon(
+                Icons.close,
                 color: Theme.of(context).hintColor,
                 size: 28.0,
               ),
