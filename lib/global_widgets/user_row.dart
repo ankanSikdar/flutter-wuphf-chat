@@ -23,64 +23,71 @@ class UserRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: onView,
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(ThemeConfig.smallDpRadius)),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(ThemeConfig.smallDpRadius),
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(color: Colors.grey),
-                  errorWidget: (context, url, error) =>
-                      Container(color: Colors.grey),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: onView,
+                child: Container(
+                  height: 70,
+                  width: 70,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(ThemeConfig.smallDpRadius)),
+                  child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(ThemeConfig.smallDpRadius),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          Container(color: Colors.grey),
+                      errorWidget: (context, url, error) =>
+                          Container(color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          SizedBox(width: 16.0),
-          Expanded(
-            child: InkWell(
-              onTap: onChat,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+              SizedBox(width: 16.0),
+              Expanded(
+                child: InkWell(
+                  onTap: onChat,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.headline6,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              style: Theme.of(context).textTheme.headline6,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (date != null)
+                            Text(
+                              date,
+                              style: Theme.of(context).textTheme.overline,
+                            ),
+                        ],
                       ),
-                      if (date != null)
-                        Text(
-                          date,
-                          style: Theme.of(context).textTheme.overline,
-                        ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        subtitle,
+                        style: Theme.of(context).textTheme.subtitle2,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    subtitle,
-                    style: Theme.of(context).textTheme.subtitle2,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          )
+                ),
+              )
+            ],
+          ),
+          Divider(),
         ],
       ),
     );
