@@ -8,3 +8,12 @@ abstract class UsersEvent extends Equatable {
 }
 
 class UsersFetchUser extends UsersEvent {}
+
+class UsersUpdateUser extends UsersEvent {
+  final List<User> usersList;
+
+  UsersUpdateUser({@required this.usersList});
+
+  @override
+  List<Object> get props => [usersList];
+}
