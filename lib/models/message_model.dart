@@ -7,12 +7,14 @@ class Message extends Equatable {
   final String sentBy;
   final DateTime sentAt;
   final String text;
+  final String imageUrl;
 
   Message({
     @required this.id,
     @required this.sentBy,
     @required this.sentAt,
     @required this.text,
+    @required this.imageUrl,
   });
 
   Map<String, dynamic> toDocument() {
@@ -21,6 +23,7 @@ class Message extends Equatable {
       'sentBy': sentBy,
       'sentAt': Timestamp.fromDate(sentAt),
       'text': text,
+      'imageUrl': imageUrl,
     };
   }
 
@@ -33,6 +36,7 @@ class Message extends Equatable {
       sentBy: data['sentBy'] ?? '',
       sentAt: (data['sentAt'] as Timestamp).toDate(),
       text: data['text'] ?? '',
+      imageUrl: data['imageUrl'] ?? '',
     );
   }
 
@@ -44,23 +48,26 @@ class Message extends Equatable {
       sentBy: data['sentBy'] ?? '',
       sentAt: (data['sentAt'] as Timestamp).toDate(),
       text: data['text'] ?? '',
+      imageUrl: data['imageUrl'] ?? '',
     );
   }
 
   @override
-  List<Object> get props => [id, sentAt, sentBy, text];
+  List<Object> get props => [id, sentAt, sentBy, text, imageUrl];
 
   Message copyWith({
     String id,
     String sentBy,
     DateTime sentAt,
     String text,
+    String imageUrl,
   }) {
     return Message(
       id: id ?? this.id,
       sentBy: sentBy ?? this.sentBy,
       sentAt: sentAt ?? this.sentAt,
       text: text ?? this.text,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 }
