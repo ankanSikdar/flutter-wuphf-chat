@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
 
@@ -39,6 +40,17 @@ class MessageWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (message.imageUrl != null || message.imageUrl != '')
+            Container(
+              margin: EdgeInsets.only(bottom: 4.0),
+              child: CachedNetworkImage(
+                imageUrl: message.imageUrl,
+                fit: BoxFit.fitWidth,
+                placeholder: (context, url) => Container(color: Colors.grey),
+                errorWidget: (context, url, error) =>
+                    Container(color: Colors.grey),
+              ),
+            ),
           Text(
             message.text,
             style: Theme.of(context).textTheme.bodyText1,
