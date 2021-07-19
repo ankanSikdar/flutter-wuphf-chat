@@ -88,6 +88,7 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
   void _onAttachButtonPressed() async {
     showModalBottomSheet(
       context: context,
+      backgroundColor: Colors.transparent,
       builder: (context) => AttachImage(),
     ).then((image) {
       if (image != null) {

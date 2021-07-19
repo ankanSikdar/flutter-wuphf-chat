@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -50,30 +51,80 @@ class _AttachImageState extends State<AttachImage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
       width: double.infinity,
+      margin: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0),
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: Icon(Icons.camera),
-            onPressed: () {
+          ChoiceIcon(
+            label: 'Camera',
+            icon: FontAwesomeIcons.camera,
+            onTap: () {
               _pickImage(ImageSource.camera);
             },
           ),
-          SizedBox(width: 16.0),
-          IconButton(
-            icon: Icon(Icons.image),
-            onPressed: () {
+          SizedBox(width: 32.0),
+          ChoiceIcon(
+            label: 'Gallery',
+            icon: FontAwesomeIcons.solidImages,
+            onTap: () {
               _pickImage(ImageSource.gallery);
             },
           ),
-          SizedBox(width: 16.0),
+          SizedBox(width: 32.0),
           IconButton(
-              icon: Icon(Icons.close),
+              icon: FaIcon(
+                FontAwesomeIcons.times,
+                color: Theme.of(context).hintColor,
+                size: 28.0,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               }),
+        ],
+      ),
+    );
+  }
+}
+
+class ChoiceIcon extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Function onTap;
+
+  const ChoiceIcon(
+      {Key key,
+      @required this.label,
+      @required this.icon,
+      @required this.onTap})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.0),
+            child: FaIcon(
+              icon,
+              size: 28,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          SizedBox(height: 4.0),
+          Text(
+            label,
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
         ],
       ),
     );
