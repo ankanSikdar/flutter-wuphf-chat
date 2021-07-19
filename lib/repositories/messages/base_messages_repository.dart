@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/models/models.dart';
@@ -8,6 +10,7 @@ abstract class BaseMessagesRepository {
     @required String recipientId,
     @required DocumentReference<Object> documentReference,
     @required String message,
+    File image,
   });
 
   Stream<List<Future<ChatUser>>> getUserChatList();
@@ -22,6 +25,7 @@ abstract class BaseMessagesRepository {
   Future<DocumentReference<Object>> sendFirstMessage({
     @required User user,
     @required String message,
+    File image,
   });
 
   Stream<List<Message>> getMessagesList(

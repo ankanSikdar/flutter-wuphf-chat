@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
@@ -11,6 +13,7 @@ class MessagesRepository extends BaseMessagesRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
   final UserRepository _userRepository = UserRepository();
+  final StorageRepository _storageRepository = StorageRepository();
 
   MessagesRepository({
     firebase_auth.FirebaseAuth firebaseAuth,
@@ -19,16 +22,24 @@ class MessagesRepository extends BaseMessagesRepository {
         _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Future<void> sendMessage(
-      {@required String recipientId,
-      @required DocumentReference<Object> documentReference,
-      @required String message}) async {
+  Future<void> sendMessage({
+    @required String recipientId,
+    @required DocumentReference<Object> documentReference,
+    @required String message,
+    File image,
+  }) async {
     try {
+      String imageUrl = '';
+      if (image != null) {
+        imageUrl = await _storageRepository.uploadMessageImage(file: image);
+      }
+
       final docReference =
           await documentReference.collection(Paths.messagesData).add({
         'sentAt': FieldValue.serverTimestamp(),
         'sentBy': _firebaseAuth.currentUser.uid,
         'text': message,
+        'imageUrl': imageUrl,
       });
       final docSnapshot = await docReference.get();
 
@@ -37,6 +48,7 @@ class MessagesRepository extends BaseMessagesRepository {
         sentBy: _firebaseAuth.currentUser.uid,
         sentAt: (docSnapshot['sentAt'] as Timestamp).toDate(),
         text: message,
+        imageUrl: imageUrl,
       );
 
       await _firebaseFirestore
@@ -150,6 +162,7 @@ class MessagesRepository extends BaseMessagesRepository {
   Future<DocumentReference<Object>> sendFirstMessage({
     @required User user,
     @required String message,
+    File image,
   }) async {
     try {
       final messagesDbRef = await createMessagesDb(user: user);
@@ -157,6 +170,7 @@ class MessagesRepository extends BaseMessagesRepository {
         recipientId: user.id,
         documentReference: messagesDbRef,
         message: message,
+        image: image,
       );
       return messagesDbRef;
     } catch (e) {
@@ -176,9 +190,13 @@ class MessagesRepository extends BaseMessagesRepository {
                 final data = doc.data() as Map;
                 return Message(
                   id: doc.id,
-                  sentAt: (data['sentAt'] as Timestamp).toDate(),
+                  // Time can be null because server has not yet written the time
+                  // Delay of a few milliseconds to write time can throw null error
+                  sentAt: ((data['sentAt'] as Timestamp) ?? Timestamp.now())
+                      .toDate(),
                   sentBy: data['sentBy'],
                   text: data['text'],
+                  imageUrl: data['imageUrl'] ?? '',
                 );
               }).toList());
     } catch (e) {
