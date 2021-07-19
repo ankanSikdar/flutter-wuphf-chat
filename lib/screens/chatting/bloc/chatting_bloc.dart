@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,12 +91,16 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
           recipientId: state.user.id,
           documentReference: state.messagesDbRef,
           message: event.message,
+          image: event.image,
         );
       } else {
         // User has no messageDb with this person
         // We create the db and send the first message
         final messagesDbRef = await _messagesRepository.sendFirstMessage(
-            user: state.user, message: event.message);
+          user: state.user,
+          message: event.message,
+          image: event.image,
+        );
 
         // We add the messagesDb to state
         yield state.copyWith(messagesDbRef: messagesDbRef);

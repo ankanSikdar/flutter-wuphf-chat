@@ -11,12 +11,15 @@ class ChattingCheckHasMessagedBefore extends ChattingEvent {}
 
 class ChattingSendMessage extends ChattingEvent {
   final String message;
+  final File image;
+
   ChattingSendMessage({
     @required this.message,
+    this.image,
   });
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, image];
 }
 
 class ChattingFetchMessages extends ChattingEvent {}
