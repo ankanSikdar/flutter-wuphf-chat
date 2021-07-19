@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/attach_image.dart';
@@ -107,6 +108,9 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
         return Material(
           elevation: 8.0,
           shadowColor: Colors.grey[500],
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(ThemeConfig.borderRadius),
+          ),
           child: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -114,13 +118,24 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                 if (state.isSending) LinearProgressIndicator(),
                 if (!state.isSending && imageFile != null)
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        height: 50.0,
-                        width: 50.0,
-                        margin: EdgeInsets.symmetric(vertical: 4.0),
-                        child: Image.file(imageFile),
+                        height: 100.0,
+                        margin: EdgeInsets.only(top: 8.0),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(ThemeConfig.borderRadius),
+                        ),
+                        child: ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(ThemeConfig.borderRadius),
+                          child: Image.file(
+                            imageFile,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                       SizedBox(width: 16.0),
                       IconButton(
