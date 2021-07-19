@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 
 class ProfilePictureWidget extends StatelessWidget {
   final String imageUrl;
@@ -10,16 +11,24 @@ class ProfilePictureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      width: 250,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(color: Colors.grey),
-          errorWidget: (context, url, error) => Container(color: Colors.grey),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          ViewImageScreen.routeName,
+          arguments: ViewImageScreenArgs(imageUrl: imageUrl),
+        );
+      },
+      child: Container(
+        height: 250,
+        width: 250,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(color: Colors.grey),
+            errorWidget: (context, url, error) => Container(color: Colors.grey),
+          ),
         ),
       ),
     );

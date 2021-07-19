@@ -5,6 +5,7 @@ import 'package:wuphf_chat/config/theme_config.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 
 class MessageWidget extends StatelessWidget {
   final Message message;
@@ -58,14 +59,23 @@ class MessageWidget extends StatelessWidget {
               height: 200.0,
               width: double.infinity,
               margin: EdgeInsets.only(bottom: 4.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
-                child: CachedNetworkImage(
-                  imageUrl: message.imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(color: Colors.grey),
-                  errorWidget: (context, url, error) =>
-                      Container(color: Colors.grey),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    ViewImageScreen.routeName,
+                    arguments: ViewImageScreenArgs(imageUrl: message.imageUrl),
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
+                  child: CachedNetworkImage(
+                    imageUrl: message.imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        Container(color: Colors.grey),
+                    errorWidget: (context, url, error) =>
+                        Container(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
