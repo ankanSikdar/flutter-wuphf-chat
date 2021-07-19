@@ -7,3 +7,4 @@ export 'chatting/chatting_screen.dart';
 export 'user_profile/user_profile_screen.dart';
 export 'edit_profile/edit_profile_screen.dart';
 export 'view_profile/view_profile_screen.dart';
+export 'view_image/view_image_screen.dart';

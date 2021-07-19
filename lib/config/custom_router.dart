@@ -24,6 +24,8 @@ class CustomRouter {
         return ChattingScreen.route(args: settings.arguments);
       case ViewProfileScreen.routeName:
         return ViewProfileScreen.route(args: settings.arguments);
+      case ViewImageScreen.routeName:
+        return ViewImageScreen.route(args: settings.arguments);
       default:
         return _errorRoute();
     }
