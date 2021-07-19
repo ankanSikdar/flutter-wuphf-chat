@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class UserAppBar extends StatelessWidget {
   final String email;
@@ -31,12 +32,12 @@ class UserAppBar extends StatelessWidget {
               height: 75,
               width: 75,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(35.0),
+                borderRadius: BorderRadius.circular(ThemeConfig.smallDpRadius),
                 color: Colors.grey[200],
               ),
               padding: EdgeInsets.all(3.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(35.0),
+                borderRadius: BorderRadius.circular(ThemeConfig.smallDpRadius),
                 child: CachedNetworkImage(
                   imageUrl: profileImageUrl,
                   fit: BoxFit.cover,

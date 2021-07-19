@@ -81,6 +81,10 @@ class ThemeConfig {
     Colors.deepPurple[100],
   ];
 
+  static const borderRadius = 15.0;
+  static const dpRadius = 125.0;
+  static const smallDpRadius = 35.0;
+
   static final chattingScreenScaffoldBackgroundColor = Colors.grey[200];
 }
 

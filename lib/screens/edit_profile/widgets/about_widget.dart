@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 class AboutWidget extends StatelessWidget {
@@ -23,7 +24,7 @@ class AboutWidget extends StatelessWidget {
             filled: true,
             hintText: 'Write something about yourself',
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
               borderSide: BorderSide.none,
             ),
             contentPadding: EdgeInsets.all(12.0),

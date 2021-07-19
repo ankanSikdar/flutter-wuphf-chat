@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
+import 'package:wuphf_chat/config/theme_config.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
@@ -35,7 +36,7 @@ class MessageWidget extends StatelessWidget {
                 end: Alignment.centerRight,
                 colors: ThemeConfig.recipientMessageColors,
               ),
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

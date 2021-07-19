@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class UserRow extends StatelessWidget {
   final String title;
@@ -30,10 +31,11 @@ class UserRow extends StatelessWidget {
             child: Container(
               height: 70,
               width: 70,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(35.0)),
+              decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(ThemeConfig.smallDpRadius)),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(35.0),
+                borderRadius: BorderRadius.circular(ThemeConfig.smallDpRadius),
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
                   fit: BoxFit.cover,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class InkWellButton extends StatelessWidget {
   final Function onTap;
@@ -20,7 +21,7 @@ class InkWellButton extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
           color: buttonColor,
         ),
         padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),

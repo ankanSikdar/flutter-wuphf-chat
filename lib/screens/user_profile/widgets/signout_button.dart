@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({Key key}) : super(key: key);
@@ -13,7 +14,7 @@ class SignOutButton extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
           color: Colors.grey[200],
         ),
         margin: EdgeInsets.symmetric(vertical: 8.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class SettingsWidget extends StatelessWidget {
   final Function onTap;
@@ -29,7 +30,7 @@ class SettingsWidget extends StatelessWidget {
               child: Icon(icon, size: 32),
               decoration: BoxDecoration(
                 color: color,
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
               ),
             ),
             SizedBox(width: 8.0),

@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/screens/edit_profile/cubit/editprofile_cubit.dart';
 
 class ProfilePictureWidget extends StatefulWidget {
@@ -57,13 +58,13 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
       // margin:
       // EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.160),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(125.0),
+        borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
         color: Colors.grey[200],
       ),
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(125.0),
+            borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
             child: file == null
                 ? CachedNetworkImage(
                     imageUrl: widget.imageUrl,

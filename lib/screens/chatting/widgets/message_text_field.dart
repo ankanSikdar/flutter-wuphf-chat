@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class MessageTextField extends StatelessWidget {
   final FocusNode focusNode;
@@ -22,7 +23,7 @@ class MessageTextField extends StatelessWidget {
           filled: true,
           hintText: 'Message...',
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
             borderSide: BorderSide.none,
           ),
           contentPadding: EdgeInsets.symmetric(

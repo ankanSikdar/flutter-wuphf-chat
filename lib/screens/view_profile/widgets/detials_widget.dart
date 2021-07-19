@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 class DetialsWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class DetialsWidget extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(15.0)),
+                borderRadius: BorderRadius.circular(ThemeConfig.borderRadius)),
             child: Text(
               content,
               style: Theme.of(context).textTheme.bodyText1,
