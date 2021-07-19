@@ -7,4 +7,6 @@ abstract class BaseStorageRepository {
 
   Future<String> uploadProfileImage(
       {@required String userId, @required File file});
+
+  Future<String> uploadMessageImage({@required File file});
 }
