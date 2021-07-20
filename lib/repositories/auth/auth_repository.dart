@@ -41,9 +41,9 @@ class AuthRepository extends BaseAuthRepository {
       await _firebaseFirestore.collection(Paths.users).doc(user.uid).set({
         'email': email,
         'displayName': displayName,
-        'bio': '',
+        'bio': 'Hey there! I am using Wuphf Chat!',
         'profileImageUrl':
-            'https://www.chocolatebayou.org/wp-content/uploads/No-Image-Person-1536x1536.jpeg',
+            'https://firebasestorage.googleapis.com/v0/b/wuphf-chat.appspot.com/o/images%2FprofilePictures%2FdefaultDP.jpeg?alt=media&token=39b03042-02ff-41b3-ad83-f4aa8a0801e6',
       });
     } catch (e) {
       throw Exception('SIGNUP ERROR: ${e.message}');
