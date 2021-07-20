@@ -79,10 +79,11 @@ class MessageWidget extends StatelessWidget {
                 ),
               ),
             ),
-          Text(
-            message.text,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
+          if (message.text.trim().isNotEmpty)
+            Text(
+              message.text,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
