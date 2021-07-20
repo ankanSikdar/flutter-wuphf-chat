@@ -35,12 +35,13 @@ class AboutWidget extends StatelessWidget {
           initialValue: initialValue,
           minLines: 1,
           maxLines: 4,
+          maxLength: 100,
           style: Theme.of(context).textTheme.bodyText1,
           keyboardType: TextInputType.multiline,
           onChanged: onChanged,
           validator: (String value) {
             if (value.trim().length == 0) {
-              return 'Remove whitespace';
+              return 'About should not be empty';
             }
             return null;
           },
