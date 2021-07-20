@@ -6,3 +6,4 @@ export 'email_widget.dart';
 export 'displayname_widget.dart';
 export 'inkwell_button.dart';
 export 'two_text_app_bar.dart';
+export 'search_user_appbar.dart';
