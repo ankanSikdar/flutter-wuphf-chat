@@ -31,6 +31,12 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     if (event is UsersUpdateUser) {
       yield* _mapUsersUpdateUserToState(event);
     }
+    if (event is UsersUpdateSearchList) {
+      yield* _mapUsersUpdateSearchListToState(event);
+    }
+    if (event is UsersStopSearching) {
+      yield* _mapUsersStopSearchingToState();
+    }
   }
 
   @override
@@ -54,11 +60,31 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
   Stream<UsersState> _mapUsersUpdateUserToState(UsersUpdateUser event) async* {
     // Removing the current user from the usersList
-    final usersList = event.usersList.removeWhere(
+    event.usersList.removeWhere(
       (user) => user.id == _authBloc.state.user.uid,
     );
 
     yield state.copyWith(
         usersList: event.usersList, status: UsersStateStatus.loaded);
+  }
+
+  Stream<UsersState> _mapUsersUpdateSearchListToState(
+      UsersUpdateSearchList event) async* {
+    List<User> results = [];
+
+    state.usersList.forEach((user) {
+      if (user.displayName.toLowerCase().contains(event.name.toLowerCase())) {
+        results.add(user);
+      }
+    });
+
+    yield state.copyWith(
+      searchList: results,
+      status: UsersStateStatus.searching,
+    );
+  }
+
+  Stream<UsersState> _mapUsersStopSearchingToState() async* {
+    yield state.copyWith(searchList: [], status: UsersStateStatus.loaded);
   }
 }

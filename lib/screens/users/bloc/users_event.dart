@@ -17,3 +17,14 @@ class UsersUpdateUser extends UsersEvent {
   @override
   List<Object> get props => [usersList];
 }
+
+class UsersUpdateSearchList extends UsersEvent {
+  final String name;
+
+  UsersUpdateSearchList({this.name});
+
+  @override
+  List<Object> get props => [name];
+}
+
+class UsersStopSearching extends UsersEvent {}

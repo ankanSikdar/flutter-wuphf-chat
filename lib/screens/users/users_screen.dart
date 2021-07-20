@@ -7,7 +7,7 @@ import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
-class UsersScreen extends StatelessWidget {
+class UsersScreen extends StatefulWidget {
   static const String routeName = '/users-screen';
 
   // Dont need this since the UsersScreen is created through NavScreen
@@ -21,6 +21,30 @@ class UsersScreen extends StatelessWidget {
   const UsersScreen({Key key}) : super(key: key);
 
   @override
+  _UsersScreenState createState() => _UsersScreenState();
+}
+
+class _UsersScreenState extends State<UsersScreen> {
+  TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
+
+  void _search(String name) {
+    context.read<UsersBloc>().add(
+          UsersUpdateSearchList(name: name),
+        );
+  }
+
+  void _stopSearch() {
+    context.read<UsersBloc>().add(UsersStopSearching());
+    _textEditingController.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<UsersBloc, UsersState>(
@@ -31,12 +55,21 @@ class UsersScreen extends StatelessWidget {
               child: Text(state.error),
             );
           }
-          if (state.status == UsersStateStatus.loaded) {
-            final List<User> usersList = state.usersList;
-
+          if (state.status == UsersStateStatus.loaded ||
+              state.status == UsersStateStatus.searching) {
+            final List<User> usersList =
+                state.status == UsersStateStatus.searching
+                    ? state.searchList
+                    : state.usersList;
             return CustomScrollView(
               slivers: [
-                FlexibleAppBar(title: 'Users'),
+                SearchUserAppBar(
+                  title: 'Users',
+                  textEditingController: _textEditingController,
+                  suffixActive: state.status == UsersStateStatus.searching,
+                  search: _search,
+                  stopSearch: _stopSearch,
+                ),
                 SliverPadding(
                   padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
                   sliver: SliverList(
