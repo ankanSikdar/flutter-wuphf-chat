@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
 import 'package:wuphf_chat/screens/signup/widgets/widgets.dart';
 
@@ -96,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       EmailWidget(
                         onChaned: context.read<SignUpCubit>().emailChanged,
@@ -109,6 +111,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (_userAction == UserAction.signUp)
                         SizedBox(height: 16.0),
                       PasswordWidget(),
+                      SizedBox(height: 16.0),
+                      if (_userAction == UserAction.login)
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(ForgotPasswordScreen.routeName);
+                          },
+                          child: Text(
+                            'Forgot Password ?',
+                            style: Theme.of(context).textTheme.headline6.apply(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                          ),
+                        ),
                       SizedBox(height: 32.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,

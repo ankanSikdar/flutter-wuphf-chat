@@ -28,6 +28,14 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(password: value));
   }
 
+  Future<void> sendPasswordResetMail() async {
+    try {
+      await _authRepository.forgotPassword(email: state.email);
+    } catch (e) {
+      emit(state.copyWith(status: SignUpStatus.error, error: e.message));
+    }
+  }
+
   Future<void> singUpWithCredentials() async {
     // If already in state of submitting
     if (state.status == SignUpStatus.submitting) return;

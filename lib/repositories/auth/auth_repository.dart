@@ -84,6 +84,15 @@ class AuthRepository extends BaseAuthRepository {
     }
   }
 
+  // Sending reset password mail
+  Future<void> forgotPassword({@required String email}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception('PASSWORD RESET ERROR: ${e.message}');
+    }
+  }
+
   // Logging out user
   @override
   Future<void> logOut() async {

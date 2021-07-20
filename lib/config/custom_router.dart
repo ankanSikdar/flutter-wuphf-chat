@@ -18,6 +18,8 @@ class CustomRouter {
         return ChatsScreen.route();
       case SignUpScreen.routeName:
         return SignUpScreen.route();
+      case ForgotPasswordScreen.routeName:
+        return ForgotPasswordScreen.route();
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(args: settings.arguments);
       case ChattingScreen.routeName:
