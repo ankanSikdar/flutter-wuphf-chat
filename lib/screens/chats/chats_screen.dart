@@ -8,7 +8,7 @@ import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 
-class ChatsScreen extends StatelessWidget {
+class ChatsScreen extends StatefulWidget {
   static const String routeName = "/chats-screen";
 
   static Route route() {
@@ -19,6 +19,19 @@ class ChatsScreen extends StatelessWidget {
   }
 
   const ChatsScreen({Key key}) : super(key: key);
+
+  @override
+  _ChatsScreenState createState() => _ChatsScreenState();
+}
+
+class _ChatsScreenState extends State<ChatsScreen> {
+  TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
 
   String createLastMessage({@required Message message, @required bool addYou}) {
     String text = '';
@@ -32,93 +45,95 @@ class ChatsScreen extends StatelessWidget {
     return text + message.text;
   }
 
+  void _search(String name) {
+    context.read<ChatsBloc>().add(SearchChats(name: name));
+  }
+
+  void _stopSearch() {
+    context.read<ChatsBloc>().add(StopSearch());
+    _textEditingController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        FlexibleAppBar(title: 'Chats'),
-        SliverPadding(
-          padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
-          sliver: BlocConsumer<ChatsBloc, ChatsState>(
-            listener: (context, state) {
-              if (state.status == ChatsStatus.error) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('${state.error}')),
-                  );
-              }
-            },
-            builder: (context, state) {
-              if (state.chatUsers.length > 0) {
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final chatUser = state.chatUsers[index];
-                      final addYou = context.read<AuthBloc>().state.user.uid ==
-                          chatUser.lastMessage.sentBy;
-                      final text = createLastMessage(
-                          message: chatUser.lastMessage, addYou: addYou);
-                      return UserRow(
-                        title: chatUser.user.displayName,
-                        subtitle: text,
-                        imageUrl: chatUser.user.profileImageUrl,
-                        date: chatUser.lastMessage.sentAt.forLastMessage(),
-                        onChat: () {
-                          Navigator.of(context).pushNamed(
-                            ChattingScreen.routeName,
-                            arguments: ChattingScreenArgs(user: chatUser.user),
-                          );
-                        },
-                        onView: () {
-                          Navigator.of(context).pushNamed(
-                            ViewProfileScreen.routeName,
-                            arguments:
-                                ViewProfileScreenArgs(user: chatUser.user),
-                          );
-                        },
-                      );
-                    },
-                    childCount: state.chatUsers.length,
-                  ),
-                );
-              } else if (state.status == ChatsStatus.loaded &&
-                  state.chatUsers.length == 0) {
-                return SliverToBoxAdapter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Center(
-                      child: Text('No Chats'),
-                    ),
-                  ),
-                );
-              }
-              if (state.status == ChatsStatus.error) {
-                return SliverToBoxAdapter(
-                  child: Center(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      child: Center(
-                        child: Text('Something Went Wrong!'),
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return SliverToBoxAdapter(
-                child: Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
+    return Scaffold(
+      body: BlocBuilder<ChatsBloc, ChatsState>(
+        builder: (context, state) {
+          if (state.status == ChatsStatus.loaded ||
+              state.status == ChatsStatus.searching) {
+            List<ChatUser> chatList = state.status == ChatsStatus.searching
+                ? state.searchList
+                : state.chatUsers;
+            return CustomScrollView(
+              slivers: [
+                SearchUserAppBar(
+                  title: 'Chats',
+                  textEditingController: _textEditingController,
+                  suffixActive: state.status == ChatsStatus.searching,
+                  search: _search,
+                  stopSearch: _stopSearch,
                 ),
-              );
-            },
-          ),
-        )
-      ],
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
+                  sliver: state.chatUsers.length == 0
+                      ? SliverFillRemaining(
+                          child: Center(
+                            child: Text('No Chats To Show'),
+                          ),
+                        )
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              final chatUser = chatList[index];
+                              final addYou =
+                                  context.read<AuthBloc>().state.user.uid ==
+                                      chatUser.lastMessage.sentBy;
+                              final text = createLastMessage(
+                                  message: chatUser.lastMessage,
+                                  addYou: addYou);
+                              return UserRow(
+                                title: chatUser.user.displayName,
+                                subtitle: text,
+                                imageUrl: chatUser.user.profileImageUrl,
+                                date: chatUser.lastMessage.sentAt
+                                    .forLastMessage(),
+                                onChat: () {
+                                  Navigator.of(context).pushNamed(
+                                    ChattingScreen.routeName,
+                                    arguments:
+                                        ChattingScreenArgs(user: chatUser.user),
+                                  );
+                                },
+                                onView: () {
+                                  Navigator.of(context).pushNamed(
+                                    ViewProfileScreen.routeName,
+                                    arguments: ViewProfileScreenArgs(
+                                        user: chatUser.user),
+                                  );
+                                },
+                              );
+                            },
+                            childCount: chatList.length,
+                          ),
+                        ),
+                ),
+              ],
+            );
+          }
+          if (state.status == ChatsStatus.error) {
+            return Center(
+              child: Text('Something Went Wrong!'),
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
+
+
+// SliverPadding(
+                // padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),

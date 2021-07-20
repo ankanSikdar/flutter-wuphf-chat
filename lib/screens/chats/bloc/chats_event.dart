@@ -19,3 +19,14 @@ class UpdateChats extends ChatsEvent {
   @override
   List<Object> get props => [chatUsers];
 }
+
+class SearchChats extends ChatsEvent {
+  final String name;
+
+  SearchChats({@required this.name});
+
+  @override
+  List<Object> get props => [name];
+}
+
+class StopSearch extends ChatsEvent {}

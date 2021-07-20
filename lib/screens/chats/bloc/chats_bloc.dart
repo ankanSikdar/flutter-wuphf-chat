@@ -28,6 +28,12 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     if (event is UpdateChats) {
       yield* _mapChatsUpdateChatsToState(event);
     }
+    if (event is SearchChats) {
+      yield* _mapSearchChatsToState(event);
+    }
+    if (event is StopSearch) {
+      yield* _mapStopSearchToState();
+    }
   }
 
   Stream<ChatsState> _mapChatsFetchChatsToState() async* {
@@ -49,6 +55,30 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   Stream<ChatsState> _mapChatsUpdateChatsToState(UpdateChats event) async* {
     yield (state.copyWith(
         chatUsers: event.chatUsers, status: ChatsStatus.loaded));
+  }
+
+  Stream<ChatsState> _mapSearchChatsToState(SearchChats event) async* {
+    List<ChatUser> results = [];
+
+    state.chatUsers.forEach((chatUser) {
+      if (chatUser.user.displayName
+          .toLowerCase()
+          .contains(event.name.toLowerCase())) {
+        results.add(chatUser);
+      }
+    });
+
+    yield state.copyWith(
+      searchList: results,
+      status: ChatsStatus.searching,
+    );
+  }
+
+  Stream<ChatsState> _mapStopSearchToState() async* {
+    yield (state.copyWith(
+      searchList: [],
+      status: ChatsStatus.loaded,
+    ));
   }
 
   @override
