@@ -33,15 +33,15 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future<void> emailChanged(String value) {
-    emit(state.copyWith(email: value));
+    emit(state.copyWith(email: value.trim()));
   }
 
   Future<void> displayNameChanged(String value) {
-    emit(state.copyWith(displayName: value));
+    emit(state.copyWith(displayName: value.trim()));
   }
 
   Future<void> bioChanged(String value) {
-    emit(state.copyWith(bio: value.trimLeft().trimRight()));
+    emit(state.copyWith(bio: value.trim()));
   }
 
   Future<void> profileImageChanged(File file) {
