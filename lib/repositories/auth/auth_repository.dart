@@ -43,7 +43,7 @@ class AuthRepository extends BaseAuthRepository {
         'displayName': displayName,
         'bio': 'Hey there! I am using Wuphf Chat!',
         'profileImageUrl':
-            'https://firebasestorage.googleapis.com/v0/b/wuphf-chat.appspot.com/o/images%2FprofilePictures%2FdefaultDP.jpeg?alt=media&token=39b03042-02ff-41b3-ad83-f4aa8a0801e6',
+            'https://firebasestorage.googleapis.com/v0/b/wuphf-chat-flutter.appspot.com/o/images%2FprofilePictures%2FdefaultDP.jpeg?alt=media&token=5a3ec0bf-3f12-4376-8e4b-f6dff3a48b75',
       });
     } catch (e) {
       throw Exception('SIGNUP ERROR: ${e.message}');
