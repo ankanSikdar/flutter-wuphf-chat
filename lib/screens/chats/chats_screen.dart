@@ -126,7 +126,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
             );
           }
           return Center(
-            child: CircularProgressIndicator(),
+            child: LoadingIndicator(),
           );
         },
       ),

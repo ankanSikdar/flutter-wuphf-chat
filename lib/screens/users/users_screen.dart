@@ -101,7 +101,7 @@ class _UsersScreenState extends State<UsersScreen> {
               ],
             );
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: LoadingIndicator());
         },
       ),
     );

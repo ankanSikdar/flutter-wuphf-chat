@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/splash';
@@ -37,7 +39,7 @@ class SplashScreen extends StatelessWidget {
         //* Status changes to unauthenticated when no user is found or to authenticated when user is found
         child: Scaffold(
           body: Center(
-            child: CircularProgressIndicator(),
+            child: LoadingIndicator(),
           ),
         ),
       ),

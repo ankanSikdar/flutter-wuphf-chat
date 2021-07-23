@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/config/configs.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
@@ -94,7 +95,7 @@ class ChattingScreen extends StatelessWidget {
                     );
                   }
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingIndicator(),
                   );
                 },
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/user_profile/widgets/widgets.dart';
 
@@ -61,7 +62,7 @@ class UserProfileScreen extends StatelessWidget {
             child: Text(state.error),
           );
         }
-        return Center(child: CircularProgressIndicator());
+        return Center(child: LoadingIndicator());
       },
     );
   }
