@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/repositories/presence/base_presence_repository.dart';
 
 class PresenceRepository extends BasePresenceRepository {
@@ -67,5 +68,14 @@ class PresenceRepository extends BasePresenceRepository {
           // server will mark us as offline once we lose connection.
           (value) => _databaseReference.child(uid).set(presenceStatusTrue));
     });
+  }
+
+  @override
+  onUserLoggedOut({@required String uid}) async {
+    Map<String, dynamic> presenceStatusFalse = {
+      'presence': false,
+    };
+
+    await _databaseReference.child(uid).update(presenceStatusFalse);
   }
 }
