@@ -9,6 +9,7 @@ class UserRow extends StatelessWidget {
   final String imageUrl;
   final Function onChat;
   final Function onView;
+  final Widget online;
 
   const UserRow({
     Key key,
@@ -18,6 +19,7 @@ class UserRow extends StatelessWidget {
     this.onChat,
     this.onView,
     this.date,
+    this.online,
   }) : super(key: key);
 
   @override
@@ -67,6 +69,7 @@ class UserRow extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          if (online != null) online,
                           if (date != null)
                             Text(
                               date,
