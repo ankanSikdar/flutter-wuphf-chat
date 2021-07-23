@@ -8,6 +8,8 @@ class User extends Equatable {
   final String email;
   final String profileImageUrl;
   final String bio;
+  final bool presence;
+  final DateTime lastSeen;
 
   const User({
     @required this.id,
@@ -15,6 +17,8 @@ class User extends Equatable {
     @required this.email,
     @required this.profileImageUrl,
     @required this.bio,
+    this.presence = false,
+    this.lastSeen,
   });
 
   Map<String, dynamic> toDocument() {
@@ -29,13 +33,16 @@ class User extends Equatable {
   factory User.fromDocument(DocumentSnapshot doc) {
     if (doc == null) return null;
     final data = doc.data() as Map;
-
     return User(
       id: doc.id,
       displayName: data['displayName'] ?? '',
       email: data['email'] ?? '',
       profileImageUrl: data['profileImageUrl'] ?? '',
       bio: data['bio'] ?? '',
+      presence: data['presence'] ?? false,
+      lastSeen: data['last_seen'] == null
+          ? DateTime.now()
+          : DateTime.fromMillisecondsSinceEpoch(data['last_seen']),
     );
   }
 
@@ -57,6 +64,8 @@ class User extends Equatable {
       email,
       profileImageUrl,
       bio,
+      presence,
+      lastSeen,
     ];
   }
 
@@ -66,6 +75,8 @@ class User extends Equatable {
     String email,
     String profileImageUrl,
     String bio,
+    bool presence,
+    DateTime lastSeen,
   }) {
     return User(
       id: id ?? this.id,
@@ -73,6 +84,8 @@ class User extends Equatable {
       email: email ?? this.email,
       profileImageUrl: profileImageUrl ?? this.profileImageUrl,
       bio: bio ?? this.bio,
+      presence: presence ?? this.presence,
+      lastSeen: lastSeen ?? this.lastSeen,
     );
   }
 }
