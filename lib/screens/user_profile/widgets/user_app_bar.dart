@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 
 class UserAppBar extends StatelessWidget {
@@ -26,6 +27,11 @@ class UserAppBar extends StatelessWidget {
       pinned: true,
       forceElevated: true,
       automaticallyImplyLeading: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(ThemeConfig.borderRadius),
+        ),
+      ),
       title: Container(
         child: Row(
           children: [
@@ -36,27 +42,8 @@ class UserAppBar extends StatelessWidget {
                   arguments: ViewImageScreenArgs(imageUrl: profileImageUrl),
                 );
               },
-              child: Container(
-                height: 75,
-                width: 75,
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(ThemeConfig.smallDpRadius),
-                  color: Colors.grey[200],
-                ),
-                padding: EdgeInsets.all(3.0),
-                child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(ThemeConfig.smallDpRadius),
-                  child: CachedNetworkImage(
-                    imageUrl: profileImageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        Container(color: Colors.grey),
-                    errorWidget: (context, url, error) =>
-                        Container(color: Colors.grey),
-                  ),
-                ),
+              child: ProfilePicture(
+                imageUrl: profileImageUrl,
               ),
             ),
             SizedBox(width: 16.0),
