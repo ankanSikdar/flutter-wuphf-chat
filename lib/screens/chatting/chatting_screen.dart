@@ -7,6 +7,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
+import 'package:wuphf_chat/screens/chatting/widgets/bloc/liveuser_bloc.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/send_message_widget.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/widgets.dart';
 
@@ -48,8 +49,12 @@ class ChattingScreen extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            ChattingAppBar(
-              user: user,
+            BlocProvider<LiveUserBloc>(
+              create: (context) => LiveUserBloc(
+                userRepository: context.read<UserRepository>(),
+                userId: user.id,
+              ),
+              child: ChattingAppBar(),
             )
           ];
         },

@@ -37,6 +37,19 @@ class UserRepository extends BaseUserRepository {
   }
 
   @override
+  Stream<User> getUserStream({@required String userId}) {
+    try {
+      return _firebaseFirestore
+          .collection(Paths.users)
+          .doc(userId)
+          .snapshots()
+          .map((docSnapshot) => User.fromDocument(docSnapshot));
+    } catch (e) {
+      throw Exception('USER STREAM ERROR: ${e.message}');
+    }
+  }
+
+  @override
   Future<void> updateUser({@required User user}) async {
     try {
       await _firebaseFirestore

@@ -21,4 +21,8 @@ extension StringParsing on DateTime {
             intl.DateFormat.yMd().format(this);
     return dateString;
   }
+
+  String forLastSeen() {
+    return 'Last seen ' + timeago.format(this);
+  }
 }
