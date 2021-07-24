@@ -14,9 +14,11 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
   ChatsBloc({@required MessagesRepository messagesRepository})
       : _messagesRepository = messagesRepository,
-        super(ChatsState.initial());
+        super(ChatsState.initial()) {
+    add(FetchChats());
+  }
 
-  StreamSubscription<List<Future<ChatUser>>> _chatsSubscription;
+  StreamSubscription<List<ChatUser>> _chatsSubscription;
 
   @override
   Stream<ChatsState> mapEventToState(
@@ -41,11 +43,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
     try {
       _chatsSubscription?.cancel();
-
+      
       _chatsSubscription =
-          _messagesRepository.getUserChatList().listen((chatUsersFuture) async {
-        final chatUsers = await Future.wait(chatUsersFuture);
-        add(UpdateChats(chatUsers: chatUsers));
+          _messagesRepository.getUserChats().listen((chatUsersList) {
+        add(UpdateChats(chatUsers: chatUsersList));
       });
     } catch (e) {
       yield (state.copyWith(status: ChatsStatus.error, error: e.message));

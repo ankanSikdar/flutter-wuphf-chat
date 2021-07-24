@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/config/configs.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/messages/base_messages_repository.dart';
@@ -69,8 +70,7 @@ class MessagesRepository extends BaseMessagesRepository {
     }
   }
 
-  @override
-  Stream<List<Future<ChatUser>>> getUserChatList() {
+  Stream<List<ChatList>> _getChatList() {
     try {
       return _firebaseFirestore
           .collection(Paths.messages)
@@ -78,21 +78,36 @@ class MessagesRepository extends BaseMessagesRepository {
           .collection(Paths.userMessages)
           .orderBy('sentAt', descending: true)
           .snapshots()
-          .map((QuerySnapshot snap) =>
-              snap.docs.map((QueryDocumentSnapshot doc) async {
-                final user =
-                    await _userRepository.getUserWithId(userId: doc.id);
+          .map((querySnapshot) => querySnapshot.docs.map((doc) {
                 final data = doc.data() as Map;
                 final messagesDbRef =
                     data[Paths.messagesDb] as DocumentReference;
+                return ChatList(
+                    userId: doc.id,
+                    messagesDbRef: messagesDbRef,
+                    lastMessage: Message.fromMap(data));
+              }).toList());
+    } catch (e) {
+      throw Exception('getChatList ERROR: ${e.message}');
+    }
+  }
+
+  @override
+  Stream<List<ChatUser>> getUserChats() {
+    try {
+      return Rx.combineLatest2<List<ChatList>, List<User>, List<ChatUser>>(
+          _getChatList(),
+          _userRepository.getAllUsers(),
+          (chatList, usersList) => chatList.map((chat) {
+                final user = usersList.firstWhere((u) => u.id == chat.userId);
                 return ChatUser(
                   user: user,
-                  messagesDbRef: messagesDbRef,
-                  lastMessage: Message.fromMap(data),
+                  messagesDbRef: chat.messagesDbRef,
+                  lastMessage: chat.lastMessage,
                 );
               }).toList());
     } catch (e) {
-      throw Exception('getUserChatList ERROR: ${e.message}');
+      throw Exception('getUserChats ERROR: ${e.message}');
     }
   }
 

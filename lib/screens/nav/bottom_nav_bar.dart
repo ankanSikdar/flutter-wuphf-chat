@@ -45,7 +45,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     BlocProvider<ChatsBloc>(
       create: (context) => ChatsBloc(
         messagesRepository: context.read<MessagesRepository>(),
-      )..add(FetchChats()),
+      ),
       child: ChatsScreen(),
     ),
     BlocProvider<UserProfileBloc>(

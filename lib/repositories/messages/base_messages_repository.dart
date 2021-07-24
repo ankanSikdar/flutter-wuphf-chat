@@ -13,7 +13,7 @@ abstract class BaseMessagesRepository {
     File image,
   });
 
-  Stream<List<Future<ChatUser>>> getUserChatList();
+  Stream<List<ChatUser>> getUserChats();
 
   Future<DocumentReference<Object>> createMessagesDb({@required User user});
 
