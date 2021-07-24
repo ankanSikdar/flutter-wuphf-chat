@@ -27,6 +27,11 @@ class SearchUserAppBar extends StatelessWidget {
       backgroundColor: Colors.white,
       stretch: true,
       automaticallyImplyLeading: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(ThemeConfig.borderRadius),
+        ),
+      ),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.all(16.0),
         title: Column(
