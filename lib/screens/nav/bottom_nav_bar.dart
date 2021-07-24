@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/screens.dart';
@@ -63,19 +64,39 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         body: _screens.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.comments), label: 'Chat'),
-            BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.userCircle), label: 'Profile'),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(ThemeConfig.borderRadius),
+            ),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, -2),
+                blurRadius: 4.0,
+                color: Theme.of(context).accentColor.withOpacity(0.2),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(ThemeConfig.borderRadius),
+            ),
+            child: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: [
+                BottomNavigationBarItem(
+                    icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
+                BottomNavigationBarItem(
+                    icon: FaIcon(FontAwesomeIcons.comments), label: 'Chat'),
+                BottomNavigationBarItem(
+                    icon: FaIcon(FontAwesomeIcons.userCircle),
+                    label: 'Profile'),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
+          ),
         ),
       ),
     );
