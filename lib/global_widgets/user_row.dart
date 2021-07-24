@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:wuphf_chat/config/configs.dart';
+import 'profile_picture.dart';
 
 class UserRow extends StatelessWidget {
   final String title;
@@ -34,32 +33,7 @@ class UserRow extends StatelessWidget {
                 onTap: onView,
                 child: Stack(
                   children: [
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(ThemeConfig.smallDpRadius),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(1, 2),
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(ThemeConfig.smallDpRadius),
-                        child: CachedNetworkImage(
-                          imageUrl: imageUrl,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Container(color: Colors.grey),
-                          errorWidget: (context, url, error) =>
-                              Container(color: Colors.grey),
-                        ),
-                      ),
-                    ),
+                    ProfilePicture(imageUrl: imageUrl),
                     Positioned(
                       bottom: 3,
                       right: 3,

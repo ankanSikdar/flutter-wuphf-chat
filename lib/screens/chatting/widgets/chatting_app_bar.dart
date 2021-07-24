@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wuphf_chat/config/configs.dart';
+import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
 
@@ -38,28 +37,7 @@ class ChattingAppBar extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: 8.0),
-                    Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(ThemeConfig.smallDpRadius),
-                        color: Colors.grey[200],
-                      ),
-                      padding: EdgeInsets.all(3.0),
-                      child: ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(ThemeConfig.smallDpRadius),
-                        child: CachedNetworkImage(
-                          imageUrl: user.profileImageUrl,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Container(color: Colors.grey),
-                          errorWidget: (context, url, error) =>
-                              Container(color: Colors.grey),
-                        ),
-                      ),
-                    ),
+                    ProfilePicture(imageUrl: user.profileImageUrl),
                     SizedBox(width: 16.0),
                     Expanded(
                       child: Column(
