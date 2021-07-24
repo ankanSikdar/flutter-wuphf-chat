@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class TwoTextAppBar extends StatelessWidget {
   final String title;
@@ -21,6 +22,11 @@ class TwoTextAppBar extends StatelessWidget {
       pinned: true,
       forceElevated: true,
       automaticallyImplyLeading: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(ThemeConfig.borderRadius),
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

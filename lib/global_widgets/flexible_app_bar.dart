@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class FlexibleAppBar extends StatelessWidget {
   final String title;
@@ -17,6 +18,11 @@ class FlexibleAppBar extends StatelessWidget {
       backgroundColor: Colors.white,
       stretch: true,
       automaticallyImplyLeading: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(ThemeConfig.borderRadius),
+        ),
+      ),
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: EdgeInsets.only(left: 16.0),
         title: Text(

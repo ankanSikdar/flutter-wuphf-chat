@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
@@ -26,6 +27,11 @@ class ChattingAppBar extends StatelessWidget {
             automaticallyImplyLeading: false,
             leadingWidth: 35.0,
             titleSpacing: 0.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(ThemeConfig.borderRadius),
+              ),
+            ),
             title: InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(
