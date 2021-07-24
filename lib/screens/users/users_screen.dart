@@ -81,7 +81,7 @@ class _UsersScreenState extends State<UsersScreen> {
                           title: user.displayName,
                           subtitle: user.bio.isEmpty ? user.email : user.bio,
                           imageUrl: user.profileImageUrl,
-                          online: OnlineWidget(isOnline: user.presence),
+                          isOnline: user.presence,
                           onChat: () {
                             Navigator.of(context).pushNamed(
                               ChattingScreen.routeName,
@@ -106,32 +106,6 @@ class _UsersScreenState extends State<UsersScreen> {
           return Center(child: LoadingIndicator());
         },
       ),
-    );
-  }
-}
-
-class OnlineWidget extends StatelessWidget {
-  final bool isOnline;
-
-  const OnlineWidget({Key key, @required this.isOnline}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          Icons.circle,
-          size: 10,
-          color: isOnline ? Colors.green : Colors.grey[600],
-        ),
-        SizedBox(width: 2.0),
-        Text(
-          isOnline ? 'Online' : 'Offline',
-          style: Theme.of(context).textTheme.overline.copyWith(
-                color: isOnline ? Colors.green : Colors.grey[600],
-              ),
-        ),
-      ],
     );
   }
 }

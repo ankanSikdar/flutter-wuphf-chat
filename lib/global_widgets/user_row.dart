@@ -9,17 +9,17 @@ class UserRow extends StatelessWidget {
   final String imageUrl;
   final Function onChat;
   final Function onView;
-  final Widget online;
+  final bool isOnline;
 
   const UserRow({
     Key key,
     @required this.title,
     @required this.subtitle,
     @required this.imageUrl,
+    @required this.isOnline,
     this.onChat,
     this.onView,
     this.date,
-    this.online,
   }) : super(key: key);
 
   @override
@@ -32,24 +32,53 @@ class UserRow extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: onView,
-                child: Container(
-                  height: 70,
-                  width: 70,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(ThemeConfig.smallDpRadius)),
-                  child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.circular(ThemeConfig.smallDpRadius),
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          Container(color: Colors.grey),
-                      errorWidget: (context, url, error) =>
-                          Container(color: Colors.grey),
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(ThemeConfig.smallDpRadius),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(1, 2),
+                            color: Colors.grey,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius:
+                            BorderRadius.circular(ThemeConfig.smallDpRadius),
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey),
+                          errorWidget: (context, url, error) =>
+                              Container(color: Colors.grey),
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 3,
+                      right: 3,
+                      child: Container(
+                        height: 18,
+                        width: 18,
+                        decoration: BoxDecoration(
+                            color: isOnline ? Colors.green : Colors.grey,
+                            borderRadius: BorderRadius.circular(9),
+                            border: Border.all(color: Colors.white, width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(1, 1),
+                                color: Colors.grey,
+                              )
+                            ]),
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(width: 16.0),
@@ -69,7 +98,6 @@ class UserRow extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          if (online != null) online,
                           if (date != null)
                             Text(
                               date,

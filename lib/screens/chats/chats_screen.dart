@@ -92,6 +92,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                   message: chatUser.lastMessage,
                                   addYou: addYou);
                               return UserRow(
+                                isOnline: chatUser.user.presence,
                                 title: chatUser.user.displayName,
                                 subtitle: text,
                                 imageUrl: chatUser.user.profileImageUrl,
