@@ -24,12 +24,15 @@ class ProfilePicture extends StatelessWidget {
       padding: EdgeInsets.all(3.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(ThemeConfig.smallDpRadius),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          fit: BoxFit.cover,
-          placeholder: (context, url) => Container(color: Colors.grey),
-          errorWidget: (context, url, error) => Container(color: Colors.grey),
-        ),
+        child: imageUrl.trim().isNotEmpty
+            ? CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(color: Colors.grey),
+                errorWidget: (context, url, error) =>
+                    Container(color: Colors.grey),
+              )
+            : Container(),
       ),
     );
   }
