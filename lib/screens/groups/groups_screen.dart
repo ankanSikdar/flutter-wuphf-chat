@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
-import 'package:wuphf_chat/repositories/repositories.dart';
+import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
 
 class GroupsScreen extends StatefulWidget {
   static const String routeName = '/groups-screen';
@@ -21,32 +22,94 @@ class GroupsScreen extends StatefulWidget {
 }
 
 class _GroupsScreenState extends State<GroupsScreen> {
+  TextEditingController _textEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
+
+  String createLastMessage({@required Message message, @required bool addYou}) {
+    String text = '';
+    if (addYou) {
+      text = 'You: ';
+    }
+    if (message.imageUrl != null && message.imageUrl.trim().isNotEmpty) {
+      text = text + '📷 ' + message.text;
+      return text;
+    }
+    return text + message.text;
+  }
+
+  void _search(String name) {
+    context.read<GroupsBloc>().add(SearchGroups(name: name));
+  }
+
+  void _stopSearch() {
+    context.read<GroupsBloc>().add(StopSearch());
+    _textEditingController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: context.read<GroupsRepository>().getGroupsList(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final list = snapshot.data as List<Group>;
-            return ListView.separated(
-              itemBuilder: (context, index) {
-                final group = list[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      group.groupImage,
-                    ),
-                  ),
-                  title: Text(group.groupName),
-                  subtitle: Text(group.lastMessage.text),
-                );
-              },
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: list.length,
+      body: BlocBuilder<GroupsBloc, GroupsState>(
+        builder: (context, state) {
+          if (state.status == GroupsStatus.loaded ||
+              state.status == GroupsStatus.searching) {
+            List<Group> groups = state.status == GroupsStatus.searching
+                ? state.searchList
+                : state.groupsList;
+
+            return CustomScrollView(
+              slivers: [
+                SearchUserAppBar(
+                  title: 'Groups',
+                  textEditingController: _textEditingController,
+                  suffixActive: state.status == GroupsStatus.searching,
+                  search: _search,
+                  stopSearch: _stopSearch,
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
+                  sliver: state.groupsList.length == 0
+                      ? SliverFillRemaining(
+                          child: Center(
+                            child: Text('No Groups To Show'),
+                          ),
+                        )
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              final group = groups[index];
+                              final addYou =
+                                  context.read<AuthBloc>().state.user.uid ==
+                                      group.lastMessage.sentBy;
+                              final text = createLastMessage(
+                                  message: group.lastMessage, addYou: addYou);
+                              return UserRow(
+                                title: group.groupName,
+                                subtitle: text,
+                                imageUrl: group.groupImage,
+                                isOnline: false,
+                              );
+                            },
+                            childCount: groups.length,
+                          ),
+                        ),
+                ),
+              ],
             );
           }
-          return Center(child: LoadingIndicator());
+          if (state.status == GroupsStatus.error) {
+            return Center(
+              child: Text('Something Went Wrong!'),
+            );
+          }
+          return Center(
+            child: LoadingIndicator(),
+          );
         },
       ),
     );

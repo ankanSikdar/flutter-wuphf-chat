@@ -5,6 +5,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
+import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/user_profile/bloc/userprofile_bloc.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
@@ -48,7 +49,12 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       ),
       child: ChatsScreen(),
     ),
-    GroupsScreen(),
+    BlocProvider<GroupsBloc>(
+      create: (context) => GroupsBloc(
+        groupsRepository: context.read<GroupsRepository>(),
+      ),
+      child: GroupsScreen(),
+    ),
     BlocProvider<UserProfileBloc>(
       create: (context) => UserProfileBloc(
         userRepository: context.read<UserRepository>(),
