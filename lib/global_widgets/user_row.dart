@@ -15,7 +15,7 @@ class UserRow extends StatelessWidget {
     @required this.title,
     @required this.subtitle,
     @required this.imageUrl,
-    @required this.isOnline,
+    this.isOnline,
     this.onChat,
     this.onView,
     this.date,
@@ -34,24 +34,25 @@ class UserRow extends StatelessWidget {
                 child: Stack(
                   children: [
                     ProfilePicture(imageUrl: imageUrl),
-                    Positioned(
-                      bottom: 3,
-                      right: 3,
-                      child: Container(
-                        height: 18,
-                        width: 18,
-                        decoration: BoxDecoration(
-                            color: isOnline ? Colors.green : Colors.grey,
-                            borderRadius: BorderRadius.circular(9),
-                            border: Border.all(color: Colors.white, width: 2),
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(1, 1),
-                                color: Colors.grey,
-                              )
-                            ]),
-                      ),
-                    )
+                    if (isOnline != null)
+                      Positioned(
+                        bottom: 3,
+                        right: 3,
+                        child: Container(
+                          height: 18,
+                          width: 18,
+                          decoration: BoxDecoration(
+                              color: isOnline ? Colors.green : Colors.grey,
+                              borderRadius: BorderRadius.circular(9),
+                              border: Border.all(color: Colors.white, width: 2),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(1, 1),
+                                  color: Colors.grey,
+                                )
+                              ]),
+                        ),
+                      )
                   ],
                 ),
               ),

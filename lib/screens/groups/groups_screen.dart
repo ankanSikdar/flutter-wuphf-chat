@@ -93,7 +93,6 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 title: group.groupName,
                                 subtitle: text,
                                 imageUrl: group.groupImage,
-                                isOnline: false,
                               );
                             },
                             childCount: groups.length,
