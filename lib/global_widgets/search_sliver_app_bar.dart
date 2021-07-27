@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
 
-class SearchUserAppBar extends StatelessWidget {
+class SearchSliverAppBar extends StatelessWidget {
   final String title;
+  final String searchTitle;
   final TextEditingController textEditingController;
   final bool suffixActive;
   final Function search;
   final Function stopSearch;
 
-  const SearchUserAppBar({
+  const SearchSliverAppBar({
     Key key,
     @required this.title,
     @required this.textEditingController,
     @required this.suffixActive,
     @required this.search,
     @required this.stopSearch,
+    this.searchTitle = 'users',
   }) : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class SearchUserAppBar extends StatelessWidget {
                 prefixIcon: Icon(Icons.search),
                 fillColor: Colors.grey[200],
                 filled: true,
-                hintText: 'Search for users...',
+                hintText: 'Search for $searchTitle...',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
                   borderSide: BorderSide.none,

@@ -64,12 +64,13 @@ class _GroupsScreenState extends State<GroupsScreen> {
 
             return CustomScrollView(
               slivers: [
-                SearchUserAppBar(
+                SearchSliverAppBar(
                   title: 'Groups',
                   textEditingController: _textEditingController,
                   suffixActive: state.status == GroupsStatus.searching,
                   search: _search,
                   stopSearch: _stopSearch,
+                  searchTitle: 'groups',
                 ),
                 SliverPadding(
                   padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),

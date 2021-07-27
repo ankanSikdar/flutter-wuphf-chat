@@ -64,7 +64,7 @@ class _UsersScreenState extends State<UsersScreen> {
                     : state.usersList;
             return CustomScrollView(
               slivers: [
-                SearchUserAppBar(
+                SearchSliverAppBar(
                   title: 'Users',
                   textEditingController: _textEditingController,
                   suffixActive: state.status == UsersStateStatus.searching,

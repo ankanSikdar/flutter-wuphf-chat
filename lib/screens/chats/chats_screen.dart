@@ -66,7 +66,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 : state.chatUsers;
             return CustomScrollView(
               slivers: [
-                SearchUserAppBar(
+                SearchSliverAppBar(
                   title: 'Chats',
                   textEditingController: _textEditingController,
                   suffixActive: state.status == ChatsStatus.searching,
