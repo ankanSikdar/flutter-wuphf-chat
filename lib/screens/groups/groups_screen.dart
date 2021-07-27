@@ -4,6 +4,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
+import 'package:wuphf_chat/helper/time_helper.dart';
 
 class GroupsScreen extends StatefulWidget {
   static const String routeName = '/groups-screen';
@@ -93,6 +94,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 title: group.groupName,
                                 subtitle: text,
                                 imageUrl: group.groupImage,
+                                date: group.lastMessage.sentAt.forLastMessage(),
                               );
                             },
                             childCount: groups.length,
