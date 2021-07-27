@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<PresenceRepository>(
           create: (_) => PresenceRepository(),
         ),
+        RepositoryProvider<GroupsRepository>(
+          create: (_) => GroupsRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [

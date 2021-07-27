@@ -8,3 +8,5 @@ export 'storage/storage_repository.dart';
 export 'storage/base_storage_repository.dart';
 export 'presence/presence_repository.dart';
 export 'presence/base_presence_repository.dart';
+export 'groups/groups_repository.dart';
+export 'groups/base_groups_repository.dart';
