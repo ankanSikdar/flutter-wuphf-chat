@@ -48,6 +48,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       ),
       child: ChatsScreen(),
     ),
+    GroupsScreen(),
     BlocProvider<UserProfileBloc>(
       create: (context) => UserProfileBloc(
         userRepository: context.read<UserRepository>(),
@@ -87,7 +88,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                 BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
                 BottomNavigationBarItem(
-                    icon: FaIcon(FontAwesomeIcons.comments), label: 'Chat'),
+                    icon: FaIcon(FontAwesomeIcons.comment), label: 'Chats'),
+                BottomNavigationBarItem(
+                    icon: FaIcon(FontAwesomeIcons.comments), label: 'Groups'),
                 BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.userCircle),
                     label: 'Profile'),
