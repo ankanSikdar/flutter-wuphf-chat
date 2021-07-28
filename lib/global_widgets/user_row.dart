@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'profile_picture.dart';
 
 class UserRow extends StatelessWidget {
@@ -8,6 +9,7 @@ class UserRow extends StatelessWidget {
   final String imageUrl;
   final Function onChat;
   final Function onView;
+  final Function onLongPress;
   final bool isOnline;
 
   const UserRow({
@@ -18,48 +20,53 @@ class UserRow extends StatelessWidget {
     this.isOnline,
     this.onChat,
     this.onView,
+    this.onLongPress,
     this.date,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: onView,
-                child: Stack(
-                  children: [
-                    ProfilePicture(imageUrl: imageUrl),
-                    if (isOnline != null)
-                      Positioned(
-                        bottom: 3,
-                        right: 3,
-                        child: Container(
-                          height: 18,
-                          width: 18,
-                          decoration: BoxDecoration(
-                              color: isOnline ? Colors.green : Colors.grey,
-                              borderRadius: BorderRadius.circular(9),
-                              border: Border.all(color: Colors.white, width: 2),
-                              boxShadow: [
-                                BoxShadow(
-                                  offset: Offset(1, 1),
-                                  color: Colors.grey,
-                                )
-                              ]),
-                        ),
-                      )
-                  ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: onChat,
+          onLongPress: onLongPress,
+          borderRadius: BorderRadius.circular(ThemeConfig.borderRadius),
+          child: Container(
+            padding: EdgeInsets.all(4.0),
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: onView,
+                  child: Stack(
+                    children: [
+                      ProfilePicture(imageUrl: imageUrl),
+                      if (isOnline != null)
+                        Positioned(
+                          bottom: 3,
+                          right: 3,
+                          child: Container(
+                            height: 18,
+                            width: 18,
+                            decoration: BoxDecoration(
+                                color: isOnline ? Colors.green : Colors.grey,
+                                borderRadius: BorderRadius.circular(9),
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(1, 1),
+                                    color: Colors.grey,
+                                  )
+                                ]),
+                          ),
+                        )
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(width: 16.0),
-              Expanded(
-                child: InkWell(
-                  onTap: onChat,
+                SizedBox(width: 16.0),
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,13 +96,13 @@ class UserRow extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-          Divider(),
-        ],
-      ),
+        ),
+        Divider(),
+      ],
     );
   }
 }

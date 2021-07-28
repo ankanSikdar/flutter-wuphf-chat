@@ -89,30 +89,28 @@ class _UsersScreenState extends State<UsersScreen> {
                       (context, index) {
                         final user = usersList[index];
                         final isSelected = state.selectedList.contains(user);
-                        return InkWell(
+                        return UserRow(
+                          title: isSelected
+                              ? 'Selected ${user.displayName}'
+                              : user.displayName,
+                          subtitle: user.bio.isEmpty ? user.email : user.bio,
+                          imageUrl: user.profileImageUrl,
+                          isOnline: user.presence,
+                          onChat: () {
+                            Navigator.of(context).pushNamed(
+                              ChattingScreen.routeName,
+                              arguments: ChattingScreenArgs(user: user),
+                            );
+                          },
                           onLongPress: () {
                             _selectUser(user);
                           },
-                          child: UserRow(
-                            title: isSelected
-                                ? 'Selected ${user.displayName}'
-                                : user.displayName,
-                            subtitle: user.bio.isEmpty ? user.email : user.bio,
-                            imageUrl: user.profileImageUrl,
-                            isOnline: user.presence,
-                            onChat: () {
-                              Navigator.of(context).pushNamed(
-                                ChattingScreen.routeName,
-                                arguments: ChattingScreenArgs(user: user),
-                              );
-                            },
-                            onView: () {
-                              Navigator.of(context).pushNamed(
-                                ViewProfileScreen.routeName,
-                                arguments: ViewProfileScreenArgs(user: user),
-                              );
-                            },
-                          ),
+                          onView: () {
+                            Navigator.of(context).pushNamed(
+                              ViewProfileScreen.routeName,
+                              arguments: ViewProfileScreenArgs(user: user),
+                            );
+                          },
                         );
                       },
                       childCount: usersList.length,
