@@ -95,21 +95,26 @@ class _UsersScreenState extends State<UsersScreen> {
                           subtitle: user.bio.isEmpty ? user.email : user.bio,
                           imageUrl: user.profileImageUrl,
                           isOnline: user.presence,
-                          onChat: () {
-                            Navigator.of(context).pushNamed(
-                              ChattingScreen.routeName,
-                              arguments: ChattingScreenArgs(user: user),
-                            );
-                          },
+                          onChat: isSelecting
+                              ? () => _selectUser(user)
+                              : () {
+                                  Navigator.of(context).pushNamed(
+                                    ChattingScreen.routeName,
+                                    arguments: ChattingScreenArgs(user: user),
+                                  );
+                                },
                           onLongPress: () {
                             _selectUser(user);
                           },
-                          onView: () {
-                            Navigator.of(context).pushNamed(
-                              ViewProfileScreen.routeName,
-                              arguments: ViewProfileScreenArgs(user: user),
-                            );
-                          },
+                          onView: isSelecting
+                              ? () => _selectUser(user)
+                              : () {
+                                  Navigator.of(context).pushNamed(
+                                    ViewProfileScreen.routeName,
+                                    arguments:
+                                        ViewProfileScreenArgs(user: user),
+                                  );
+                                },
                         );
                       },
                       childCount: usersList.length,
