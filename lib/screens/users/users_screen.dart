@@ -4,6 +4,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
+import 'package:wuphf_chat/screens/create_group/create_group_screen.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 import 'package:wuphf_chat/screens/users/widgets/selecting_fab.dart';
@@ -53,6 +54,12 @@ class _UsersScreenState extends State<UsersScreen> {
 
   void _stopSelecting() {
     context.read<UsersBloc>().add(UsersStopSelecting());
+  }
+
+  void _submitGroup({@required List<User> participants}) {
+    Navigator.of(context).pushNamed(CreateGroupScreen.routeName,
+        arguments: CreateGroupScreenArgs(participants: participants));
+    _stopSelecting();
   }
 
   @override
@@ -127,7 +134,9 @@ class _UsersScreenState extends State<UsersScreen> {
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: isSelecting
                 ? SelectingFAB(
-                    onCreate: () {},
+                    onCreate: () {
+                      _submitGroup(participants: state.selectedList);
+                    },
                     onCancel: () {
                       _stopSelecting();
                     },

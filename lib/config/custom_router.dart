@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/screens/create_group/create_group_screen.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 
 class CustomRouter {
@@ -20,6 +21,8 @@ class CustomRouter {
         return SignUpScreen.route();
       case ForgotPasswordScreen.routeName:
         return ForgotPasswordScreen.route();
+      case CreateGroupScreen.routeName:
+        return CreateGroupScreen.route(args: settings.arguments);
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(args: settings.arguments);
       case ChattingScreen.routeName:
