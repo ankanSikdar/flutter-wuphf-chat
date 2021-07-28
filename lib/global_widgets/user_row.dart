@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'profile_picture.dart';
 
@@ -11,6 +12,7 @@ class UserRow extends StatelessWidget {
   final Function onView;
   final Function onLongPress;
   final bool isOnline;
+  final bool isChecked;
 
   const UserRow({
     Key key,
@@ -21,6 +23,7 @@ class UserRow extends StatelessWidget {
     this.onChat,
     this.onView,
     this.onLongPress,
+    this.isChecked,
     this.date,
   }) : super(key: key);
 
@@ -41,7 +44,19 @@ class UserRow extends StatelessWidget {
                   onTap: onView,
                   child: Stack(
                     children: [
-                      ProfilePicture(imageUrl: imageUrl),
+                      isChecked != null && isChecked == true
+                          ? Container(
+                              height: 70.0,
+                              width: 70.0,
+                              child: Center(
+                                child: FaIcon(
+                                  FontAwesomeIcons.checkCircle,
+                                  size: 70.0,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            )
+                          : ProfilePicture(imageUrl: imageUrl),
                       if (isOnline != null)
                         Positioned(
                           bottom: 3,

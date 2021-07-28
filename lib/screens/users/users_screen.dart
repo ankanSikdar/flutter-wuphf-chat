@@ -90,9 +90,8 @@ class _UsersScreenState extends State<UsersScreen> {
                         final user = usersList[index];
                         final isSelected = state.selectedList.contains(user);
                         return UserRow(
-                          title: isSelected
-                              ? 'Selected ${user.displayName}'
-                              : user.displayName,
+                          isChecked: isSelected,
+                          title: user.displayName,
                           subtitle: user.bio.isEmpty ? user.email : user.bio,
                           imageUrl: user.profileImageUrl,
                           isOnline: user.presence,
