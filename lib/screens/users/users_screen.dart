@@ -70,16 +70,14 @@ class _UsersScreenState extends State<UsersScreen> {
             state.status == UsersStateStatus.selecting) {
           final isSelecting = state.status == UsersStateStatus.selecting;
           final List<User> usersList =
-              state.status == UsersStateStatus.searching
-                  ? state.searchList
-                  : state.usersList;
+              state.searchList.isNotEmpty ? state.searchList : state.usersList;
           return Scaffold(
             body: CustomScrollView(
               slivers: [
                 SearchSliverAppBar(
                   title: isSelecting ? 'Create Group' : 'Users',
                   textEditingController: _textEditingController,
-                  suffixActive: state.status == UsersStateStatus.searching,
+                  suffixActive: state.searchList.isNotEmpty,
                   search: _search,
                   stopSearch: _stopSearch,
                 ),

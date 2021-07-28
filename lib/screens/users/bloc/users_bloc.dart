@@ -84,14 +84,25 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       }
     });
 
-    yield state.copyWith(
-      searchList: results,
-      status: UsersStateStatus.searching,
-    );
+    if (state.status == UsersStateStatus.selecting) {
+      // User is selecting while searching
+      yield state.copyWith(
+          searchList: results, status: UsersStateStatus.selecting);
+    } else {
+      yield state.copyWith(
+        searchList: results,
+        status: UsersStateStatus.searching,
+      );
+    }
   }
 
   Stream<UsersState> _mapUsersStopSearchingToState() async* {
-    yield state.copyWith(searchList: [], status: UsersStateStatus.loaded);
+    if (state.status == UsersStateStatus.selecting) {
+      // User was selecting while searching
+      yield state.copyWith(searchList: [], status: UsersStateStatus.selecting);
+    } else {
+      yield state.copyWith(searchList: [], status: UsersStateStatus.loaded);
+    }
   }
 
   Stream<UsersState> _mapUsersUpdateSelectedListToState(
