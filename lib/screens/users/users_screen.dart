@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:timeago/timeago.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/chatting/chatting_screen.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
+import 'package:wuphf_chat/screens/users/widgets/selecting_fab.dart';
 
 class UsersScreen extends StatefulWidget {
   static const String routeName = '/users-screen';
@@ -45,55 +45,76 @@ class _UsersScreenState extends State<UsersScreen> {
     _textEditingController.clear();
   }
 
+  void _selectUser(User user) {
+    context.read<UsersBloc>().add(
+          UsersUpdateSelectedList(user: user),
+        );
+  }
+
+  void _stopSelecting() {
+    context.read<UsersBloc>().add(UsersStopSelecting());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<UsersBloc, UsersState>(
-        builder: (context, state) {
-          print('Status: ${state.status}');
-          if (state.status == UsersStateStatus.error) {
-            return Center(
-              child: Text(state.error),
-            );
-          }
-          if (state.status == UsersStateStatus.loaded ||
-              state.status == UsersStateStatus.searching) {
-            final List<User> usersList =
-                state.status == UsersStateStatus.searching
-                    ? state.searchList
-                    : state.usersList;
-            return CustomScrollView(
+    return BlocBuilder<UsersBloc, UsersState>(
+      builder: (context, state) {
+        print('Status: ${state.status}');
+        if (state.status == UsersStateStatus.error) {
+          return Center(
+            child: Text(state.error),
+          );
+        }
+        if (state.status == UsersStateStatus.loaded ||
+            state.status == UsersStateStatus.searching ||
+            state.status == UsersStateStatus.selecting) {
+          final isSelecting = state.status == UsersStateStatus.selecting;
+          final List<User> usersList =
+              state.status == UsersStateStatus.searching
+                  ? state.searchList
+                  : state.usersList;
+          return Scaffold(
+            body: CustomScrollView(
               slivers: [
                 SearchSliverAppBar(
-                  title: 'Users',
+                  title: isSelecting ? 'Create Group' : 'Users',
                   textEditingController: _textEditingController,
                   suffixActive: state.status == UsersStateStatus.searching,
                   search: _search,
                   stopSearch: _stopSearch,
                 ),
                 SliverPadding(
-                  padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(
+                      16.0, 8.0, 8.0, isSelecting ? 84.0 : 0.0),
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final user = usersList[index];
-                        return UserRow(
-                          title: user.displayName,
-                          subtitle: user.bio.isEmpty ? user.email : user.bio,
-                          imageUrl: user.profileImageUrl,
-                          isOnline: user.presence,
-                          onChat: () {
-                            Navigator.of(context).pushNamed(
-                              ChattingScreen.routeName,
-                              arguments: ChattingScreenArgs(user: user),
-                            );
+                        final isSelected = state.selectedList.contains(user);
+                        return InkWell(
+                          onLongPress: () {
+                            _selectUser(user);
                           },
-                          onView: () {
-                            Navigator.of(context).pushNamed(
-                              ViewProfileScreen.routeName,
-                              arguments: ViewProfileScreenArgs(user: user),
-                            );
-                          },
+                          child: UserRow(
+                            title: isSelected
+                                ? 'Selected ${user.displayName}'
+                                : user.displayName,
+                            subtitle: user.bio.isEmpty ? user.email : user.bio,
+                            imageUrl: user.profileImageUrl,
+                            isOnline: user.presence,
+                            onChat: () {
+                              Navigator.of(context).pushNamed(
+                                ChattingScreen.routeName,
+                                arguments: ChattingScreenArgs(user: user),
+                              );
+                            },
+                            onView: () {
+                              Navigator.of(context).pushNamed(
+                                ViewProfileScreen.routeName,
+                                arguments: ViewProfileScreenArgs(user: user),
+                              );
+                            },
+                          ),
                         );
                       },
                       childCount: usersList.length,
@@ -101,11 +122,21 @@ class _UsersScreenState extends State<UsersScreen> {
                   ),
                 ),
               ],
-            );
-          }
-          return Center(child: LoadingIndicator());
-        },
-      ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: isSelecting
+                ? SelectingFAB(
+                    onCreate: () {},
+                    onCancel: () {
+                      _stopSelecting();
+                    },
+                  )
+                : null,
+          );
+        }
+        return Center(child: LoadingIndicator());
+      },
     );
   }
 }

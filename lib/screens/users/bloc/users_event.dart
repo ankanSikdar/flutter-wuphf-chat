@@ -28,3 +28,14 @@ class UsersUpdateSearchList extends UsersEvent {
 }
 
 class UsersStopSearching extends UsersEvent {}
+
+class UsersUpdateSelectedList extends UsersEvent {
+  final User user;
+
+  UsersUpdateSelectedList({this.user});
+
+  @override
+  List<Object> get props => [user];
+}
+
+class UsersStopSelecting extends UsersEvent {}

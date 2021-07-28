@@ -37,6 +37,12 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     if (event is UsersStopSearching) {
       yield* _mapUsersStopSearchingToState();
     }
+    if (event is UsersUpdateSelectedList) {
+      yield* _mapUsersUpdateSelectedListToState(event);
+    }
+    if (event is UsersStopSelecting) {
+      yield* _mapUsersStopSelectingToState();
+    }
   }
 
   @override
@@ -86,5 +92,26 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
   Stream<UsersState> _mapUsersStopSearchingToState() async* {
     yield state.copyWith(searchList: [], status: UsersStateStatus.loaded);
+  }
+
+  Stream<UsersState> _mapUsersUpdateSelectedListToState(
+      UsersUpdateSelectedList event) async* {
+    final listCopy = [...state.selectedList];
+    if (state.selectedList.contains(event.user)) {
+      listCopy.remove(event.user);
+      if (listCopy.isEmpty) {
+        add(UsersStopSelecting());
+      } else {
+        yield state.copyWith(selectedList: listCopy);
+      }
+    } else {
+      listCopy.add(event.user);
+      yield state.copyWith(
+          selectedList: listCopy, status: UsersStateStatus.selecting);
+    }
+  }
+
+  Stream<UsersState> _mapUsersStopSelectingToState() async* {
+    yield state.copyWith(selectedList: [], status: UsersStateStatus.loaded);
   }
 }
