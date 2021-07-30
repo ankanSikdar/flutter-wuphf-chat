@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
@@ -87,8 +89,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ProfilePictureWidget(
+                        ChangeProfilePicture(
                           imageUrl: state.profileImageUrl,
+                          onChanged: (File file) {
+                            context
+                                .read<EditProfileCubit>()
+                                .profileImageChanged(file);
+                          },
                         ),
                         SizedBox(height: 24.0),
                         EmailWidget(

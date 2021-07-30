@@ -3,22 +3,23 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:wuphf_chat/config/configs.dart';
-import 'package:wuphf_chat/screens/edit_profile/cubit/editprofile_cubit.dart';
 
-class ProfilePictureWidget extends StatefulWidget {
-  ProfilePictureWidget({Key key, @required this.imageUrl}) : super(key: key);
+class ChangeProfilePicture extends StatefulWidget {
+  ChangeProfilePicture(
+      {Key key, @required this.imageUrl, @required this.onChanged})
+      : super(key: key);
 
   final String imageUrl;
+  final Function onChanged;
 
   @override
-  _ProfilePictureWidgetState createState() => _ProfilePictureWidgetState();
+  _ChangeProfilePictureState createState() => _ChangeProfilePictureState();
 }
 
-class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
+class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
   final _picker = ImagePicker();
   File file;
 
@@ -42,7 +43,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
         ),
       );
       if (croppedFile != null) {
-        context.read<EditProfileCubit>().profileImageChanged(croppedFile);
+        widget.onChanged(croppedFile);
         setState(() {
           file = croppedFile;
         });
