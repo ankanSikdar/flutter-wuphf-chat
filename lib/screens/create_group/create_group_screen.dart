@@ -43,6 +43,17 @@ class CreateGroupScreen extends StatefulWidget {
 class _CreateGroupScreenState extends State<CreateGroupScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  void _createGroup() {
+    if (context.read<CreateGroupCubit>().state.status ==
+        CreateGroupStatus.submitting) {
+      return;
+    }
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    context.read<CreateGroupCubit>().submitForm();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +68,6 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   ..showSnackBar(
                     SnackBar(content: Text('${state.error}')),
                   );
-                context.read<CreateGroupCubit>().reset();
               }
               if (state.status == CreateGroupStatus.submitting) {
                 _formKey.currentState.deactivate();
@@ -68,6 +78,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                   ..showSnackBar(
                     SnackBar(content: Text('Group Created!')),
                   );
+                Navigator.of(context).pop();
               }
             },
             builder: (context, state) {
@@ -93,11 +104,15 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         ),
                         SizedBox(height: 16.0),
                         InkWellButton(
-                          onTap: () {
-                            print('Check: ${_formKey.currentState.validate()}');
-                          },
+                          onTap: state.status == CreateGroupStatus.submitting
+                              ? null
+                              : () {
+                                  _createGroup();
+                                },
                           buttonColor: Theme.of(context).primaryColor,
-                          title: 'Create Group',
+                          title: state.status == CreateGroupStatus.submitting
+                              ? 'Creating...'
+                              : 'Create Group',
                           titleColor: Colors.white,
                         ),
                         SizedBox(height: 16.0),
