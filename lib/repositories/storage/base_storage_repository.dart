@@ -9,4 +9,6 @@ abstract class BaseStorageRepository {
       {@required String userId, @required File file});
 
   Future<String> uploadMessageImage({@required File file});
+
+  Future<String> uploadGroupImage({@required File file});
 }

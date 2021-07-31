@@ -55,4 +55,18 @@ class StorageRepository extends BaseStorageRepository {
       throw Exception('PROFILE IMAGE UPLOAD ERROR: ${e.message}');
     }
   }
+
+  @override
+  Future<String> uploadGroupImage({@required File file}) async {
+    final id = Uuid().v4();
+    final url = '/images/groupPictures/$id.jpg';
+
+    try {
+      final downloadUrl = await uploadImage(url: url, file: file);
+
+      return downloadUrl;
+    } catch (e) {
+      throw Exception('GROUP IMAGE UPLOAD ERROR: ${e.message}');
+    }
+  }
 }
