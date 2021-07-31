@@ -24,11 +24,11 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
         _groupsRepository = groupsRepository,
         super(CreateGroupState.initial(participants: participants));
 
-  Future<void> groupNameChanged(String value) {
+  void groupNameChanged(String value) {
     emit(state.copyWith(groupName: value.trim()));
   }
 
-  Future<void> groupImageChanged(File file) {
+  void groupImageChanged(File file) {
     emit(state.copyWith(newGroupImage: file));
   }
 
@@ -55,11 +55,13 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
       final List<String> participantIds =
           state.participants.map((user) => user.id).toList();
 
-      await _groupsRepository.createGroup(
+      final groupDbID = await _groupsRepository.createGroup(
         groupName: state.groupName,
         groupImageUrl: state.groupImageUrl,
         participants: participantIds,
       );
+
+      print('Success: $groupDbID');
 
       emit(state.copyWith(status: CreateGroupStatus.success));
     } catch (e) {

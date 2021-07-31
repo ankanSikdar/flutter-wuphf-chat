@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:wuphf_chat/models/group_model.dart';
 import 'package:wuphf_chat/models/models.dart';
@@ -55,9 +56,9 @@ class GroupsRepository extends BaseGroupRepository {
 
   @override
   Future<String> createGroup({
-    List<String> participants,
-    String groupName,
-    String groupImageUrl,
+    @required  List<String> participants,
+    @required String groupName,
+    @required String groupImageUrl,
   }) async {
     participants.add(_firebaseAuth.currentUser.uid);
     try {

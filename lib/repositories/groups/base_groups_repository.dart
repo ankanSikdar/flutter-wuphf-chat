@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/models/models.dart';
 
 abstract class BaseGroupRepository {
   Stream<List<Group>> getGroupsList();
 
-  Future<String> createGroup(
-      {List<String> participants, String groupName, String groupImageUrl});
+  Future<String> createGroup({
+    @required List<String> participants,
+    @required String groupName,
+    @required String groupImageUrl,
+  });
 }
