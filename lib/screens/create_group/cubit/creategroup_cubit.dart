@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-
 part 'creategroup_state.dart';
 
 class CreateGroupCubit extends Cubit<CreateGroupState> {
@@ -16,10 +14,8 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
 
   CreateGroupCubit({
     @required List<User> participants,
-    @required UserRepository userRepository,
     @required StorageRepository storageRepository,
     @required GroupsRepository groupsRepository,
-    firebase_auth.FirebaseAuth firebaseAuth,
   })  : _storageRepository = storageRepository,
         _groupsRepository = groupsRepository,
         super(CreateGroupState.initial(participants: participants));
