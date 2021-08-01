@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
@@ -10,6 +12,7 @@ import 'package:wuphf_chat/repositories/repositories.dart';
 class GroupsRepository extends BaseGroupRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
+  final StorageRepository _storageRepository = StorageRepository();
 
   GroupsRepository({
     firebase_auth.FirebaseAuth firebaseAuth,
@@ -91,6 +94,38 @@ class GroupsRepository extends BaseGroupRepository {
       return createdGroup.id;
     } catch (e) {
       throw ('CREATE GROUP ERROR: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> sendMessage(
+      {@required String groupId, @required String text, File image}) async {
+    try {
+      String imageUrl = '';
+      if (image != null) {
+        imageUrl = await _storageRepository.uploadMessageImage(file: image);
+      }
+
+      final messageDocRef = await _firebaseFirestore
+          .collection('groupsDb')
+          .doc(groupId)
+          .collection('groupMessages')
+          .add({
+        'imageUrl': imageUrl,
+        'text': text,
+        'sentAt': FieldValue.serverTimestamp(),
+        'sentBy': _firebaseAuth.currentUser.uid,
+      });
+
+      final lastMessageDocSnap = await messageDocRef.get();
+      final lastMessage = Message.fromDocument(lastMessageDocSnap);
+
+      await _firebaseFirestore
+          .collection('groupsDb')
+          .doc(groupId)
+          .update(lastMessage.toDocument());
+    } catch (e) {
+      throw ('SEND MESSAGE ERROR: ${e.message}');
     }
   }
 }
