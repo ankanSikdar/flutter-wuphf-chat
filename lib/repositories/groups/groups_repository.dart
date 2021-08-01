@@ -35,20 +35,22 @@ class GroupsRepository extends BaseGroupRepository {
   Stream<List<Group>> getGroupsList() {
     try {
       return Rx.combineLatest2<List<String>, List<Group>, List<Group>>(
-          _getUserGroupsIds(),
-          _getAllGroups(),
-          (groupIdsList, groupsList) => groupIdsList.map((groupId) {
-                print('GroupId: $groupId');
+          _getUserGroupsIds(), _getAllGroups(), (groupIdsList, groupsList) {
+        final userGroups = groupIdsList
+            .map((groupId) =>
+                groupsList.firstWhere((element) => element.groupId == groupId))
+            .toList();
 
-                final group = groupsList
-                    .firstWhere((element) => element.groupId == groupId);
+        mergeSort(userGroups, compare: (a, b) {
+          if (a.lastMessage.sentAt.isAfter(b.lastMessage.sentAt)) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
 
-                print('GroupId: ${group.groupName}');
-                print('GroupId: ${group.lastMessage}');
-                print('GroupId: ${group.participants}');
-
-                return group;
-              }).toList());
+        return userGroups;
+      });
     } catch (e) {
       throw ('GET GROUP LIST ERROR: ${e.message}');
     }
@@ -56,7 +58,7 @@ class GroupsRepository extends BaseGroupRepository {
 
   @override
   Future<String> createGroup({
-    @required  List<String> participants,
+    @required List<String> participants,
     @required String groupName,
     @required String groupImageUrl,
   }) async {
