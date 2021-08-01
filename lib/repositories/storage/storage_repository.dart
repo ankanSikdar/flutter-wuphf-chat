@@ -52,7 +52,7 @@ class StorageRepository extends BaseStorageRepository {
 
       return downloadUrl;
     } catch (e) {
-      throw Exception('PROFILE IMAGE UPLOAD ERROR: ${e.message}');
+      throw Exception('MESSAGE IMAGE UPLOAD ERROR: ${e.message}');
     }
   }
 
