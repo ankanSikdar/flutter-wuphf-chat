@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/screens/group_chatting/group_chatting.dart';
 import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
 
@@ -95,6 +96,13 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                 subtitle: text,
                                 imageUrl: group.groupImage,
                                 date: group.lastMessage.sentAt.forLastMessage(),
+                                onChat: () {
+                                  Navigator.of(context).pushNamed(
+                                    GroupChattingScreen.routeName,
+                                    arguments: GroupChattingScreenArgs(
+                                        groupId: group.groupId),
+                                  );
+                                },
                               );
                             },
                             childCount: groups.length,
