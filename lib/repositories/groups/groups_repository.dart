@@ -13,6 +13,7 @@ class GroupsRepository extends BaseGroupRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
   final StorageRepository _storageRepository = StorageRepository();
+  final UserRepository _userRepository = UserRepository();
 
   GroupsRepository({
     firebase_auth.FirebaseAuth firebaseAuth,
@@ -126,6 +127,56 @@ class GroupsRepository extends BaseGroupRepository {
           .update(lastMessage.toDocument());
     } catch (e) {
       throw ('SEND MESSAGE ERROR: ${e.message}');
+    }
+  }
+
+  Stream<List<Message>> _groupMessagesStream({@required String groupId}) {
+    try {
+      return _firebaseFirestore
+          .collection('groupsDb')
+          .doc(groupId)
+          .collection('groupMessages')
+          .orderBy('sentAt', descending: true)
+          .snapshots()
+          .map((QuerySnapshot snap) =>
+              snap.docs.map((QueryDocumentSnapshot doc) {
+                final data = doc.data() as Map;
+                return Message(
+                  id: doc.id,
+                  // Time can be null because server has not yet written the time
+                  // Delay of a few milliseconds to write time can throw null error
+                  sentAt: ((data['sentAt'] as Timestamp) ?? Timestamp.now())
+                      .toDate(),
+                  sentBy: data['sentBy'],
+                  text: data['text'],
+                  imageUrl: data['imageUrl'] ?? '',
+                );
+              }).toList());
+    } catch (e) {
+      throw Exception('groupMessagesStream ERROR: ${e.message}');
+    }
+  }
+
+  // @override
+  Stream<List<Message>> getGroupMessagesList({@required String groupId}) {
+    try {
+      return Rx.combineLatest2<List<Message>, List<User>, List<Message>>(
+          _groupMessagesStream(groupId: groupId),
+          _userRepository.getAllUsers(),
+          (messagesList, usersList) => messagesList.map((mess) {
+                final sentUser =
+                    usersList.firstWhere((user) => user.id == mess.sentBy);
+                return Message(
+                  id: mess.id,
+                  sentBy: mess.sentBy,
+                  sentAt: mess.sentAt,
+                  text: mess.text,
+                  imageUrl: mess.imageUrl,
+                  name: sentUser.displayName,
+                );
+              }).toList());
+    } catch (e) {
+      throw Exception('getGroupMessagesList ERROR: ${e.message}');
     }
   }
 }

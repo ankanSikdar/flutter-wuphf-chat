@@ -8,6 +8,7 @@ class Message extends Equatable {
   final DateTime sentAt;
   final String text;
   final String imageUrl;
+  final String name; // Only for group messages
 
   Message({
     @required this.id,
@@ -15,6 +16,7 @@ class Message extends Equatable {
     @required this.sentAt,
     @required this.text,
     @required this.imageUrl,
+    this.name,
   });
 
   Map<String, dynamic> toDocument() {
@@ -24,6 +26,7 @@ class Message extends Equatable {
       'sentAt': Timestamp.fromDate(sentAt),
       'text': text,
       'imageUrl': imageUrl,
+      // name not needed
     };
   }
 
@@ -37,6 +40,7 @@ class Message extends Equatable {
       sentAt: (data['sentAt'] as Timestamp).toDate(),
       text: data['text'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
+      // name not needed
     );
   }
 
@@ -49,11 +53,12 @@ class Message extends Equatable {
       sentAt: (data['sentAt'] as Timestamp).toDate(),
       text: data['text'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
+      // name not needed
     );
   }
 
   @override
-  List<Object> get props => [id, sentAt, sentBy, text, imageUrl];
+  List<Object> get props => [id, sentAt, sentBy, text, imageUrl, name];
 
   Message copyWith({
     String id,
@@ -61,6 +66,7 @@ class Message extends Equatable {
     DateTime sentAt,
     String text,
     String imageUrl,
+    String name,
   }) {
     return Message(
       id: id ?? this.id,
@@ -68,6 +74,7 @@ class Message extends Equatable {
       sentAt: sentAt ?? this.sentAt,
       text: text ?? this.text,
       imageUrl: imageUrl ?? this.imageUrl,
+      name: name ?? this.name,
     );
   }
 }

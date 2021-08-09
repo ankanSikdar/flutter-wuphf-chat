@@ -17,4 +17,6 @@ abstract class BaseGroupRepository {
     @required String text,
     File image,
   });
+
+  Stream<List<Message>> getGroupMessagesList({@required String groupId});
 }
