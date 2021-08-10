@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +107,18 @@ class ChattingScreen extends StatelessWidget {
                 },
               ),
             ),
-            Flexible(flex: 0, child: SendMessageWidget()),
+            Flexible(
+                flex: 0,
+                child: SendMessageWidget(
+                  onSend: ({String message, File imageFile}) {
+                    context.read<ChattingBloc>().add(
+                          ChattingSendMessage(
+                            message: message,
+                            image: imageFile,
+                          ),
+                        );
+                  },
+                )),
           ],
         ),
       ),

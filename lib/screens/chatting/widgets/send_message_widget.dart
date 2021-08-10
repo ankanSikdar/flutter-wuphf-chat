@@ -11,7 +11,9 @@ import 'package:wuphf_chat/screens/chatting/widgets/emoji_widget.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/message_text_field.dart';
 
 class SendMessageWidget extends StatefulWidget {
-  const SendMessageWidget({Key key}) : super(key: key);
+  final Function({String message, File imageFile}) onSend;
+
+  const SendMessageWidget({Key key, @required this.onSend}) : super(key: key);
 
   @override
   _SendMessageWidgetState createState() => _SendMessageWidgetState();
@@ -47,12 +49,10 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
 
   void _sendMessage() {
     if (_textEditingController.text.trim().isNotEmpty || imageFile != null) {
-      context.read<ChattingBloc>().add(
-            ChattingSendMessage(
-              message: _textEditingController.text.trim(),
-              image: imageFile,
-            ),
-          );
+      widget.onSend(
+        message: _textEditingController.text.trim(),
+        imageFile: imageFile,
+      );
       _textEditingController.clear();
       setState(() {
         imageFile = null;
