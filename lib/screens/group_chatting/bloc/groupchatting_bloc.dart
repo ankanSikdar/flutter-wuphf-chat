@@ -18,7 +18,9 @@ class GroupChattingBloc extends Bloc<GroupChattingEvent, GroupChattingState> {
     @required String groupDbId,
     @required GroupsRepository groupsRepository,
   })  : _groupsRepository = groupsRepository,
-        super(GroupChattingState.initial(groupDbId: groupDbId));
+        super(GroupChattingState.initial(groupDbId: groupDbId)) {
+    add(FetchMessages());
+  }
 
   @override
   Future<void> close() {
