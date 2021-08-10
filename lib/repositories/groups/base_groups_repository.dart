@@ -19,4 +19,6 @@ abstract class BaseGroupRepository {
   });
 
   Stream<List<Message>> getGroupMessagesList({@required String groupId});
+
+  Stream<Group> getGroupDetailsStream({@required String groupId});
 }

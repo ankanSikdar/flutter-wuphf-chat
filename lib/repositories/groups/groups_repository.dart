@@ -157,7 +157,7 @@ class GroupsRepository extends BaseGroupRepository {
     }
   }
 
-  // @override
+  @override
   Stream<List<Message>> getGroupMessagesList({@required String groupId}) {
     try {
       return Rx.combineLatest2<List<Message>, List<User>, List<Message>>(
@@ -178,5 +178,30 @@ class GroupsRepository extends BaseGroupRepository {
     } catch (e) {
       throw Exception('getGroupMessagesList ERROR: ${e.message}');
     }
+  }
+
+  Stream<Group> _getGroupStream({@required String groupId}) {
+    return _firebaseFirestore
+        .collection('groupsDb')
+        .doc(groupId)
+        .snapshots()
+        .map((docSnapshot) {
+      final data = docSnapshot.data() as Map;
+      return Group.fromMap(data);
+    });
+  }
+
+  @override
+  Stream<Group> getGroupDetailsStream({@required String groupId}) {
+    return Rx.combineLatest2<Group, List<User>, Group>(
+        _getGroupStream(groupId: groupId), _userRepository.getAllUsers(),
+        (groupDetails, usersList) {
+      List<User> users = [];
+      groupDetails.participants.map((u) {
+        final pUser = usersList.firstWhere((element) => u == element.id);
+        users.add(pUser);
+      });
+      return groupDetails.copyWith(usersList: users);
+    });
   }
 }
