@@ -8,8 +8,10 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/groups/groups_repository.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/send_message_widget.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/widgets.dart';
+import 'package:wuphf_chat/screens/group_chatting/widgets/group_chatting_app_bar.dart';
 
 import 'bloc/groupchatting_bloc.dart';
+import 'widgets/bloc/livegroup_bloc.dart';
 
 class GroupChattingScreenArgs {
   final String groupId;
@@ -47,9 +49,12 @@ class GroupChattingScreen extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
-            TwoTextAppBar(
-              title: 'Group Name',
-              subtitle: 'Participants...',
+            BlocProvider<LiveGroupBloc>(
+              create: (context) => LiveGroupBloc(
+                groupId: groupId,
+                groupsRepository: context.read<GroupsRepository>(),
+              ),
+              child: GroupChattingAppBar(),
             ),
           ];
         },

@@ -197,7 +197,7 @@ class GroupsRepository extends BaseGroupRepository {
         _getGroupStream(groupId: groupId), _userRepository.getAllUsers(),
         (groupDetails, usersList) {
       List<User> users = [];
-      groupDetails.participants.map((u) {
+      groupDetails.participants.forEach((u) {
         final pUser = usersList.firstWhere((element) => u == element.id);
         users.add(pUser);
       });

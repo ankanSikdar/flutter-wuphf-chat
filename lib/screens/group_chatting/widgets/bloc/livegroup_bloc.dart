@@ -14,7 +14,8 @@ class LiveGroupBloc extends Bloc<LiveGroupEvent, LiveGroupState> {
   final GroupsRepository _groupsRepository;
   StreamSubscription _groupSubscription;
 
-  LiveGroupBloc({@required String groupId, GroupsRepository groupsRepository})
+  LiveGroupBloc( 
+      {@required String groupId, @required GroupsRepository groupsRepository})
       : _groupId = groupId,
         _groupsRepository = groupsRepository,
         super(LiveGroupState.initial()) {
