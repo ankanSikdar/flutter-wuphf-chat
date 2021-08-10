@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/config/configs.dart';
-import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/attach_image.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/emoji_widget.dart';
@@ -12,8 +10,11 @@ import 'package:wuphf_chat/screens/chatting/widgets/message_text_field.dart';
 
 class SendMessageWidget extends StatefulWidget {
   final Function({String message, File imageFile}) onSend;
+  final bool isSending;
 
-  const SendMessageWidget({Key key, @required this.onSend}) : super(key: key);
+  const SendMessageWidget(
+      {Key key, @required this.onSend, @required this.isSending})
+      : super(key: key);
 
   @override
   _SendMessageWidgetState createState() => _SendMessageWidgetState();
@@ -103,104 +104,100 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChattingBloc, ChattingState>(
-      builder: (context, state) {
-        return Material(
-          elevation: 8.0,
-          shadowColor: Colors.grey[500],
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(ThemeConfig.borderRadius),
-          ),
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (state.isSending) LinearProgressIndicator(),
-                if (!state.isSending && imageFile != null)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 100.0,
-                        margin: EdgeInsets.only(top: 8.0),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(ThemeConfig.borderRadius),
-                        ),
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(ThemeConfig.borderRadius),
-                          child: Image.file(
-                            imageFile,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+    return Material(
+      elevation: 8.0,
+      shadowColor: Colors.grey[500],
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(ThemeConfig.borderRadius),
+      ),
+      child: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (widget.isSending) LinearProgressIndicator(),
+            if (!widget.isSending && imageFile != null)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100.0,
+                    margin: EdgeInsets.only(top: 8.0),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(ThemeConfig.borderRadius),
+                    ),
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(ThemeConfig.borderRadius),
+                      child: Image.file(
+                        imageFile,
+                        fit: BoxFit.cover,
                       ),
-                      SizedBox(width: 16.0),
-                      IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          setState(
-                            () {
-                              imageFile = null;
-                            },
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: FaIcon(
-                          emojiShowing
-                              ? FontAwesomeIcons.solidKeyboard
-                              : FontAwesomeIcons.solidSmile,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: _onEmojiButtonPressed,
-                      ),
-                      MessageTextField(
-                        focusNode: _focusNode,
-                        textEditingController: _textEditingController,
-                      ),
-                      IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.paperclip,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: _onAttachButtonPressed,
-                      ),
-                      IconButton(
-                        icon: FaIcon(
-                          FontAwesomeIcons.solidPaperPlane,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: _sendMessage,
-                      ),
-                    ],
-                  ),
-                ),
-                Offstage(
-                  offstage: !emojiShowing,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child: EmojiWidget(
-                      onBackspacePressed: _onBackspacePressed,
-                      onEmojiSelected: (Category category, Emoji emoji) {
-                        _onEmojiSelected(emoji);
-                      },
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(width: 16.0),
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      setState(
+                        () {
+                          imageFile = null;
+                        },
+                      );
+                    },
+                  )
+                ],
+              ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: FaIcon(
+                      emojiShowing
+                          ? FontAwesomeIcons.solidKeyboard
+                          : FontAwesomeIcons.solidSmile,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: _onEmojiButtonPressed,
+                  ),
+                  MessageTextField(
+                    focusNode: _focusNode,
+                    textEditingController: _textEditingController,
+                  ),
+                  IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.paperclip,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: _onAttachButtonPressed,
+                  ),
+                  IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.solidPaperPlane,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: _sendMessage,
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+            Offstage(
+              offstage: !emojiShowing,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: EmojiWidget(
+                  onBackspacePressed: _onBackspacePressed,
+                  onEmojiSelected: (Category category, Emoji emoji) {
+                    _onEmojiSelected(emoji);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

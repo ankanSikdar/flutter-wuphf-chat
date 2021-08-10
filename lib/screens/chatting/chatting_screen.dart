@@ -60,66 +60,72 @@ class ChattingScreen extends StatelessWidget {
             )
           ];
         },
-        body: Column(
-          children: [
-            Flexible(
-              flex: 1,
-              child: BlocConsumer<ChattingBloc, ChattingState>(
-                listener: (context, state) {
-                  if (state.status == ChattingStatus.error) {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        SnackBar(content: Text('${state.error}')),
-                      );
-                  }
-                },
-                builder: (context, state) {
-                  if (state.hasMessagedBefore == false) {
-                    return Center(
-                      child: Container(
-                        child: Text('No Chats To Show'),
-                      ),
-                    );
-                  }
-                  if (state.status == ChattingStatus.loaded) {
-                    return ListView.builder(
-                      primary: false,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        final message = state.messagesList[index];
-                        return MessageWidget(
-                          message: message,
-                          isAuthor: message.sentBy != user.id,
-                        );
-                      },
-                      itemCount: state.messagesList.length,
-                    );
-                  }
-                  if (state.status == ChattingStatus.error) {
-                    return Center(
-                      child: Text('Something Went Wrong!'),
-                    );
-                  }
-                  return Center(
-                    child: LoadingIndicator(),
-                  );
-                },
-              ),
-            ),
-            Flexible(
-                flex: 0,
-                child: SendMessageWidget(
-                  onSend: ({String message, File imageFile}) {
-                    context.read<ChattingBloc>().add(
-                          ChattingSendMessage(
-                            message: message,
-                            image: imageFile,
+        body: BlocConsumer<ChattingBloc, ChattingState>(
+          listener: (context, state) {
+            if (state.status == ChattingStatus.error) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  SnackBar(content: Text('${state.error}')),
+                );
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Builder(
+                    builder: (context) {
+                      if (state.hasMessagedBefore == false) {
+                        return Center(
+                          child: Container(
+                            child: Text('No Chats To Show'),
                           ),
                         );
-                  },
-                )),
-          ],
+                      }
+                      if (state.status == ChattingStatus.loaded) {
+                        return ListView.builder(
+                          primary: false,
+                          reverse: true,
+                          itemBuilder: (context, index) {
+                            final message = state.messagesList[index];
+                            return MessageWidget(
+                              message: message,
+                              isAuthor: message.sentBy != user.id,
+                            );
+                          },
+                          itemCount: state.messagesList.length,
+                        );
+                      }
+                      if (state.status == ChattingStatus.error) {
+                        return Center(
+                          child: Text('Something Went Wrong!'),
+                        );
+                      }
+                      return Center(
+                        child: LoadingIndicator(),
+                      );
+                    },
+                  ),
+                ),
+                Flexible(
+                  flex: 0,
+                  child: SendMessageWidget(
+                    isSending: state.isSending,
+                    onSend: ({String message, File imageFile}) {
+                      context.read<ChattingBloc>().add(
+                            ChattingSendMessage(
+                              message: message,
+                              image: imageFile,
+                            ),
+                          );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
