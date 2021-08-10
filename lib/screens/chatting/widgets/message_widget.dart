@@ -10,11 +10,13 @@ import 'package:wuphf_chat/screens/screens.dart';
 class MessageWidget extends StatelessWidget {
   final Message message;
   final bool isAuthor;
+  final String name;
 
   const MessageWidget({
     Key key,
     @required this.message,
     @required this.isAuthor,
+    this.name,
   }) : super(key: key);
 
   @override
@@ -54,6 +56,19 @@ class MessageWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (name != null)
+            Container(
+              child: Text(
+                isAuthor ? 'You' : name,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: isAuthor
+                      ? Colors.deepOrange[400]
+                      : Colors.deepPurple[400],
+                ),
+              ),
+            ),
           if (message.imageUrl != null && message.imageUrl.trim().isNotEmpty)
             Container(
               height: 200.0,

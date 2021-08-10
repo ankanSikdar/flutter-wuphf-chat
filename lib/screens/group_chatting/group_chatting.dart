@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/bloc/auth/auth_bloc.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/groups/groups_repository.dart';
@@ -82,8 +83,9 @@ class GroupChattingScreen extends StatelessWidget {
                             final message = state.messagesList[index];
                             return MessageWidget(
                               message: message,
-                              // isAuthor: message.sentBy != user.id,
-                              isAuthor: false,
+                              name: message.name,
+                              isAuthor: message.sentBy ==
+                                  context.read<AuthBloc>().state.user.uid,
                             );
                           },
                           itemCount: state.messagesList.length,
