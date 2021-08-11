@@ -206,4 +206,19 @@ class GroupsRepository extends BaseGroupRepository {
       return groupDetails.copyWith(usersList: users);
     });
   }
+
+  @override
+  Future<void> updateGroupDetails(
+      {@required String groupId,
+      @required String name,
+      @required String imageUrl}) async {
+    try {
+      await _firebaseFirestore.collection('groupsDb').doc(groupId).update({
+        'groupName': name,
+        'groupImage': imageUrl,
+      });
+    } catch (e) {
+      throw Exception('updateGroupDetails ERROR: ${e.message}');
+    }
+  }
 }

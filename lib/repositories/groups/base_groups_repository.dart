@@ -21,4 +21,9 @@ abstract class BaseGroupRepository {
   Stream<List<Message>> getGroupMessagesList({@required String groupId});
 
   Stream<Group> getGroupDetailsStream({@required String groupId});
+
+  Future<void> updateGroupDetails(
+      {@required String groupId,
+      @required String name,
+      @required String imageUrl});
 }
