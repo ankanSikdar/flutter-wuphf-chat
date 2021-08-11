@@ -4,7 +4,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
-
+import 'package:wuphf_chat/helper/time_helper.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/detials_widget.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
 
@@ -43,8 +43,29 @@ class ViewProfileScreen extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 TwoTextAppBar(
-                    title: 'Details',
-                    subtitle: user.presence ? '🟢 Online' : '⚫ Offline'),
+                  title: 'Details',
+                  subtitle: 'User Presence',
+                  subtitleWidget: user.presence
+                      ? Row(
+                          children: [
+                            Icon(Icons.circle, size: 15, color: Colors.green),
+                            SizedBox(width: 2.0),
+                            Text(
+                              'Online',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  .copyWith(color: Colors.green),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          user.lastSeen.forLastSeen(),
+                          style: Theme.of(context).textTheme.subtitle1,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                ),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
