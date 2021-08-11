@@ -4,11 +4,13 @@ import 'package:wuphf_chat/config/configs.dart';
 class TwoTextAppBar extends StatelessWidget {
   final String title;
   final String subtitle;
+  final Widget subtitleWidget;
 
   const TwoTextAppBar({
     Key key,
     @required this.title,
     @required this.subtitle,
+    this.subtitleWidget,
   }) : super(key: key);
 
   @override
@@ -37,12 +39,14 @@ class TwoTextAppBar extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 8.0),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.subtitle1,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          subtitleWidget == null
+              ? Text(
+                  subtitle,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              : subtitleWidget,
         ],
       ),
       leading: IconButton(
