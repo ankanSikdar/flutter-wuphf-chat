@@ -4,7 +4,9 @@ import 'package:wuphf_chat/models/models.dart';
 
 class ParticipantsWidget extends StatelessWidget {
   final List<User> participants;
-  const ParticipantsWidget({Key key, @required this.participants})
+  final bool showPresence;
+  const ParticipantsWidget(
+      {Key key, @required this.participants, this.showPresence = false})
       : super(key: key);
 
   @override
@@ -14,6 +16,7 @@ class ParticipantsWidget extends StatelessWidget {
               imageUrl: user.profileImageUrl,
               title: user.displayName,
               subtitle: user.bio,
+              isOnline: showPresence ? user.presence : null,
             ))
         .toList();
     return Column(

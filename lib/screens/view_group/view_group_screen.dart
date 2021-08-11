@@ -75,7 +75,10 @@ class ViewGroupScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 12.0),
-                        ParticipantsWidget(participants: state.group.usersList),
+                        ParticipantsWidget(
+                          participants: state.group.usersList,
+                          showPresence: true,
+                        ),
                       ],
                     ),
                   ),
