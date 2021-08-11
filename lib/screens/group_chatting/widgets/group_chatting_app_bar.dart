@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/auth/auth_bloc.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
-
-import 'bloc/livegroup_bloc.dart';
 
 class GroupChattingAppBar extends StatelessWidget {
   const GroupChattingAppBar({Key key}) : super(key: key);
