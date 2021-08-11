@@ -7,7 +7,6 @@ import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chats/bloc/chats_bloc.dart';
 import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
 import 'package:wuphf_chat/screens/screens.dart';
-import 'package:wuphf_chat/screens/user_profile/bloc/userprofile_bloc.dart';
 import 'package:wuphf_chat/screens/users/bloc/users_bloc.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
@@ -55,8 +54,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       ),
       child: GroupsScreen(),
     ),
-    BlocProvider<UserProfileBloc>(
-      create: (context) => UserProfileBloc(
+    BlocProvider<LiveUserBloc>(
+      create: (context) => LiveUserBloc(
         userRepository: context.read<UserRepository>(),
         userId: context.read<AuthBloc>().state.user.uid,
       ),

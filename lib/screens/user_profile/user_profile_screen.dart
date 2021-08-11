@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/user_profile/widgets/widgets.dart';
-
-import 'bloc/userprofile_bloc.dart';
 
 class UserProfileScreen extends StatelessWidget {
   static const String routeName = '/user-profile-screen';
@@ -13,9 +12,9 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserProfileBloc, UserProfileState>(
+    return BlocBuilder<LiveUserBloc, LiveUserState>(
       builder: (context, state) {
-        if (state.status == UserProfileStatus.loaded) {
+        if (state.status == LiveUserStatus.loaded) {
           return Scaffold(
             body: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -43,12 +42,11 @@ class UserProfileScreen extends StatelessWidget {
                     name: 'Edit Profile',
                     icon: Icons.edit,
                     color: Colors.deepOrange[100],
-                    onTap: () async {
-                      await Navigator.of(context).pushNamed(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
                         EditProfileScreen.routeName,
                         arguments: EditProfileArgs(user: state.user),
                       );
-                      context.read<UserProfileBloc>().add(LoadUserProfile());
                     },
                   ),
                   SignOutButton(),
@@ -57,7 +55,7 @@ class UserProfileScreen extends StatelessWidget {
             ),
           );
         }
-        if (state.status == UserProfileStatus.error) {
+        if (state.status == LiveUserStatus.error) {
           return Center(
             child: Text(state.error),
           );
