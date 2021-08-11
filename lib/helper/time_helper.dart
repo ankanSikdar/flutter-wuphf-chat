@@ -25,4 +25,10 @@ extension StringParsing on DateTime {
   String forLastSeen() {
     return 'Last seen ' + timeago.format(this);
   }
+
+  String forCreatedAt() {
+    return intl.DateFormat.jm().format(this) +
+        ' | ' +
+        intl.DateFormat.yMMMMEEEEd().format(this);
+  }
 }

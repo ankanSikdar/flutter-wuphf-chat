@@ -5,6 +5,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/create_group/widgets/participants_widget.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
+import 'package:wuphf_chat/helper/time_helper.dart';
 
 class ViewGroupScreenArgs {
   final String groupId;
@@ -37,6 +38,8 @@ class ViewGroupScreen extends StatelessWidget {
       body: BlocBuilder<LiveGroupBloc, LiveGroupState>(
         builder: (context, state) {
           if (state.status == LiveGroupStatus.loaded) {
+            final createdByUser = state.group.usersList
+                .firstWhere((element) => element.id == state.group.createdBy);
             return CustomScrollView(
               slivers: [
                 TwoTextAppBar(
@@ -50,6 +53,28 @@ class ViewGroupScreen extends StatelessWidget {
                       children: [
                         ProfilePictureWidget(imageUrl: state.group.groupImage),
                         SizedBox(height: 32.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InputTitle(title: 'Created By'),
+                            UserRow(
+                              imageUrl: createdByUser.profileImageUrl,
+                              title: createdByUser.displayName,
+                              subtitle: createdByUser.bio,
+                              isOnline: createdByUser.presence,
+                            ),
+                            SizedBox(height: 12.0),
+                            InputTitle(title: 'Created On'),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                              child: Text(
+                                state.group.createdAt.forCreatedAt(),
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.0),
                         ParticipantsWidget(participants: state.group.usersList),
                       ],
                     ),
