@@ -5,6 +5,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 
 class GroupChattingAppBar extends StatelessWidget {
   const GroupChattingAppBar({Key key}) : super(key: key);
@@ -45,10 +46,8 @@ class GroupChattingAppBar extends StatelessWidget {
           title: InkWell(
             onTap: hasLoaded
                 ? () {
-                    // Navigator.of(context).pushNamed(
-                    //   ViewProfileScreen.routeName,
-                    //   arguments: ViewProfileScreenArgs(user: user),
-                    // );
+                    Navigator.of(context).pushNamed(ViewGroupScreen.routeName,
+                        arguments: ViewGroupScreenArgs(groupId: group.groupId));
                   }
                 : null,
             child: Container(

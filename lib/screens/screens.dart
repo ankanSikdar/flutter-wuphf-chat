@@ -11,3 +11,4 @@ export 'view_profile/view_profile_screen.dart';
 export 'view_image/view_image_screen.dart';
 export 'groups/groups_screen.dart';
 export 'group_chatting/group_chatting.dart';
+export 'view_group/view_group_screen.dart';
