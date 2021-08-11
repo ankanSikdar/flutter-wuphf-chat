@@ -61,6 +61,7 @@ class Group extends Equatable {
       createdBy,
       lastMessage,
       participants,
+      usersList,
     ];
   }
 
