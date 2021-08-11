@@ -6,6 +6,7 @@ import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/screens/group_chatting/group_chatting.dart';
 import 'package:wuphf_chat/screens/groups/bloc/groups_bloc.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 
 class GroupsScreen extends StatefulWidget {
   static const String routeName = '/groups-screen';
@@ -102,6 +103,12 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                     arguments: GroupChattingScreenArgs(
                                         groupId: group.groupId),
                                   );
+                                },
+                                onView: () {
+                                  Navigator.of(context).pushNamed(
+                                      ViewGroupScreen.routeName,
+                                      arguments: ViewGroupScreenArgs(
+                                          groupId: group.groupId));
                                 },
                               );
                             },
