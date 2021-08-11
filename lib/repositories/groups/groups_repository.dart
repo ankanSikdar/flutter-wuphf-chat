@@ -72,6 +72,8 @@ class GroupsRepository extends BaseGroupRepository {
           await _firebaseFirestore.collection('groupsDb').add({});
 
       await _firebaseFirestore.collection('groupsDb').doc(createdGroup.id).set({
+        'createdAt': FieldValue.serverTimestamp(),
+        'createdBy': _firebaseAuth.currentUser.uid,
         'groupId': createdGroup.id,
         'groupName': groupName,
         'groupImage': groupImageUrl,
@@ -80,7 +82,7 @@ class GroupsRepository extends BaseGroupRepository {
         'imageUrl': '',
         'sentAt': FieldValue.serverTimestamp(),
         'sentBy': _firebaseAuth.currentUser.uid,
-        'text': 'Group was created...'
+        'text': 'Group was created...',
       });
 
       participants.forEach((userId) async {

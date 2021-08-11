@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -9,6 +10,8 @@ class Group extends Equatable {
   final String groupId;
   final String groupName;
   final String groupImage;
+  final DateTime createdAt;
+  final String createdBy;
   final Message lastMessage;
   final List<String> participants;
   final List<User> usersList;
@@ -17,6 +20,8 @@ class Group extends Equatable {
     @required this.groupId,
     @required this.groupName,
     @required this.groupImage,
+    @required this.createdAt,
+    @required this.createdBy,
     @required this.lastMessage,
     @required this.participants,
     this.usersList,
@@ -27,6 +32,8 @@ class Group extends Equatable {
       'groupId': groupId,
       'groupName': groupName,
       'groupImage': groupImage,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'createdBy': createdBy,
       'lastMessage': lastMessage.toDocument(),
       'participants': participants,
     };
@@ -37,6 +44,8 @@ class Group extends Equatable {
       groupId: map['groupId'],
       groupName: map['groupName'],
       groupImage: map['groupImage'],
+      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      createdBy: map['createdBy'],
       lastMessage: Message.fromMap(map),
       participants: List<String>.from(map['participants']),
     );
@@ -48,6 +57,8 @@ class Group extends Equatable {
       groupId,
       groupName,
       groupImage,
+      createdAt,
+      createdBy,
       lastMessage,
       participants,
     ];
@@ -57,6 +68,8 @@ class Group extends Equatable {
     String groupId,
     String groupName,
     String groupImage,
+    DateTime createdAt,
+    String createdBy,
     Message lastMessage,
     List<String> participants,
     List<User> usersList,
@@ -65,6 +78,8 @@ class Group extends Equatable {
       groupId: groupId ?? this.groupId,
       groupName: groupName ?? this.groupName,
       groupImage: groupImage ?? this.groupImage,
+      createdAt: createdAt ?? this.createdAt,
+      createdBy: createdBy ?? this.createdBy,
       lastMessage: lastMessage ?? this.lastMessage,
       participants: participants ?? this.participants,
       usersList: usersList ?? this.usersList,
