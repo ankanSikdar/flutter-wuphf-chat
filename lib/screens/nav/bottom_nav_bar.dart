@@ -94,11 +94,13 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
                 BottomNavigationBarItem(
                     icon: FaIcon(FontAwesomeIcons.users), label: 'Contacts'),
                 BottomNavigationBarItem(
-                    icon: FaIcon(FontAwesomeIcons.comment), label: 'Chats'),
+                    icon: FaIcon(FontAwesomeIcons.solidComment),
+                    label: 'Chats'),
                 BottomNavigationBarItem(
-                    icon: FaIcon(FontAwesomeIcons.comments), label: 'Groups'),
+                    icon: FaIcon(FontAwesomeIcons.solidComments),
+                    label: 'Groups'),
                 BottomNavigationBarItem(
-                    icon: FaIcon(FontAwesomeIcons.userCircle),
+                    icon: FaIcon(FontAwesomeIcons.solidUserCircle),
                     label: 'Profile'),
               ],
               currentIndex: _selectedIndex,
