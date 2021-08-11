@@ -53,6 +53,19 @@ class ViewGroupScreen extends StatelessWidget {
                       children: [
                         ProfilePictureWidget(imageUrl: state.group.groupImage),
                         SizedBox(height: 32.0),
+                        if (createdByUser.id ==
+                            context.read<AuthBloc>().state.user.uid)
+                          Column(
+                            children: [
+                              InkWellButton(
+                                onTap: () {},
+                                buttonColor: Theme.of(context).primaryColor,
+                                title: 'Edit Group Details',
+                                titleColor: Colors.white,
+                              ),
+                              SizedBox(height: 16.0),
+                            ],
+                          ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
