@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
-
-import 'bloc/liveuser_bloc.dart';
 
 class ChattingAppBar extends StatelessWidget {
   const ChattingAppBar({Key key}) : super(key: key);
