@@ -56,16 +56,14 @@ class MessageWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (name != null)
+          if (name != null && !isAuthor)
             Container(
               child: Text(
-                isAuthor ? 'You' : name,
+                name,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: isAuthor
-                      ? Colors.deepOrange[400]
-                      : Colors.deepPurple[400],
+                  color: Colors.deepPurple[400],
                 ),
               ),
             ),
