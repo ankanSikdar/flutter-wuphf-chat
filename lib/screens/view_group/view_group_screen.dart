@@ -4,6 +4,7 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/create_group/widgets/participants_widget.dart';
+import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
 
@@ -58,7 +59,14 @@ class ViewGroupScreen extends StatelessWidget {
                           Column(
                             children: [
                               InkWellButton(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    EditGroupScreen.routeName,
+                                    arguments:
+                                        EditGroupArgs(group: state.group),
+                                  );
+                                },
                                 buttonColor: Theme.of(context).primaryColor,
                                 title: 'Edit Group Details',
                                 titleColor: Colors.white,
