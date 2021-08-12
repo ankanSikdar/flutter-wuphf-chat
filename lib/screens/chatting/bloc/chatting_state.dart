@@ -1,7 +1,7 @@
 part of 'chatting_bloc.dart';
 
 enum ChattingStatus {
-  intial,
+  initial,
   loading,
   loaded,
   error,
@@ -34,7 +34,7 @@ class ChattingState extends Equatable {
       messagesDbRef: messagesDbRef,
       hasMessagedBefore: null,
       isSending: false,
-      status: ChattingStatus.intial,
+      status: ChattingStatus.initial,
       error: '',
     );
   }
