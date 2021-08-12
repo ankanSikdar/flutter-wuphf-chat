@@ -24,7 +24,7 @@ class UsersState extends Equatable {
     @required this.error,
   });
 
-  factory UsersState.inital() {
+  factory UsersState.initial() {
     return UsersState(
       usersList: [],
       searchList: [],

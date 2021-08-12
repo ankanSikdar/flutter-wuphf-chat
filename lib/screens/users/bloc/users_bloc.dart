@@ -19,7 +19,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       {@required AuthBloc authBloc, @required UserRepository userRepository})
       : _authBloc = authBloc,
         _userRepository = userRepository,
-        super(UsersState.inital());
+        super(UsersState.initial());
 
   @override
   Stream<UsersState> mapEventToState(
@@ -46,7 +46,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _usersSubscription.cancel();
     super.close();
   }
