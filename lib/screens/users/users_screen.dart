@@ -46,7 +46,16 @@ class _UsersScreenState extends State<UsersScreen> {
     _textEditingController.clear();
   }
 
-  void _selectUser(User user) {
+  void _selectUser({@required User user, @required int length}) {
+    if (length >= 10) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Maximum 10 users can be selected!'),
+        ),
+      );
+      return;
+    }
     context.read<UsersBloc>().add(
           UsersUpdateSelectedList(user: user),
         );
@@ -103,7 +112,8 @@ class _UsersScreenState extends State<UsersScreen> {
                           imageUrl: user.profileImageUrl,
                           isOnline: user.presence,
                           onChat: isSelecting
-                              ? () => _selectUser(user)
+                              ? () => _selectUser(
+                                  user: user, length: state.selectedList.length)
                               : () {
                                   Navigator.of(context).pushNamed(
                                     ChattingScreen.routeName,
@@ -111,10 +121,12 @@ class _UsersScreenState extends State<UsersScreen> {
                                   );
                                 },
                           onLongPress: () {
-                            _selectUser(user);
+                            _selectUser(
+                                user: user, length: state.selectedList.length);
                           },
                           onView: isSelecting
-                              ? () => _selectUser(user)
+                              ? () => _selectUser(
+                                  user: user, length: state.selectedList.length)
                               : () {
                                   Navigator.of(context).pushNamed(
                                     ViewProfileScreen.routeName,
