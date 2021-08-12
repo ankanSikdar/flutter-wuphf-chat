@@ -77,7 +77,7 @@ class GroupsBloc extends Bloc<GroupsEvent, GroupsState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _groupsSubscription.cancel();
     super.close();
   }

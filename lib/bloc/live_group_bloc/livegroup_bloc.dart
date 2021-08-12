@@ -14,7 +14,7 @@ class LiveGroupBloc extends Bloc<LiveGroupEvent, LiveGroupState> {
   final GroupsRepository _groupsRepository;
   StreamSubscription _groupSubscription;
 
-  LiveGroupBloc( 
+  LiveGroupBloc(
       {@required String groupId, @required GroupsRepository groupsRepository})
       : _groupId = groupId,
         _groupsRepository = groupsRepository,
@@ -23,7 +23,7 @@ class LiveGroupBloc extends Bloc<LiveGroupEvent, LiveGroupState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _groupSubscription.cancel();
     super.close();
   }

@@ -23,7 +23,7 @@ class GroupChattingBloc extends Bloc<GroupChattingEvent, GroupChattingState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _messagesSubscription?.cancel();
     super.close();
   }

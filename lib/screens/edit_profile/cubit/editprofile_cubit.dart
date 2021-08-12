@@ -32,19 +32,19 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     ));
   }
 
-  Future<void> emailChanged(String value) {
+  Future<void> emailChanged(String value) async {
     emit(state.copyWith(email: value.trim()));
   }
 
-  Future<void> displayNameChanged(String value) {
+  Future<void> displayNameChanged(String value) async {
     emit(state.copyWith(displayName: value.trim()));
   }
 
-  Future<void> bioChanged(String value) {
+  Future<void> bioChanged(String value) async {
     emit(state.copyWith(bio: value.trim()));
   }
 
-  Future<void> profileImageChanged(File file) {
+  Future<void> profileImageChanged(File file) async {
     emit(state.copyWith(newProfileImage: file));
   }
 

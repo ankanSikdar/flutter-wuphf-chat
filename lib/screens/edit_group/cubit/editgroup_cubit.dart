@@ -26,11 +26,11 @@ class EditGroupCubit extends Cubit<EditGroupState> {
           ),
         );
 
-  Future<void> groupNameChanged(String value) {
+  Future<void> groupNameChanged(String value) async {
     emit(state.copyWith(groupName: value.trim()));
   }
 
-  Future<void> groupImageChanged(File file) {
+  Future<void> groupImageChanged(File file) async {
     emit(state.copyWith(newGroupImage: file));
   }
 

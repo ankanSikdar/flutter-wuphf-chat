@@ -43,7 +43,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
 
     try {
       _chatsSubscription?.cancel();
-      
+
       _chatsSubscription =
           _messagesRepository.getUserChats().listen((chatUsersList) {
         add(UpdateChats(chatUsers: chatUsersList));
@@ -83,7 +83,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _chatsSubscription.cancel();
     super.close();
   }

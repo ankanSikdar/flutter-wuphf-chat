@@ -35,7 +35,7 @@ class LiveUserBloc extends Bloc<LiveUserEvent, LiveUserState> {
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() async {
     _userSubscription.cancel();
     super.close();
   }
