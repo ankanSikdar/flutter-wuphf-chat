@@ -5,7 +5,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/helper/time_helper.dart';
-import 'package:wuphf_chat/screens/view_profile/widgets/detials_widget.dart';
+import 'package:wuphf_chat/screens/view_profile/widgets/details_widget.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
 
 class ViewProfileScreenArgs {
@@ -74,9 +74,9 @@ class ViewProfileScreen extends StatelessWidget {
                       children: [
                         ProfilePictureWidget(imageUrl: user.profileImageUrl),
                         SizedBox(height: 32.0),
-                        DetialsWidget(title: 'Name', content: user.displayName),
-                        DetialsWidget(title: 'Email', content: user.email),
-                        DetialsWidget(
+                        DetailsWidget(title: 'Name', content: user.displayName),
+                        DetailsWidget(title: 'Email', content: user.email),
+                        DetailsWidget(
                           title: 'About',
                           content: user.bio.isEmpty ? 'No About' : user.bio,
                         ),

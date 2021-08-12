@@ -23,7 +23,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         _user = user,
         _authRepository = authRepository,
         _storageRepository = storageRepository,
-        super(EditProfileState.inital()) {
+        super(EditProfileState.initial()) {
     emit(state.copyWith(
       displayName: _user.displayName,
       email: _user.email,
@@ -100,7 +100,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   void reset() {
     emit(state.copyWith(
-      status: EditProfileStatus.intial,
+      status: EditProfileStatus.initial,
       error: '',
     ));
   }

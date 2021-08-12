@@ -1,7 +1,7 @@
 part of 'groups_bloc.dart';
 
 enum GroupsStatus {
-  intial,
+  initial,
   loading,
   loaded,
   searching,
@@ -25,7 +25,7 @@ class GroupsState extends Equatable {
     return GroupsState(
       groupsList: [],
       searchList: [],
-      status: GroupsStatus.intial,
+      status: GroupsStatus.initial,
       error: '',
     );
   }

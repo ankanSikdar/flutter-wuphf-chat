@@ -1,7 +1,7 @@
 part of 'editprofile_cubit.dart';
 
 enum EditProfileStatus {
-  intial,
+  initial,
   submitting,
   success,
   error,
@@ -26,14 +26,14 @@ class EditProfileState extends Equatable {
     @required this.error,
   });
 
-  factory EditProfileState.inital() {
+  factory EditProfileState.initial() {
     return EditProfileState(
       displayName: '',
       email: '',
       bio: '',
       profileImageUrl: '',
       newProfileImage: null,
-      status: EditProfileStatus.intial,
+      status: EditProfileStatus.initial,
       error: '',
     );
   }

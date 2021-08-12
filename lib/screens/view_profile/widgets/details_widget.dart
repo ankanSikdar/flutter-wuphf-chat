@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
-class DetialsWidget extends StatelessWidget {
+class DetailsWidget extends StatelessWidget {
   final String title;
   final String content;
 
-  const DetialsWidget({
+  const DetailsWidget({
     Key key,
     @required this.title,
     @required this.content,

@@ -134,7 +134,3 @@ class _ChatsScreenState extends State<ChatsScreen> {
     );
   }
 }
-
-
-// SliverPadding(
-                // padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
