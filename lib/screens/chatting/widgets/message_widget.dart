@@ -60,11 +60,10 @@ class MessageWidget extends StatelessWidget {
             Container(
               child: Text(
                 name,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple[400],
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .apply(color: ThemeConfig.recipientNameColor),
               ),
             ),
           if (message.imageUrl != null && message.imageUrl.trim().isNotEmpty)

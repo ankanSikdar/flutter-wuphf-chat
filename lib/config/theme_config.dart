@@ -55,6 +55,11 @@ class ThemeConfig {
         fontSize: 20.0,
         color: Colors.black,
       ),
+      caption: TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 0.3,
+      ),
       overline: TextStyle(
         fontSize: 12.0,
         color: Colors.grey[800],
@@ -80,6 +85,8 @@ class ThemeConfig {
     Colors.blue[200],
     Colors.deepPurple[100],
   ];
+
+  static final recipientNameColor = Colors.purple[400];
 
   static const borderRadius = 15.0;
   static const dpRadius = 125.0;
