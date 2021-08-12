@@ -45,7 +45,7 @@ class StorageRepository extends BaseStorageRepository {
   @override
   Future<String> uploadMessageImage({@required File file}) async {
     final id = Uuid().v4();
-    final url = '/images/messages/$id.jpg';
+    final url = '${Paths.messageImage}$id.jpg';
 
     try {
       final downloadUrl = await uploadImage(url: url, file: file);
@@ -59,7 +59,7 @@ class StorageRepository extends BaseStorageRepository {
   @override
   Future<String> uploadGroupImage({@required File file}) async {
     final id = Uuid().v4();
-    final url = '/images/groupPictures/$id.jpg';
+    final url = '${Paths.groupImage}$id.jpg';
 
     try {
       final downloadUrl = await uploadImage(url: url, file: file);

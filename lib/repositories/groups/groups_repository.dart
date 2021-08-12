@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/models/group_model.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/groups/base_groups_repository.dart';
@@ -23,15 +24,15 @@ class GroupsRepository extends BaseGroupRepository {
 
   Stream<List<String>> _getUserGroupsIds() {
     return _firebaseFirestore
-        .collection('groups')
+        .collection(Paths.groups)
         .doc(_firebaseAuth.currentUser.uid)
-        .collection('userGroups')
+        .collection(Paths.userGroups)
         .snapshots()
         .map((event) => event.docs.map((doc) => doc.id).toList());
   }
 
   Stream<List<Group>> _getAllGroups() {
-    return _firebaseFirestore.collection('groupsDb').snapshots().map(
+    return _firebaseFirestore.collection(Paths.groupsDb).snapshots().map(
         (event) => event.docs.map((doc) => Group.fromMap(doc.data())).toList());
   }
 
@@ -69,9 +70,12 @@ class GroupsRepository extends BaseGroupRepository {
     participants.add(_firebaseAuth.currentUser.uid);
     try {
       final createdGroup =
-          await _firebaseFirestore.collection('groupsDb').add({});
+          await _firebaseFirestore.collection(Paths.groupsDb).add({});
 
-      await _firebaseFirestore.collection('groupsDb').doc(createdGroup.id).set({
+      await _firebaseFirestore
+          .collection(Paths.groupsDb)
+          .doc(createdGroup.id)
+          .set({
         'createdAt': FieldValue.serverTimestamp(),
         'createdBy': _firebaseAuth.currentUser.uid,
         'groupId': createdGroup.id,
@@ -87,9 +91,9 @@ class GroupsRepository extends BaseGroupRepository {
 
       participants.forEach((userId) async {
         await _firebaseFirestore
-            .collection('groups')
+            .collection(Paths.groups)
             .doc(userId)
-            .collection('userGroups')
+            .collection(Paths.userGroups)
             .doc(createdGroup.id)
             .set({});
       });
@@ -110,9 +114,9 @@ class GroupsRepository extends BaseGroupRepository {
       }
 
       final messageDocRef = await _firebaseFirestore
-          .collection('groupsDb')
+          .collection(Paths.groupsDb)
           .doc(groupId)
-          .collection('groupMessages')
+          .collection(Paths.groupMessages)
           .add({
         'imageUrl': imageUrl,
         'text': text,
@@ -124,7 +128,7 @@ class GroupsRepository extends BaseGroupRepository {
       final lastMessage = Message.fromDocument(lastMessageDocSnap);
 
       await _firebaseFirestore
-          .collection('groupsDb')
+          .collection(Paths.groupsDb)
           .doc(groupId)
           .update(lastMessage.toDocument());
     } catch (e) {
@@ -135,9 +139,9 @@ class GroupsRepository extends BaseGroupRepository {
   Stream<List<Message>> _groupMessagesStream({@required String groupId}) {
     try {
       return _firebaseFirestore
-          .collection('groupsDb')
+          .collection(Paths.groupsDb)
           .doc(groupId)
-          .collection('groupMessages')
+          .collection(Paths.groupMessages)
           .orderBy('sentAt', descending: true)
           .snapshots()
           .map((QuerySnapshot snap) =>
@@ -184,7 +188,7 @@ class GroupsRepository extends BaseGroupRepository {
 
   Stream<Group> _getGroupStream({@required String groupId}) {
     return _firebaseFirestore
-        .collection('groupsDb')
+        .collection(Paths.groupsDb)
         .doc(groupId)
         .snapshots()
         .map((docSnapshot) {
@@ -213,7 +217,7 @@ class GroupsRepository extends BaseGroupRepository {
       @required String name,
       @required String imageUrl}) async {
     try {
-      await _firebaseFirestore.collection('groupsDb').doc(groupId).update({
+      await _firebaseFirestore.collection(Paths.groupsDb).doc(groupId).update({
         'groupName': name,
         'groupImage': imageUrl,
       });
