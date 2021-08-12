@@ -5,11 +5,11 @@ import 'input_title.dart';
 
 class DisplayNameWidget extends StatelessWidget {
   final String initialValue;
-  final Function onChaned;
+  final Function onChanged;
 
   const DisplayNameWidget({
     Key key,
-    @required this.onChaned,
+    @required this.onChanged,
     this.initialValue,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class DisplayNameWidget extends StatelessWidget {
           hintText: 'Your Name',
           textInputType: TextInputType.name,
           initialValue: initialValue,
-          onChanged: onChaned,
+          onChanged: onChanged,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return 'Name cannot be empty';
@@ -32,7 +32,7 @@ class DisplayNameWidget extends StatelessWidget {
               return 'Please enter a valid full name';
             }
             if (value.trim().length < 3) {
-              return 'Name must be atleast 3 characters';
+              return 'Name must be at least 3 characters';
             }
             return null;
           },

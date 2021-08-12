@@ -5,11 +5,11 @@ import 'input_title.dart';
 
 class EmailWidget extends StatelessWidget {
   final String initialValue;
-  final Function onChaned;
+  final Function onChanged;
 
   const EmailWidget({
     Key key,
-    @required this.onChaned,
+    @required this.onChanged,
     this.initialValue,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class EmailWidget extends StatelessWidget {
           hintText: 'you@example.com',
           textInputType: TextInputType.emailAddress,
           initialValue: initialValue,
-          onChanged: onChaned,
+          onChanged: onChanged,
           validator: (String value) {
             if (value.trim().isEmpty) {
               return "Email cannot be empty";

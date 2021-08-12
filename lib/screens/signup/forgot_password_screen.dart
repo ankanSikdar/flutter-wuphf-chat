@@ -92,7 +92,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                   EmailWidget(
-                    onChaned: context.read<SignUpCubit>().emailChanged,
+                    onChanged: context.read<SignUpCubit>().emailChanged,
                   ),
                   SizedBox(height: 32.0),
                   Row(

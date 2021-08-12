@@ -100,12 +100,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       EmailWidget(
-                        onChaned: context.read<SignUpCubit>().emailChanged,
+                        onChanged: context.read<SignUpCubit>().emailChanged,
                       ),
                       SizedBox(height: 16.0),
                       if (_userAction == UserAction.signUp)
                         DisplayNameWidget(
-                          onChaned:
+                          onChanged:
                               context.read<SignUpCubit>().displayNameChanged,
                         ),
                       if (_userAction == UserAction.signUp)

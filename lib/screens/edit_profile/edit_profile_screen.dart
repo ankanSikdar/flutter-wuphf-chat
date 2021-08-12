@@ -100,13 +100,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         SizedBox(height: 24.0),
                         EmailWidget(
                           initialValue: state.email,
-                          onChaned:
+                          onChanged:
                               context.read<EditProfileCubit>().emailChanged,
                         ),
                         SizedBox(height: 16.0),
                         DisplayNameWidget(
                           initialValue: state.displayName,
-                          onChaned: context
+                          onChanged: context
                               .read<EditProfileCubit>()
                               .displayNameChanged,
                         ),
