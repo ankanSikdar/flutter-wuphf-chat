@@ -1,5 +1,6 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:wuphf_chat/config/configs.dart';
 
 class EmojiWidget extends StatelessWidget {
   final Function onEmojiSelected;
@@ -22,16 +23,15 @@ class EmojiWidget extends StatelessWidget {
         verticalSpacing: 0,
         horizontalSpacing: 0,
         initCategory: Category.RECENT,
-        bgColor: Color(0xFFF2F2F2),
-        indicatorColor: Colors.blue,
-        iconColor: Colors.grey,
-        iconColorSelected: Colors.blue,
-        progressIndicatorColor: Colors.blue,
-        backspaceColor: Colors.blue,
+        bgColor: ThemeConfig.emojiWidgetBackgroundColor,
+        indicatorColor: ThemeConfig.emojiWidgetPrimaryColor,
+        iconColor: ThemeConfig.emojiWidgetIconColor,
+        iconColorSelected: ThemeConfig.emojiWidgetPrimaryColor,
+        progressIndicatorColor: ThemeConfig.emojiWidgetPrimaryColor,
+        backspaceColor: ThemeConfig.emojiWidgetPrimaryColor,
         showRecentsTab: true,
         recentsLimit: 28,
         noRecentsText: 'No Recents',
-        noRecentsStyle: TextStyle(fontSize: 20, color: Colors.black26),
         categoryIcons: CategoryIcons(),
         // buttonMode: ButtonMode.MATERIAL,
       ),

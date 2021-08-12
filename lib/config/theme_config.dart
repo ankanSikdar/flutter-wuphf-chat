@@ -93,6 +93,10 @@ class ThemeConfig {
   static const smallDpRadius = 35.0;
 
   static final chattingScreenScaffoldBackgroundColor = Colors.grey[200];
+
+  static const emojiWidgetBackgroundColor = const Color(0xFFFFFFFF);
+  static const emojiWidgetPrimaryColor = const Color(0xFFFFA000);
+  static const emojiWidgetIconColor = const Color(0xFF9E9E9E);
 }
 
 
