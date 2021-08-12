@@ -57,8 +57,6 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
         participants: participantIds,
       );
 
-      print('Success: $groupDbID');
-
       emit(state.copyWith(status: CreateGroupStatus.success));
     } catch (e) {
       emit(state.copyWith(status: CreateGroupStatus.error, error: e.message));

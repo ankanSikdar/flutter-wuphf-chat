@@ -97,7 +97,6 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
         setState(() {
           imageFile = image;
         });
-        print('Image loaded');
       }
     });
   }

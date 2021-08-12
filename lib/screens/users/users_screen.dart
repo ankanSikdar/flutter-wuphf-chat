@@ -75,7 +75,6 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<UsersBloc, UsersState>(
       builder: (context, state) {
-        print('Status: ${state.status}');
         if (state.status == UsersStateStatus.error) {
           return Center(
             child: Text(state.error),
