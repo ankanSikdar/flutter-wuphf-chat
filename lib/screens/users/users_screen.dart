@@ -88,6 +88,9 @@ class _UsersScreenState extends State<UsersScreen> {
               state.searchList.isNotEmpty ? state.searchList : state.usersList;
           return Scaffold(
             body: CustomScrollView(
+              physics: usersList.length == 0
+                  ? NeverScrollableScrollPhysics()
+                  : BouncingScrollPhysics(),
               slivers: [
                 SearchSliverAppBar(
                   title: isSelecting ? 'Create Group' : 'Users',

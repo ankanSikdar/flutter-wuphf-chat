@@ -66,6 +66,9 @@ class _GroupsScreenState extends State<GroupsScreen> {
                 : state.groupsList;
 
             return CustomScrollView(
+              physics: groups.length == 0
+                  ? NeverScrollableScrollPhysics()
+                  : BouncingScrollPhysics(),
               slivers: [
                 SearchSliverAppBar(
                   title: 'Groups',

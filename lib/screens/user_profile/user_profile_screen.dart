@@ -27,6 +27,7 @@ class UserProfileScreen extends StatelessWidget {
                 ];
               },
               body: ListView(
+                physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.all(16.0),
                 children: [
                   UserHeader(

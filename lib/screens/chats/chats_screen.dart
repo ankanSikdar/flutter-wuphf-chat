@@ -65,6 +65,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
                 ? state.searchList
                 : state.chatUsers;
             return CustomScrollView(
+              physics: chatList.length == 0
+                  ? NeverScrollableScrollPhysics()
+                  : BouncingScrollPhysics(),
               slivers: [
                 SearchSliverAppBar(
                   title: 'Chats',
