@@ -86,6 +86,9 @@ class ChattingScreen extends StatelessWidget {
                       }
                       if (state.status == ChattingStatus.loaded) {
                         return ListView.builder(
+                          physics: state.messagesList.length == 0
+                              ? NeverScrollableScrollPhysics()
+                              : BouncingScrollPhysics(),
                           primary: false,
                           reverse: true,
                           itemBuilder: (context, index) {

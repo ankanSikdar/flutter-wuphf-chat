@@ -82,6 +82,9 @@ class GroupChattingScreen extends StatelessWidget {
                           );
                         }
                         return ListView.builder(
+                          physics: state.messagesList.length == 0
+                              ? NeverScrollableScrollPhysics()
+                              : BouncingScrollPhysics(),
                           primary: false,
                           reverse: true,
                           itemBuilder: (context, index) {
