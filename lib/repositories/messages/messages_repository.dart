@@ -79,7 +79,7 @@ class MessagesRepository extends BaseMessagesRepository {
           .orderBy('sentAt', descending: true)
           .snapshots()
           .map((querySnapshot) => querySnapshot.docs.map((doc) {
-                final data = doc.data() as Map;
+                final data = doc.data();
                 final messagesDbRef =
                     data[Paths.messagesDb] as DocumentReference;
                 return ChatList(

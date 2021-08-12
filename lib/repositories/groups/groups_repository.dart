@@ -188,7 +188,7 @@ class GroupsRepository extends BaseGroupRepository {
         .doc(groupId)
         .snapshots()
         .map((docSnapshot) {
-      final data = docSnapshot.data() as Map;
+      final data = docSnapshot.data();
       return Group.fromMap(data);
     });
   }
