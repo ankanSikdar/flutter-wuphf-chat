@@ -19,7 +19,7 @@ class AuthState extends Equatable {
     return AuthState();
   }
 
-  factory AuthState.aunthenticated({@required firebase_auth.User user}) {
+  factory AuthState.authenticated({@required firebase_auth.User user}) {
     return AuthState(user: user, status: AuthStatus.authenticated);
   }
 

@@ -35,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapAuthUserChangedToState(AuthUserChanged event) async* {
     yield event.user != null
-        ? AuthState.aunthenticated(user: event.user)
+        ? AuthState.authenticated(user: event.user)
         : AuthState.unauthenticated();
   }
 
