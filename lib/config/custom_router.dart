@@ -42,14 +42,11 @@ class CustomRouter {
     }
   }
 
-  // TODO Design error screen
   static Route _errorRoute() {
     return MaterialPageRoute(
       settings: RouteSettings(name: '/error'),
       builder: (_) => Scaffold(
-        appBar: AppBar(
-          title: Text('ERROR'),
-        ),
+        backgroundColor: Colors.red,
         body: Center(
           child: Text('Something went wrong!'),
         ),
