@@ -27,13 +27,13 @@ class AuthRepository extends BaseAuthRepository {
     @required String password,
   }) async {
     try {
-      final userCredentail = await _firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       // Getting the created user (to get the id of the user)
-      final user = userCredentail.user;
+      final user = userCredential.user;
       // Adding displayName to FirebaseAuth User
       await user.updateDisplayName(displayName);
 
