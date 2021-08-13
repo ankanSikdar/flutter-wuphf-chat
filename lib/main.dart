@@ -88,13 +88,9 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    _firebaseMessaging.getToken().then((token) => print('Token: $token'));
-
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
@@ -121,6 +117,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<AuthBloc>(
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
+              userRepository: context.read<UserRepository>(),
             ),
           ),
         ],

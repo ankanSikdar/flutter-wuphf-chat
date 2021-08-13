@@ -60,4 +60,16 @@ class UserRepository extends BaseUserRepository {
       throw Exception('UPDATE USER ERROR: ${e.message}');
     }
   }
+
+  @override
+  Future<void> updateUserToken(
+      {@required String userId, @required String token}) async {
+    try {
+      await _firebaseFirestore.collection(Paths.users).doc(userId).update({
+        'token': token,
+      });
+    } catch (e) {
+      throw Exception('UPDATE USER TOKEN: ${e.message}');
+    }
+  }
 }

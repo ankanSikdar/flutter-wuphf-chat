@@ -6,4 +6,6 @@ abstract class BaseUserRepository {
   Future<User> getUserWithId({@required String userId});
   Stream<User> getUserStream({@required String userId});
   Future<void> updateUser({@required User user});
+  Future<void> updateUserToken(
+      {@required String userId, @required String token});
 }
