@@ -66,7 +66,7 @@ exports.onStartNewMessage = functions.firestore
 
     admin
       .messaging()
-      .send((message = payload))
+      .send(payload)
       .then((response) => {
         console.log("Successfully sent message:", response);
         return { success: true };
