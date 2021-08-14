@@ -7,18 +7,17 @@ import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 
-import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/chatting/bloc/chatting_bloc.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/send_message_widget.dart';
 import 'package:wuphf_chat/screens/chatting/widgets/widgets.dart';
 
 class ChattingScreenArgs {
-  final User user;
+  final String userId;
   final DocumentReference messagesDbRef;
 
   ChattingScreenArgs({
-    @required this.user,
+    @required this.userId,
     this.messagesDbRef,
   });
 }
@@ -32,17 +31,17 @@ class ChattingScreen extends StatelessWidget {
       builder: (context) => BlocProvider<ChattingBloc>(
         create: (context) => ChattingBloc(
           messagesRepository: context.read<MessagesRepository>(),
-          user: args.user,
+          userId: args.userId,
           messagesRef: args.messagesDbRef,
         ),
-        child: ChattingScreen(user: args.user),
+        child: ChattingScreen(userId: args.userId),
       ),
     );
   }
 
-  final User user;
+  final String userId;
 
-  const ChattingScreen({Key key, @required this.user}) : super(key: key);
+  const ChattingScreen({Key key, @required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class ChattingScreen extends StatelessWidget {
             BlocProvider<LiveUserBloc>(
               create: (context) => LiveUserBloc(
                 userRepository: context.read<UserRepository>(),
-                userId: user.id,
+                userId: userId,
               ),
               child: ChattingAppBar(),
             )
@@ -95,7 +94,7 @@ class ChattingScreen extends StatelessWidget {
                             final message = state.messagesList[index];
                             return MessageWidget(
                               message: message,
-                              isAuthor: message.sentBy != user.id,
+                              isAuthor: message.sentBy != userId,
                             );
                           },
                           itemCount: state.messagesList.length,

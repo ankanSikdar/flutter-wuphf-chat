@@ -17,10 +17,10 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
 
   ChattingBloc({
     @required MessagesRepository messagesRepository,
-    @required User user,
+    @required String userId,
     DocumentReference messagesRef,
   })  : _messagesRepository = messagesRepository,
-        super(ChattingState.initial(user: user, messagesDbRef: messagesRef)) {
+        super(ChattingState.initial(userId: userId, messagesDbRef: messagesRef)) {
     add(ChattingCheckHasMessagedBefore());
   }
 
@@ -61,11 +61,11 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
         // Navigated from usersScreen
         // Therefore we have to check to see if user has messaged this person before
         final check =
-            await _messagesRepository.checkMessagesExists(user: state.user);
+            await _messagesRepository.checkMessagesExists(userId: state.userId);
         if (check == true) {
           // User has messaged this person before
           final messagesDb = await _messagesRepository
-              .getAlreadyPresentMessagesDb(user: state.user);
+              .getAlreadyPresentMessagesDb(userId: state.userId);
           yield (state.copyWith(
               messagesDbRef: messagesDb, hasMessagedBefore: true));
           add(ChattingFetchMessages());
@@ -88,7 +88,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
       if (state.hasMessagedBefore) {
         // User already has a messageDb with this person therefore we just add the message to it
         await _messagesRepository.sendMessage(
-          recipientId: state.user.id,
+          recipientId: state.userId,
           documentReference: state.messagesDbRef,
           message: event.message,
           image: event.image,
@@ -97,7 +97,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
         // User has no messageDb with this person
         // We create the db and send the first message
         final messagesDbRef = await _messagesRepository.sendFirstMessage(
-          user: state.user,
+          userId: state.userId,
           message: event.message,
           image: event.image,
         );

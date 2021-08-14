@@ -111,13 +111,13 @@ class MessagesRepository extends BaseMessagesRepository {
     }
   }
 
-  Future<bool> checkMessagesExists({@required User user}) async {
+  Future<bool> checkMessagesExists({@required String userId}) async {
     try {
       final docSnapshot = await _firebaseFirestore
           .collection(Paths.messages)
           .doc(_firebaseAuth.currentUser.uid)
           .collection(Paths.userMessages)
-          .doc(user.id)
+          .doc(userId)
           .get();
 
       return docSnapshot.exists;
@@ -127,26 +127,26 @@ class MessagesRepository extends BaseMessagesRepository {
   }
 
   Future<DocumentReference<Object>> createMessagesDb(
-      {@required User user}) async {
+      {@required String userId}) async {
     try {
       final documentReference =
           await _firebaseFirestore.collection(Paths.messagesDb).add({
         'startedBy': _firebaseAuth.currentUser.uid,
-        'startedWith': user.id,
+        'startedWith': userId,
       });
 
       await _firebaseFirestore
           .collection(Paths.messages)
           .doc(_firebaseAuth.currentUser.uid)
           .collection(Paths.userMessages)
-          .doc(user.id)
+          .doc(userId)
           .set({
         Paths.messagesDb: documentReference,
       });
 
       await _firebaseFirestore
           .collection(Paths.messages)
-          .doc(user.id)
+          .doc(userId)
           .collection(Paths.userMessages)
           .doc(_firebaseAuth.currentUser.uid)
           .set({
@@ -160,13 +160,13 @@ class MessagesRepository extends BaseMessagesRepository {
   }
 
   Future<DocumentReference<Object>> getAlreadyPresentMessagesDb(
-      {@required User user}) async {
+      {@required String userId}) async {
     try {
       final docSnapshot = await _firebaseFirestore
           .collection(Paths.messages)
           .doc(_firebaseAuth.currentUser.uid)
           .collection(Paths.userMessages)
-          .doc(user.id)
+          .doc(userId)
           .get();
 
       final data = docSnapshot.data();
@@ -178,14 +178,14 @@ class MessagesRepository extends BaseMessagesRepository {
   }
 
   Future<DocumentReference<Object>> sendFirstMessage({
-    @required User user,
+    @required String userId,
     @required String message,
     File image,
   }) async {
     try {
-      final messagesDbRef = await createMessagesDb(user: user);
+      final messagesDbRef = await createMessagesDb(userId: userId);
       await sendMessage(
-        recipientId: user.id,
+        recipientId: userId,
         documentReference: messagesDbRef,
         message: message,
         image: image,

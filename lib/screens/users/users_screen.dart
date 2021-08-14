@@ -119,7 +119,8 @@ class _UsersScreenState extends State<UsersScreen> {
                               : () {
                                   Navigator.of(context).pushNamed(
                                     ChattingScreen.routeName,
-                                    arguments: ChattingScreenArgs(user: user),
+                                    arguments:
+                                        ChattingScreenArgs(userId: user.id),
                                   );
                                 },
                           onLongPress: () {

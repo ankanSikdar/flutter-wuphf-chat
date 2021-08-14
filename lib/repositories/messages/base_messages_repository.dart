@@ -15,15 +15,15 @@ abstract class BaseMessagesRepository {
 
   Stream<List<ChatUser>> getUserChats();
 
-  Future<DocumentReference<Object>> createMessagesDb({@required User user});
+  Future<DocumentReference<Object>> createMessagesDb({@required String userId});
 
   Future<DocumentReference<Object>> getAlreadyPresentMessagesDb(
-      {@required User user});
+      {@required String userId});
 
-  Future<bool> checkMessagesExists({@required User user});
+  Future<bool> checkMessagesExists({@required String userId});
 
   Future<DocumentReference<Object>> sendFirstMessage({
-    @required User user,
+    @required String userId,
     @required String message,
     File image,
   });

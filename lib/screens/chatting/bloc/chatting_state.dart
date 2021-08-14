@@ -8,7 +8,7 @@ enum ChattingStatus {
 }
 
 class ChattingState extends Equatable {
-  final User user;
+  final String userId;
   final List<Message> messagesList;
   final DocumentReference messagesDbRef;
   final bool hasMessagedBefore;
@@ -17,7 +17,7 @@ class ChattingState extends Equatable {
   final String error;
 
   ChattingState({
-    @required this.user,
+    @required this.userId,
     @required this.messagesList,
     @required this.messagesDbRef,
     @required this.hasMessagedBefore,
@@ -27,9 +27,9 @@ class ChattingState extends Equatable {
   });
 
   factory ChattingState.initial(
-      {@required User user, DocumentReference messagesDbRef}) {
+      {@required String userId, DocumentReference messagesDbRef}) {
     return ChattingState(
-      user: user,
+      userId: userId,
       messagesList: [],
       messagesDbRef: messagesDbRef,
       hasMessagedBefore: null,
@@ -41,7 +41,7 @@ class ChattingState extends Equatable {
 
   @override
   List<Object> get props => [
-        user,
+        userId,
         messagesList,
         hasMessagedBefore,
         messagesDbRef,
@@ -51,7 +51,7 @@ class ChattingState extends Equatable {
       ];
 
   ChattingState copyWith({
-    User user,
+    String userId,
     List<Message> messagesList,
     DocumentReference messagesDbRef,
     bool hasMessagedBefore,
@@ -60,7 +60,7 @@ class ChattingState extends Equatable {
     String error,
   }) {
     return ChattingState(
-      user: user ?? this.user,
+      userId: userId ?? this.userId,
       messagesList: messagesList ?? this.messagesList,
       messagesDbRef: messagesDbRef ?? this.messagesDbRef,
       hasMessagedBefore: hasMessagedBefore ?? this.hasMessagedBefore,

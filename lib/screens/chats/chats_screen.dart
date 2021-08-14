@@ -104,8 +104,9 @@ class _ChatsScreenState extends State<ChatsScreen> {
                                 onChat: () {
                                   Navigator.of(context).pushNamed(
                                     ChattingScreen.routeName,
-                                    arguments:
-                                        ChattingScreenArgs(user: chatUser.user),
+                                    arguments: ChattingScreenArgs(
+                                      userId: chatUser.user.id,
+                                    ),
                                   );
                                 },
                                 onView: () {
