@@ -130,7 +130,10 @@ class MessagesRepository extends BaseMessagesRepository {
       {@required User user}) async {
     try {
       final documentReference =
-          await _firebaseFirestore.collection(Paths.messagesDb).add({});
+          await _firebaseFirestore.collection(Paths.messagesDb).add({
+        'startedBy': _firebaseAuth.currentUser.uid,
+        'startedWith': user.id,
+      });
 
       await _firebaseFirestore
           .collection(Paths.messages)
