@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wuphf_chat/config/configs.dart';
 import 'package:wuphf_chat/models/group_model.dart';
 import 'package:wuphf_chat/models/models.dart';
@@ -69,16 +70,15 @@ class GroupsRepository extends BaseGroupRepository {
   }) async {
     participants.add(_firebaseAuth.currentUser.uid);
     try {
-      final createdGroup =
-          await _firebaseFirestore.collection(Paths.groupsDb).add({});
+      final newGroupId = Uuid().v4();
 
       await _firebaseFirestore
           .collection(Paths.groupsDb)
-          .doc(createdGroup.id)
+          .doc(newGroupId)
           .set({
         'createdAt': FieldValue.serverTimestamp(),
         'createdBy': _firebaseAuth.currentUser.uid,
-        'groupId': createdGroup.id,
+        'groupId': newGroupId,
         'groupName': groupName,
         'groupImage': groupImageUrl,
         'participants': participants,
@@ -94,11 +94,11 @@ class GroupsRepository extends BaseGroupRepository {
             .collection(Paths.groups)
             .doc(userId)
             .collection(Paths.userGroups)
-            .doc(createdGroup.id)
+            .doc(newGroupId)
             .set({});
       });
 
-      return createdGroup.id;
+      return newGroupId;
     } catch (e) {
       throw ('CREATE GROUP ERROR: ${e.message}');
     }

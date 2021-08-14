@@ -76,3 +76,52 @@ exports.onStartNewMessage = functions.firestore
         return { error: error.code };
       });
   });
+
+exports.onStartNewGroup = functions.firestore
+  .document("/groupsDb/{groupDbId}")
+  .onCreate(async (snapshot, context) => {
+    const data = snapshot.data();
+    const creatorId = data.createdBy;
+    const groupName = data.groupName;
+    const groupImageUrl = data.groupImage;
+    const participants = data.participants;
+
+    const creatorDocSnapshot = await admin
+      .firestore()
+      .collection("users")
+      .doc(creatorId)
+      .get();
+    const creatorData = creatorDocSnapshot.data();
+
+    await Promise.all(
+      participants.map(async (participant) => {
+        if (participant != creatorId) {
+          const participantDocSnapshot = await admin
+            .firestore()
+            .collection("users")
+            .doc(participant)
+            .get();
+          const participantData = participantDocSnapshot.data();
+          if (participantData.token !== "") {
+            const payload = {
+              token: participantData.token,
+              android: {
+                notification: {
+                  title: `${groupName}`,
+                  body: `${creatorData.displayName} added you to the group.`,
+                  imageUrl: `${groupImageUrl}`,
+                },
+              },
+            };
+            try {
+              const response = await admin.messaging().send(payload);
+              console.log("Successfully sent message:", response);
+            } catch (error) {
+              console.log("ERROR :", error);
+            }
+          }
+        }
+      })
+    );
+    return { success: true };
+  });
