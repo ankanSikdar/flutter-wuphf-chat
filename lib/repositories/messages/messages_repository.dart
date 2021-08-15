@@ -126,6 +126,23 @@ class MessagesRepository extends BaseMessagesRepository {
     }
   }
 
+  // Separate than checkMessagesExists because this stream should be
+  // only subscribed if no message exists and the other user may start
+  // a message while the user has opened the chatting screen
+  Stream<bool> messageExistsStream({@required String userId}) {
+    try {
+      return _firebaseFirestore
+          .collection(Paths.messages)
+          .doc(_firebaseAuth.currentUser.uid)
+          .collection(Paths.userMessages)
+          .doc(userId)
+          .snapshots()
+          .map((docSnapshot) => docSnapshot.exists);
+    } catch (e) {
+      throw Exception('messageExistsStream ERROR: ${e.message}');
+    }
+  }
+
   Future<DocumentReference<Object>> createMessagesDb(
       {@required String userId}) async {
     try {

@@ -14,13 +14,15 @@ part 'chatting_state.dart';
 class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   final MessagesRepository _messagesRepository;
   StreamSubscription<List<Message>> _messagesSubscription;
+  StreamSubscription<bool> _messageDbExists;
 
   ChattingBloc({
     @required MessagesRepository messagesRepository,
     @required String userId,
     DocumentReference messagesRef,
   })  : _messagesRepository = messagesRepository,
-        super(ChattingState.initial(userId: userId, messagesDbRef: messagesRef)) {
+        super(
+            ChattingState.initial(userId: userId, messagesDbRef: messagesRef)) {
     add(ChattingCheckHasMessagedBefore());
   }
 
@@ -71,6 +73,17 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
           add(ChattingFetchMessages());
         } else {
           // User has no messages with this person
+          _messageDbExists?.cancel();
+          _messageDbExists = _messagesRepository
+              .messageExistsStream(userId: state.userId)
+              .listen((exists) {
+            if (exists) {
+              // The user has send a message while
+              // this user is in chatting screen
+              add(ChattingCheckHasMessagedBefore());
+              _messageDbExists.cancel();
+            }
+          });
           yield (state.copyWith(hasMessagedBefore: false));
         }
       }

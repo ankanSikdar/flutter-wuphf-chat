@@ -21,6 +21,7 @@ abstract class BaseMessagesRepository {
       {@required String userId});
 
   Future<bool> checkMessagesExists({@required String userId});
+  Stream<bool> messageExistsStream({@required String userId});
 
   Future<DocumentReference<Object>> sendFirstMessage({
     @required String userId,
