@@ -118,6 +118,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
+              presenceRepository: context.read<PresenceRepository>(),
             ),
           ),
         ],

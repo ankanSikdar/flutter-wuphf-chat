@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/config/configs.dart';
-import 'package:wuphf_chat/repositories/repositories.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({Key key}) : super(key: key);
@@ -10,9 +9,7 @@ class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        final uid = context.read<AuthBloc>().state.user.uid;
-        await context.read<PresenceRepository>().onUserLoggedOut(uid: uid);
+      onTap: () {
         context.read<AuthBloc>().add(AuthUserLogOut());
       },
       child: Container(

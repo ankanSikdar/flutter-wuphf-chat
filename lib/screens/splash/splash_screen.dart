@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
-import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -69,7 +68,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
           // User is found and user is logged in
           if (state.status == AuthStatus.authenticated) {
-            context.read<PresenceRepository>().updateUserPresence();
             if (initialMessage == null) {
               // App opened normally
               return Navigator.of(context)

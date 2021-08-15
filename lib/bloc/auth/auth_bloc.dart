@@ -13,14 +13,17 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
+  final PresenceRepository _presenceRepository;
   final FirebaseMessaging _firebaseMessaging;
   StreamSubscription<firebase_auth.User> _userSubscription;
 
-  AuthBloc(
-      {@required AuthRepository authRepository,
-      @required UserRepository userRepository})
-      : _authRepository = authRepository,
+  AuthBloc({
+    @required AuthRepository authRepository,
+    @required UserRepository userRepository,
+    @required PresenceRepository presenceRepository,
+  })  : _authRepository = authRepository,
         _userRepository = userRepository,
+        _presenceRepository = presenceRepository,
         _firebaseMessaging = FirebaseMessaging.instance,
         super(AuthState.unknown()) {
     _userSubscription = _authRepository.user.listen((user) {
@@ -46,6 +49,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //     : AuthState.unauthenticated();
     if (event.user != null) {
       try {
+        //Update user presence
+        // No need for await
+        _presenceRepository.updateUserPresence();
+
+        //Update user token
         final token = await _firebaseMessaging.getToken();
         await _userRepository.updateUserToken(
             userId: event.user.uid, token: token);
@@ -59,6 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapAuthLogOutToState() async* {
+    await _presenceRepository.onUserLoggedOut(uid: state.user.uid);
     await _userRepository.updateUserToken(userId: state.user.uid, token: '');
     await _authRepository.logOut();
   }
