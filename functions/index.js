@@ -61,6 +61,10 @@ exports.onStartNewMessage = functions.firestore
           body: `Wants to chat with you.`,
           imageUrl: `${senderUserData.profileImageUrl}`,
         },
+        data: {
+          type: "new-chat",
+          userId: userId,
+        },
       },
     };
 
@@ -85,6 +89,7 @@ exports.onStartNewGroup = functions.firestore
     const groupName = data.groupName;
     const groupImageUrl = data.groupImage;
     const participants = data.participants;
+    const groupDbId = context.params.groupDbId;
 
     const creatorDocSnapshot = await admin
       .firestore()
@@ -110,6 +115,10 @@ exports.onStartNewGroup = functions.firestore
                   title: `${groupName}`,
                   body: `${creatorData.displayName} added you to the group.`,
                   imageUrl: `${groupImageUrl}`,
+                },
+                data: {
+                  type: "new-group",
+                  groupDbId: groupDbId,
                 },
               },
             };
