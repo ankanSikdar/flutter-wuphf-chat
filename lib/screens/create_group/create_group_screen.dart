@@ -89,8 +89,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ChangeProfilePicture(
-                          imageUrl:
-                              'https://figeit.com/images/chat/mck-icon-group.png',
+                          imageUrl: state.groupImageUrl,
                           onChanged: context
                               .read<CreateGroupCubit>()
                               .groupImageChanged,

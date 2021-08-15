@@ -28,7 +28,7 @@ class CreateGroupState extends Equatable {
     return CreateGroupState(
       groupName: '',
       groupImageUrl:
-          'https://firebasestorage.googleapis.com/v0/b/wuphf-chat-flutter.appspot.com/o/images%2FgroupPictures%2FdefaultGroupDP.png?alt=media&token=b8d3637b-7440-4df6-93a2-947b7322cc49',
+          'https://firebasestorage.googleapis.com/v0/b/wuphf-chat-flutter.appspot.com/o/images%2FgroupPictures%2FdefaultGroupDp.png?alt=media&token=8cd72c91-ea44-478b-98a1-555150eb2586',
       newGroupImage: null,
       participants: participants,
       status: CreateGroupStatus.initial,
