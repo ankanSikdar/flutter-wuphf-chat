@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
@@ -5,7 +6,7 @@ import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   static const String routeName = '/splash';
 
   static Route route() {
@@ -16,6 +17,43 @@ class SplashScreen extends StatelessWidget {
   }
 
   const SplashScreen({Key key}) : super(key: key);
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  RemoteMessage initialMessage;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setupInitialMessage();
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      final data = message.data;
+      handleNotification(data: data);
+    });
+  }
+
+  Future<void> setupInitialMessage() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+  }
+
+  void handleNotification({@required Map<String, dynamic> data}) {
+    if (data['type'] == 'new-chat') {
+      final userId = data['userId'];
+      Navigator.of(context).pushNamed(ChattingScreen.routeName,
+          arguments: ChattingScreenArgs(userId: userId));
+    } else if (data['type'] == 'new-group') {
+      final groupDbId = data['groupDbId'];
+      Navigator.of(context).pushNamed(GroupChattingScreen.routeName,
+          arguments: GroupChattingScreenArgs(groupId: groupDbId));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +70,16 @@ class SplashScreen extends StatelessWidget {
           // User is found and user is logged in
           if (state.status == AuthStatus.authenticated) {
             context.read<PresenceRepository>().updateUserPresence();
-            return Navigator.of(context)
-                .pushNamed(BottomNavBarScreen.routeName);
+            if (initialMessage == null) {
+              // App opened normally
+              return Navigator.of(context)
+                  .pushNamed(BottomNavBarScreen.routeName);
+            } else {
+              // App opened from terminated state by clicking notification
+              Navigator.of(context).pushNamed(BottomNavBarScreen.routeName);
+              handleNotification(data: initialMessage.data);
+              return null;
+            }
           }
         },
         // When status is unknown
