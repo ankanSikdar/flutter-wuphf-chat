@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/screens.dart';
@@ -42,7 +43,7 @@ class UserProfileScreen extends StatelessWidget {
                   SettingsWidget(
                     name: 'Edit Profile',
                     icon: Icons.edit,
-                    color: Colors.deepOrange[100],
+                    color: Colors.deepOrange[200],
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         EditProfileScreen.routeName,
@@ -51,9 +52,19 @@ class UserProfileScreen extends StatelessWidget {
                     },
                   ),
                   SettingsWidget(
+                    name: 'Developer Details',
+                    icon: FontAwesomeIcons.userSecret,
+                    color: Colors.blueAccent[200],
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        DevDetailsScreen.routeName,
+                      );
+                    },
+                  ),
+                  SettingsWidget(
                     name: 'App Details',
                     icon: Icons.info_outline,
-                    color: Colors.deepPurple[100],
+                    color: Colors.deepPurple[200],
                     onTap: () {
                       Navigator.of(context)
                           .pushNamed(AppDetailsScreen.routeName);
