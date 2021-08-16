@@ -5,8 +5,10 @@ import 'package:wuphf_chat/screens/screens.dart';
 
 class ProfilePictureWidget extends StatelessWidget {
   final String imageUrl;
+  final bool isClipped;
 
-  const ProfilePictureWidget({Key key, @required this.imageUrl})
+  const ProfilePictureWidget(
+      {Key key, @required this.imageUrl, this.isClipped = true})
       : super(key: key);
 
   @override
@@ -21,15 +23,24 @@ class ProfilePictureWidget extends StatelessWidget {
       child: Container(
         height: 250,
         width: 250,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => Container(color: Colors.grey),
-            errorWidget: (context, url, error) => Container(color: Colors.grey),
-          ),
-        ),
+        child: isClipped
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(ThemeConfig.dpRadius),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.fitHeight,
+                  placeholder: (context, url) => Container(color: Colors.grey),
+                  errorWidget: (context, url, error) =>
+                      Container(color: Colors.grey),
+                ),
+              )
+            : CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.fitHeight,
+                placeholder: (context, url) => Container(color: Colors.grey),
+                errorWidget: (context, url, error) =>
+                    Container(color: Colors.grey),
+              ),
       ),
     );
   }
