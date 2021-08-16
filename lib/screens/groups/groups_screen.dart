@@ -81,9 +81,19 @@ class _GroupsScreenState extends State<GroupsScreen> {
                 SliverPadding(
                   padding: EdgeInsets.fromLTRB(16.0, 8.0, 8.0, 0.0),
                   sliver: state.groupsList.length == 0
-                      ? SliverFillRemaining(
-                          child: Center(
-                            child: Text('No Groups To Show'),
+                      ? SliverToBoxAdapter(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset(
+                                'assets/images/group_chat.png',
+                                height: MediaQuery.of(context).size.width * 0.6,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              SizedBox(height: 16.0),
+                              Text('No Group Chats To Show'),
+                            ],
                           ),
                         )
                       : SliverList(

@@ -77,8 +77,20 @@ class GroupChattingScreen extends StatelessWidget {
                     builder: (context) {
                       if (state.status == GroupChattingStatus.loaded) {
                         if (state.messagesList.length == 0) {
-                          return Center(
-                            child: Text('No Messages Yet...'),
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/images/group_chatting.png',
+                                height:
+                                    MediaQuery.of(context).size.width * 0.55,
+                                width: MediaQuery.of(context).size.width * 0.55,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              SizedBox(height: 16.0),
+                              Text('Start Group Chatting...'),
+                            ],
                           );
                         }
                         return ListView.builder(

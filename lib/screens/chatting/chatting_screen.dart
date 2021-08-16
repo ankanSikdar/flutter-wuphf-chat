@@ -77,10 +77,19 @@ class ChattingScreen extends StatelessWidget {
                   child: Builder(
                     builder: (context) {
                       if (state.hasMessagedBefore == false) {
-                        return Center(
-                          child: Container(
-                            child: Text('No Chats To Show'),
-                          ),
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/chatting.png',
+                              height: MediaQuery.of(context).size.width * 0.55,
+                              width: MediaQuery.of(context).size.width * 0.55,
+                              fit: BoxFit.fitHeight,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text('Start Chatting...'),
+                          ],
                         );
                       }
                       if (state.status == ChattingStatus.loaded) {
