@@ -13,3 +13,4 @@ export 'groups/groups_screen.dart';
 export 'group_chatting/group_chatting.dart';
 export 'view_group/view_group_screen.dart';
 export 'edit_group/edit_group_screen.dart';
+export 'app_details/app_details_screen.dart';

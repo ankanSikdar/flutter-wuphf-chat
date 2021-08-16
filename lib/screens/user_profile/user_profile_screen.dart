@@ -50,6 +50,15 @@ class UserProfileScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  SettingsWidget(
+                    name: 'App Details',
+                    icon: Icons.info_outline,
+                    color: Colors.deepPurple[100],
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AppDetailsScreen.routeName);
+                    },
+                  ),
                   SignOutButton(),
                 ],
               ),

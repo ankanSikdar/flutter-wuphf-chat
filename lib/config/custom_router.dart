@@ -37,6 +37,8 @@ class CustomRouter {
         return ViewGroupScreen.route(args: settings.arguments);
       case EditGroupScreen.routeName:
         return EditGroupScreen.route(args: settings.arguments);
+      case AppDetailsScreen.routeName:
+        return AppDetailsScreen.route();
       default:
         return _errorRoute();
     }
