@@ -131,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           buttonColor: Colors.white,
                           icon: FontAwesomeIcons.save,
                           size: Size(
-                              MediaQuery.of(context).size.width * 0.8, 50.0),
+                              MediaQuery.of(context).size.width * 0.6, 50.0),
                         )
                       ],
                     ),

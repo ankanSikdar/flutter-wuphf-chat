@@ -10,16 +10,17 @@ class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 16.0),
-        child: CustomElevatedButton(
-          onTap: () {
-            context.read<AuthBloc>().add(AuthUserLogOut());
-          },
-          icon: FontAwesomeIcons.signOutAlt,
-          title: 'Sign Out',
-          titleColor: Colors.grey[600],
-          buttonColor: Colors.white,
-          size: Size(MediaQuery.of(context).size.width * 0.8, 50.0),
-        ));
+      margin: EdgeInsets.symmetric(vertical: 16.0),
+      child: CustomElevatedButton(
+        onTap: () {
+          context.read<AuthBloc>().add(AuthUserLogOut());
+        },
+        icon: FontAwesomeIcons.signOutAlt,
+        title: 'Sign Out',
+        titleColor: Colors.grey[600],
+        buttonColor: Colors.white,
+        size: Size(MediaQuery.of(context).size.width * 0.6, 50.0),
+      ),
+    );
   }
 }

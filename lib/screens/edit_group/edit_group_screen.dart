@@ -118,6 +118,8 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                               ? 'Submitting...'
                               : 'Submit',
                           buttonColor: Colors.white,
+                          size: Size(
+                              MediaQuery.of(context).size.width * 0.6, 50.0),
                         )
                       ],
                     ),
