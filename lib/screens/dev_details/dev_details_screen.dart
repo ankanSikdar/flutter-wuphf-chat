@@ -38,7 +38,7 @@ class DevDetailsScreen extends StatelessWidget {
         slivers: [
           TwoTextAppBar(
             title: 'Developer Details',
-            subtitle: 'Made with ♥ using Flutter',
+            subtitle: 'contact@ankan.dev',
           ),
           SliverPadding(
             padding: EdgeInsets.all(16.0),
@@ -61,7 +61,7 @@ class DevDetailsScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
-                      'Hello There! First of all I am very grateful to you for using my app.\nA little about myself... I was born in 1999 and I am an Engineer in Information Technology (2021 Batch) from Heritage Institute of Technology, Kolkata.',
+                      'Hello There! First of all I am very grateful to you for using my app. A little about myself. I was born in 1999 and I am an Engineer in Information Technology (Graduated in 2021) from Heritage Institute of Technology, Kolkata. I primarily spend most of my time learning and developing in Flutter. And I love sunsets, stargazing and solitude. Thats all I can think of for now. 😅',
                       style: Theme.of(context).textTheme.subtitle1,
                       textAlign: TextAlign.justify,
                     ),
@@ -74,35 +74,35 @@ class DevDetailsScreen extends StatelessWidget {
                   ),
                   DevLink(
                     icon: FontAwesomeIcons.github,
-                    label: 'Github Account',
+                    label: 'GitHub',
                     onPressed: () {
                       _launchUrl('https://github.com/ankanSikdar');
                     },
                   ),
                   DevLink(
                     icon: FontAwesomeIcons.linkedin,
-                    label: 'LinkedIn Account',
+                    label: 'LinkedIn',
                     onPressed: () {
                       _launchUrl('https://www.linkedin.com/in/ankansikdar/');
                     },
                   ),
                   DevLink(
                     icon: FontAwesomeIcons.facebook,
-                    label: 'Facebook Account',
+                    label: 'Facebook',
                     onPressed: () {
                       _launchUrl('https://www.facebook.com/ankanSikdar/');
                     },
                   ),
                   DevLink(
                     icon: FontAwesomeIcons.twitter,
-                    label: 'Twitter Account',
+                    label: 'Twitter',
                     onPressed: () {
                       _launchUrl('https://twitter.com/ankan_sikdar');
                     },
                   ),
                   DevLink(
                     icon: FontAwesomeIcons.instagram,
-                    label: 'Instagram Account',
+                    label: 'Instagram',
                     onPressed: () {
                       _launchUrl('https://www.instagram.com/ankan_sikdar/');
                     },
@@ -115,6 +115,16 @@ class DevDetailsScreen extends StatelessWidget {
                           'mailto:contact@ankan.dev?subject=Reason%20you%20are%20contacting%20me&body=Hello%20Ankan%21');
                     },
                   ),
+                  SizedBox(height: 8.0),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      'Feel free to contact me regarding a bug, or any criticism that you might have. Or maybe just to talk about coding or life in general.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  SizedBox(height: 32.0)
                 ],
               ),
             ),
