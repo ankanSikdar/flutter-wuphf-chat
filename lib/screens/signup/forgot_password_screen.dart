@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/global_widgets/email_widget.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
@@ -103,6 +104,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         buttonColor: Theme.of(context).primaryColor,
                         title: 'Send Code',
                         titleColor: Colors.white,
+                        icon: FontAwesomeIcons.fileImport,
                       ),
                       CustomElevatedButton(
                         onTap: () {
@@ -111,6 +113,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         buttonColor: Colors.grey,
                         title: 'Go Back',
                         titleColor: Colors.white,
+                        icon: FontAwesomeIcons.chevronLeft,
                       )
                     ],
                   ),

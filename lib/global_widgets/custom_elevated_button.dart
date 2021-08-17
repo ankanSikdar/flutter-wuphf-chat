@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/config/configs.dart';
 
 class CustomElevatedButton extends StatelessWidget {
+  final IconData icon;
   final Function onTap;
   final Color buttonColor;
   final String title;
@@ -10,6 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
 
   const CustomElevatedButton({
     Key key,
+    @required this.icon,
     @required this.onTap,
     @required this.buttonColor,
     @required this.title,
@@ -21,9 +24,10 @@ class CustomElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         onPressed: onTap,
-        child: Text(
+        icon: FaIcon(icon),
+        label: Text(
           title,
           style: TextStyle(color: titleColor),
         ),
@@ -33,7 +37,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
           elevation: MaterialStateProperty.all<double>(4.0),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+            EdgeInsets.all(16.0),
           ),
           shape: MaterialStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(

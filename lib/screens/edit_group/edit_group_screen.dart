@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/models/models.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
@@ -112,6 +113,7 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                                   _updateGroup();
                                 },
                           buttonColor: Theme.of(context).primaryColor,
+                          icon: FontAwesomeIcons.save,
                           title: state.status == EditGroupStatus.submitting
                               ? 'Submitting...'
                               : 'Submit',

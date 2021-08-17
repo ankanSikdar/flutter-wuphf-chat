@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'package:wuphf_chat/screens/screens.dart';
 import 'package:wuphf_chat/screens/signup/cubit/signup_cubit.dart';
@@ -135,6 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   buttonColor: Theme.of(context).primaryColor,
                                   title: 'Create Account',
                                   titleColor: Colors.white,
+                                  icon: FontAwesomeIcons.userPlus,
                                 )
                               : CustomElevatedButton(
                                   onTap: submitForm,
@@ -144,6 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   size: Size(
                                       MediaQuery.of(context).size.width * 0.4,
                                       50.0),
+                                  icon: FontAwesomeIcons.signInAlt,
                                 ),
                           _userAction == UserAction.signUp
                               ? CustomElevatedButton(
@@ -155,6 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   buttonColor: Colors.grey,
                                   title: 'Sign In?',
                                   titleColor: Colors.white,
+                                  icon: FontAwesomeIcons.signInAlt,
                                 )
                               : CustomElevatedButton(
                                   onTap: () {
@@ -168,6 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   size: Size(
                                       MediaQuery.of(context).size.width * 0.4,
                                       50.0),
+                                  icon: FontAwesomeIcons.userPlus,
                                 ),
                         ],
                       ),
