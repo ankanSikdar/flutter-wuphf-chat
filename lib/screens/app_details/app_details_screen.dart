@@ -64,13 +64,47 @@ class AppDetailsScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                         SizedBox(height: 16.0),
+                        Text(
+                          'Made with ❤ using Flutter',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                        SizedBox(height: 16.0),
                         DevLink(
                             onPressed: () {
                               _launchUrl(
                                   'https://github.com/ankanSikdar/flutter-wuphf-chat');
                             },
                             icon: FontAwesomeIcons.github,
-                            label: 'Check Source Code')
+                            label: 'Check Source Code'),
+                        SizedBox(height: 16.0),
+                        Row(
+                          children: [
+                            InputTitle(title: 'Wuphf Meaning?'),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            'Any Office (American Sitcom) Fans? You must have already figured it out.\nFor the rest, \'Wuphf\' (pronounced \'woof\') is the name of the website developed by a character in the show as a revolutionary communication tool. Instead of getting a text or call, or message, the service purportedly sends a message to friends on all their channels, facebook, sms and twitter.  It even prints out a \'Wuphf\' on the nearest printer. So while watching that episode I thought of creating a chat app named Wuphf one day',
+                            style: Theme.of(context).textTheme.subtitle1,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        Row(
+                          children: [
+                            InputTitle(title: 'Disclaimer'),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text(
+                            'Please don\'t consider using the app as your primary chatting app. This app is purely made for learning purposes. Please treat it as so.',
+                            style: Theme.of(context).textTheme.subtitle1,
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                        SizedBox(height: 32.0),
                       ],
                     ),
                   ),
