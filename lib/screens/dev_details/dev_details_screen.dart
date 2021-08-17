@@ -72,6 +72,15 @@ class DevDetailsScreen extends StatelessWidget {
                       InputTitle(title: 'My Links'),
                     ],
                   ),
+                  SizedBox(height: 8.0),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      'Feel free to contact me regarding a bug, or any criticism that you might have. Or maybe just to talk about coding or life in general.',
+                      style: Theme.of(context).textTheme.subtitle1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
                   DevLink(
                     icon: FontAwesomeIcons.github,
                     label: 'GitHub',
@@ -115,16 +124,6 @@ class DevDetailsScreen extends StatelessWidget {
                           'mailto:contact@ankan.dev?subject=Reason%20you%20are%20contacting%20me&body=Hello%20Ankan%21');
                     },
                   ),
-                  SizedBox(height: 8.0),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      'Feel free to contact me regarding a bug, or any criticism that you might have. Or maybe just to talk about coding or life in general.',
-                      style: Theme.of(context).textTheme.subtitle1,
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                  SizedBox(height: 32.0)
                 ],
               ),
             ),

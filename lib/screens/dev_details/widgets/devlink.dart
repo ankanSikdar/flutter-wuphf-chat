@@ -16,14 +16,13 @@ class DevLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
       child: CustomElevatedButton(
         icon: icon,
         buttonColor: Colors.white,
         titleColor: Theme.of(context).primaryColor,
         title: label,
         onTap: onPressed,
-        size: Size(MediaQuery.of(context).size.width * 0.8, 50.0),
+        size: Size(MediaQuery.of(context).size.width * 0.6, 50.0),
       ),
     );
   }
