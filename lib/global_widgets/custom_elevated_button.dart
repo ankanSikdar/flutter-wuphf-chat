@@ -26,7 +26,7 @@ class CustomElevatedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton.icon(
         onPressed: onTap,
-        icon: FaIcon(icon),
+        icon: FaIcon(icon, color: titleColor),
         label: Text(
           title,
           style: TextStyle(color: titleColor),
