@@ -107,11 +107,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               : () {
                                   _createGroup();
                                 },
-                          buttonColor: Theme.of(context).primaryColor,
+                          titleColor: Theme.of(context).primaryColor,
                           title: state.status == CreateGroupStatus.submitting
                               ? 'Creating...'
                               : 'Create Group',
-                          titleColor: Colors.white,
+                          buttonColor: Colors.white,
                           icon: FontAwesomeIcons.folderPlus,
                           size: Size(
                               MediaQuery.of(context).size.width * 0.6, 50.0),

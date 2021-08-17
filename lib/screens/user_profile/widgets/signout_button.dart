@@ -17,8 +17,8 @@ class SignOutButton extends StatelessWidget {
           },
           icon: FontAwesomeIcons.signOutAlt,
           title: 'Sign Out',
-          titleColor: Colors.black,
-          buttonColor: Colors.grey[200],
+          titleColor: Colors.grey[600],
+          buttonColor: Colors.white,
           size: Size(MediaQuery.of(context).size.width * 0.8, 50.0),
         ));
   }

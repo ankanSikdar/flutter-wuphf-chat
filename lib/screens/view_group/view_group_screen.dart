@@ -68,9 +68,9 @@ class ViewGroupScreen extends StatelessWidget {
                                         EditGroupArgs(group: state.group),
                                   );
                                 },
-                                buttonColor: Theme.of(context).primaryColor,
+                                titleColor: Theme.of(context).primaryColor,
                                 title: 'Edit Group Details',
-                                titleColor: Colors.white,
+                                buttonColor: Colors.white,
                                 icon: FontAwesomeIcons.edit,
                               ),
                               SizedBox(height: 16.0),

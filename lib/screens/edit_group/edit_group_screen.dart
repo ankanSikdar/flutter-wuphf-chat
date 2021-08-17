@@ -112,12 +112,12 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                               : () {
                                   _updateGroup();
                                 },
-                          buttonColor: Theme.of(context).primaryColor,
+                          titleColor: Theme.of(context).primaryColor,
                           icon: FontAwesomeIcons.save,
                           title: state.status == EditGroupStatus.submitting
                               ? 'Submitting...'
                               : 'Submit',
-                          titleColor: Colors.white,
+                          buttonColor: Colors.white,
                         )
                       ],
                     ),

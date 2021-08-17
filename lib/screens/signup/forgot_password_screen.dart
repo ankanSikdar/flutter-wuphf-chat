@@ -101,18 +101,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     children: [
                       CustomElevatedButton(
                         onTap: _onSubmit,
-                        buttonColor: Theme.of(context).primaryColor,
+                        titleColor: Theme.of(context).primaryColor,
                         title: 'Send Code',
-                        titleColor: Colors.white,
+                        buttonColor: Colors.white,
                         icon: FontAwesomeIcons.fileImport,
                       ),
                       CustomElevatedButton(
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        buttonColor: Colors.grey,
+                        titleColor: Colors.grey,
                         title: 'Go Back',
-                        titleColor: Colors.white,
+                        buttonColor: Colors.white,
                         icon: FontAwesomeIcons.chevronLeft,
                       )
                     ],

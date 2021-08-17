@@ -133,16 +133,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _userAction == UserAction.signUp
                               ? CustomElevatedButton(
                                   onTap: submitForm,
-                                  buttonColor: Theme.of(context).primaryColor,
+                                  titleColor: Theme.of(context).primaryColor,
                                   title: 'Create Account',
-                                  titleColor: Colors.white,
+                                  buttonColor: Colors.white,
                                   icon: FontAwesomeIcons.userPlus,
                                 )
                               : CustomElevatedButton(
                                   onTap: submitForm,
-                                  buttonColor: Theme.of(context).primaryColor,
+                                  titleColor: Theme.of(context).primaryColor,
                                   title: 'Sign In',
-                                  titleColor: Colors.white,
+                                  buttonColor: Colors.white,
                                   size: Size(
                                       MediaQuery.of(context).size.width * 0.4,
                                       50.0),
@@ -155,9 +155,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       _userAction = UserAction.login;
                                     });
                                   },
-                                  buttonColor: Colors.grey,
+                                  titleColor: Colors.grey,
                                   title: 'Sign In?',
-                                  titleColor: Colors.white,
+                                  buttonColor: Colors.white,
                                   icon: FontAwesomeIcons.signInAlt,
                                 )
                               : CustomElevatedButton(
@@ -166,9 +166,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       _userAction = UserAction.signUp;
                                     });
                                   },
-                                  buttonColor: Colors.grey,
+                                  titleColor: Colors.grey,
                                   title: 'Sign Up?',
-                                  titleColor: Colors.white,
+                                  buttonColor: Colors.white,
                                   size: Size(
                                       MediaQuery.of(context).size.width * 0.4,
                                       50.0),
