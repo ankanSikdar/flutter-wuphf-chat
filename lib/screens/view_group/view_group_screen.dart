@@ -58,7 +58,7 @@ class ViewGroupScreen extends StatelessWidget {
                             context.read<AuthBloc>().state.user.uid)
                           Column(
                             children: [
-                              InkWellButton(
+                              CustomElevatedButton(
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,

@@ -105,7 +105,7 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                               context.read<EditGroupCubit>().groupNameChanged,
                         ),
                         SizedBox(height: 16.0),
-                        InkWellButton(
+                        CustomElevatedButton(
                           onTap: state.status == EditGroupStatus.submitting
                               ? null
                               : () {

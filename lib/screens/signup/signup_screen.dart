@@ -130,20 +130,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _userAction == UserAction.signUp
-                              ? InkWellButton(
+                              ? CustomElevatedButton(
                                   onTap: submitForm,
                                   buttonColor: Theme.of(context).primaryColor,
                                   title: 'Create Account',
                                   titleColor: Colors.white,
                                 )
-                              : InkWellButton(
+                              : CustomElevatedButton(
                                   onTap: submitForm,
                                   buttonColor: Theme.of(context).primaryColor,
                                   title: 'Sign In',
                                   titleColor: Colors.white,
                                 ),
                           _userAction == UserAction.signUp
-                              ? InkWellButton(
+                              ? CustomElevatedButton(
                                   onTap: () {
                                     setState(() {
                                       _userAction = UserAction.login;
@@ -153,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   title: 'Sign In?',
                                   titleColor: Colors.white,
                                 )
-                              : InkWellButton(
+                              : CustomElevatedButton(
                                   onTap: () {
                                     setState(() {
                                       _userAction = UserAction.signUp;

@@ -98,13 +98,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      InkWellButton(
+                      CustomElevatedButton(
                         onTap: _onSubmit,
                         buttonColor: Theme.of(context).primaryColor,
                         title: 'Send Code',
                         titleColor: Colors.white,
                       ),
-                      InkWellButton(
+                      CustomElevatedButton(
                         onTap: () {
                           Navigator.of(context).pop();
                         },

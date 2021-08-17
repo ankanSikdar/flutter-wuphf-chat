@@ -117,7 +117,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               context.read<EditProfileCubit>().bioChanged,
                         ),
                         SizedBox(height: 16.0),
-                        InkWellButton(
+                        CustomElevatedButton(
                           onTap: state.status == EditProfileStatus.submitting
                               ? null
                               : () {

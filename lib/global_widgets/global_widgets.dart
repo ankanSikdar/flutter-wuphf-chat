@@ -4,7 +4,7 @@ export 'input_text_field.dart';
 export 'input_title.dart';
 export 'email_widget.dart';
 export 'displayname_widget.dart';
-export 'inkwell_button.dart';
+export 'custom_elevated_button.dart';
 export 'two_text_app_bar.dart';
 export 'search_sliver_app_bar.dart';
 export 'loading_indicator.dart';

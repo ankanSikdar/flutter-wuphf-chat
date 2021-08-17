@@ -100,7 +100,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               context.read<CreateGroupCubit>().groupNameChanged,
                         ),
                         SizedBox(height: 16.0),
-                        InkWellButton(
+                        CustomElevatedButton(
                           onTap: state.status == CreateGroupStatus.submitting
                               ? null
                               : () {
