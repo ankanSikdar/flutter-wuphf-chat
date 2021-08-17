@@ -141,6 +141,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   buttonColor: Theme.of(context).primaryColor,
                                   title: 'Sign In',
                                   titleColor: Colors.white,
+                                  size: Size(
+                                      MediaQuery.of(context).size.width * 0.4,
+                                      50.0),
                                 ),
                           _userAction == UserAction.signUp
                               ? CustomElevatedButton(
@@ -162,6 +165,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   buttonColor: Colors.grey,
                                   title: 'Sign Up?',
                                   titleColor: Colors.white,
+                                  size: Size(
+                                      MediaQuery.of(context).size.width * 0.4,
+                                      50.0),
                                 ),
                         ],
                       ),

@@ -128,6 +128,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ? 'Submitting...'
                               : 'Submit',
                           titleColor: Colors.white,
+                          size: Size(
+                              MediaQuery.of(context).size.width * 0.6, 50.0),
                         )
                       ],
                     ),

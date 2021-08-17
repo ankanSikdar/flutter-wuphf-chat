@@ -111,6 +111,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               ? 'Creating...'
                               : 'Create Group',
                           titleColor: Colors.white,
+                          size: Size(
+                              MediaQuery.of(context).size.width * 0.6, 50.0),
                         ),
                         SizedBox(height: 16.0),
                         ParticipantsWidget(participants: state.participants),

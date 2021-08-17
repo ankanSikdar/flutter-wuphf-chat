@@ -6,6 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color buttonColor;
   final String title;
   final Color titleColor;
+  final Size size;
 
   const CustomElevatedButton({
     Key key,
@@ -13,6 +14,7 @@ class CustomElevatedButton extends StatelessWidget {
     @required this.buttonColor,
     @required this.title,
     @required this.titleColor,
+    this.size,
   }) : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size>(
-            Size(MediaQuery.of(context).size.width * 0.35, 50.0),
+            size ?? Size(MediaQuery.of(context).size.width * 0.35, 50.0),
           ),
           elevation: MaterialStateProperty.all<double>(4.0),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
