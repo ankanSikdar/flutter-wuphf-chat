@@ -1,5 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.ankan.wuphf_chat">
+
+
+<!-- Provide required visibility configuration for API level 30 and above -->
+  <queries>
+  <!-- For opening https URLs -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="https" />
+    </intent>
+    <!-- For emails -->
+  <intent>
+    <action android:name="android.intent.action.SEND" />
+    <data android:mimeType="*/*" />
+  </intent>
+  </queries>
+
    <application
         android:label="Wuphf Chat"
         android:icon="@mipmap/ic_launcher">

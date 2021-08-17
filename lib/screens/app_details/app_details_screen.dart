@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wuphf_chat/global_widgets/global_widgets.dart';
 import 'package:wuphf_chat/screens/app_details/bloc/appdetails_bloc.dart';
+import 'package:wuphf_chat/screens/dev_details/widgets/devlink.dart';
 import 'package:wuphf_chat/screens/view_profile/widgets/profile_picture.dart';
 
 class AppDetailsScreen extends StatelessWidget {
@@ -18,6 +21,18 @@ class AppDetailsScreen extends StatelessWidget {
   }
 
   const AppDetailsScreen({Key key}) : super(key: key);
+
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+      );
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +63,14 @@ class AppDetailsScreen extends StatelessWidget {
                           '${state.packageName}',
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
+                        SizedBox(height: 16.0),
+                        DevLink(
+                            onPressed: () {
+                              _launchUrl(
+                                  'https://github.com/ankanSikdar/flutter-wuphf-chat');
+                            },
+                            icon: FontAwesomeIcons.github,
+                            label: 'Check Source Code')
                       ],
                     ),
                   ),
