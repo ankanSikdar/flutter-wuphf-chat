@@ -91,14 +91,20 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  color: Theme.of(context).primaryColor,
-                ),
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 1.0), //(x,y)
+                        blurRadius: 4.0,
+                      )
+                    ]),
                 padding: EdgeInsets.all(12.0),
                 child: FaIcon(
                   FontAwesomeIcons.image,
                   size: 28.0,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
