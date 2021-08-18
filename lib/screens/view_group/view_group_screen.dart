@@ -85,6 +85,20 @@ class ViewGroupScreen extends StatelessWidget {
                               title: createdByUser.displayName,
                               subtitle: createdByUser.bio,
                               isOnline: createdByUser.presence,
+                              onChat: () {
+                                Navigator.of(context).pushNamed(
+                                  ChattingScreen.routeName,
+                                  arguments: ChattingScreenArgs(
+                                      userId: createdByUser.id),
+                                );
+                              },
+                              onView: () {
+                                Navigator.of(context).pushNamed(
+                                  ViewProfileScreen.routeName,
+                                  arguments: ViewProfileScreenArgs(
+                                      user: createdByUser),
+                                );
+                              },
                             ),
                             SizedBox(height: 12.0),
                             InputTitle(title: 'Created On'),
