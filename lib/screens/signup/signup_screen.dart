@@ -78,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   margin:
                       EdgeInsets.fromLTRB(24.0, size.height * 0.1, 0.0, 32.0),
                   child: Text(
-                    _userAction == UserAction.signUp ? 'Sign up' : 'Sign In',
+                    _userAction == UserAction.signUp ? 'Sign Up' : 'Sign In',
                     style: Theme.of(context).textTheme.headline3.apply(
                           color: Theme.of(context).primaryColor,
                         ),
