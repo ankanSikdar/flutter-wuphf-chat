@@ -16,6 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final PresenceRepository _presenceRepository;
   final FirebaseMessaging _firebaseMessaging;
   StreamSubscription<firebase_auth.User> _userSubscription;
+  StreamSubscription<String> _tokenRefreshStream;
 
   AuthBloc({
     @required AuthRepository authRepository,
@@ -57,9 +58,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final token = await _firebaseMessaging.getToken();
         await _userRepository.updateUserToken(
             userId: event.user.uid, token: token);
+
+        _tokenRefreshStream?.cancel();
+        _tokenRefreshStream =
+            _firebaseMessaging.onTokenRefresh.listen((newToken) async {
+          await _userRepository.updateUserToken(
+              userId: event.user.uid, token: token);
+        });
       } catch (e) {
         print('TOKEN ERROR: ${e.message}');
       }
+
       yield AuthState.authenticated(user: event.user);
     } else {
       yield AuthState.unauthenticated();
@@ -75,6 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    _tokenRefreshStream.cancel();
     return super.close();
   }
 }
