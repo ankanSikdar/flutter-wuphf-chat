@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:wuphf_chat/bloc/blocs.dart';
 import 'package:wuphf_chat/repositories/repositories.dart';
 import 'config/configs.dart';
@@ -77,6 +79,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  // Firebase Analytics Setup
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -117,6 +124,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeConfig.themeData,
           initialRoute: SplashScreen.routeName,
           onGenerateRoute: CustomRouter.onGenerateRoute,
+          navigatorObservers: [observer],
         ),
       ),
     );
