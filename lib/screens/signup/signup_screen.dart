@@ -52,6 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: BlocListener<SignUpCubit, SignUpState>(
@@ -73,8 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(
-                    24.0, MediaQuery.of(context).size.height * 0.1, 0.0, 32.0),
+                margin: EdgeInsets.fromLTRB(24.0, size.height * 0.1, 0.0, 32.0),
                 child: Text(
                   _userAction == UserAction.signUp ? 'Sign up' : 'Sign In',
                   style: Theme.of(context).textTheme.headline3.apply(
@@ -133,9 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       : 'Signing In',
                                   buttonColor: Colors.white,
                                   icon: FontAwesomeIcons.spinner,
-                                  size: Size(
-                                      MediaQuery.of(context).size.width * 0.6,
-                                      50.0),
+                                  size: Size(size.width * 0.6, 50.0),
                                 ),
                               ],
                             );
@@ -148,7 +146,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       onTap: submitForm,
                                       titleColor:
                                           Theme.of(context).primaryColor,
-                                      title: 'Create Account',
+                                      title: size.width > 400
+                                          ? 'Create Account'
+                                          : 'Sign Up',
                                       buttonColor: Colors.white,
                                       icon: FontAwesomeIcons.userPlus,
                                     )
@@ -158,10 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Theme.of(context).primaryColor,
                                       title: 'Sign In',
                                       buttonColor: Colors.white,
-                                      size: Size(
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                          50.0),
+                                      size: Size(size.width * 0.4, 50.0),
                                       icon: FontAwesomeIcons.signInAlt,
                                     ),
                               _userAction == UserAction.signUp
@@ -185,10 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       titleColor: Colors.grey,
                                       title: 'Sign Up?',
                                       buttonColor: Colors.white,
-                                      size: Size(
-                                          MediaQuery.of(context).size.width *
-                                              0.4,
-                                          50.0),
+                                      size: Size(size.width * 0.4, 50.0),
                                       icon: FontAwesomeIcons.userPlus,
                                     ),
                             ],
