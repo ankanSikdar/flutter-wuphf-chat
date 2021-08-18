@@ -9,11 +9,15 @@ import 'package:wuphf_chat/config/configs.dart';
 
 class ChangeProfilePicture extends StatefulWidget {
   ChangeProfilePicture(
-      {Key key, @required this.imageUrl, @required this.onChanged})
+      {Key key,
+      @required this.imageUrl,
+      @required this.onChanged,
+      @required this.label})
       : super(key: key);
 
   final String imageUrl;
   final Function onChanged;
+  final String label;
 
   @override
   _ChangeProfilePictureState createState() => _ChangeProfilePictureState();
@@ -33,7 +37,7 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
         sourcePath: pickedFile.path,
         aspectRatioPresets: [CropAspectRatioPreset.square],
         androidUiSettings: AndroidUiSettings(
-          toolbarTitle: 'Profile Picture',
+          toolbarTitle: widget.label,
           toolbarColor: Colors.white,
           backgroundColor: Colors.white,
           activeControlsWidgetColor: Theme.of(context).primaryColor,

@@ -90,6 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ChangeProfilePicture(
+                        label: 'Profile Image',
                         imageUrl: state.profileImageUrl,
                         onChanged: (File file) {
                           context

@@ -92,6 +92,7 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                     child: Column(
                       children: [
                         ChangeProfilePicture(
+                          label: 'Group Image',
                           imageUrl: state.groupImageUrl,
                           onChanged: (File file) {
                             context
