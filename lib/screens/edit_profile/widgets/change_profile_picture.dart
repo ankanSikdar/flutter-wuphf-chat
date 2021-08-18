@@ -34,8 +34,10 @@ class _ChangeProfilePictureState extends State<ChangeProfilePicture> {
         aspectRatioPresets: [CropAspectRatioPreset.square],
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Profile Picture',
-          toolbarColor: Theme.of(context).accentColor,
-          toolbarWidgetColor: Colors.white,
+          toolbarColor: Colors.white,
+          backgroundColor: Colors.white,
+          activeControlsWidgetColor: Theme.of(context).primaryColor,
+          toolbarWidgetColor: Theme.of(context).primaryColor,
           initAspectRatio: CropAspectRatioPreset.square,
         ),
         iosUiSettings: IOSUiSettings(
