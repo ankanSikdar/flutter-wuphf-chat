@@ -117,19 +117,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           onChanged:
                               context.read<EditProfileCubit>().bioChanged,
                         ),
-                        SizedBox(height: 16.0),
                         CustomElevatedButton(
                           onTap: state.status == EditProfileStatus.submitting
                               ? null
                               : () {
                                   _submitForm();
                                 },
-                          titleColor: Theme.of(context).primaryColor,
+                          titleColor:
+                              state.status == EditProfileStatus.submitting
+                                  ? Colors.grey
+                                  : Theme.of(context).primaryColor,
                           title: state.status == EditProfileStatus.submitting
                               ? 'Submitting...'
                               : 'Submit',
                           buttonColor: Colors.white,
-                          icon: FontAwesomeIcons.save,
+                          icon: state.status == EditProfileStatus.submitting
+                              ? FontAwesomeIcons.spinner
+                              : FontAwesomeIcons.save,
                           size: Size(
                               MediaQuery.of(context).size.width * 0.6, 50.0),
                         )
