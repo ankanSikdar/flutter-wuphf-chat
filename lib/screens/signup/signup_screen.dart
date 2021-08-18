@@ -65,16 +65,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               context.read<SignUpCubit>().reset();
               _formKey.currentState.reset();
             }
-            if (state.status == SignUpStatus.submitting) {
-              _formKey.currentState.deactivate();
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  SnackBar(
-                    content: Text('Checking...'),
-                  ),
-                );
-            }
             if (state.status == SignUpStatus.success) {
               ScaffoldMessenger.of(context)..hideCurrentSnackBar();
             }
@@ -127,54 +117,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       SizedBox(height: 32.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _userAction == UserAction.signUp
-                              ? CustomElevatedButton(
-                                  onTap: submitForm,
-                                  titleColor: Theme.of(context).primaryColor,
-                                  title: 'Create Account',
-                                  buttonColor: Colors.white,
-                                  icon: FontAwesomeIcons.userPlus,
-                                )
-                              : CustomElevatedButton(
-                                  onTap: submitForm,
-                                  titleColor: Theme.of(context).primaryColor,
-                                  title: 'Sign In',
-                                  buttonColor: Colors.white,
-                                  size: Size(
-                                      MediaQuery.of(context).size.width * 0.4,
-                                      50.0),
-                                  icon: FontAwesomeIcons.signInAlt,
-                                ),
-                          _userAction == UserAction.signUp
-                              ? CustomElevatedButton(
-                                  onTap: () {
-                                    setState(() {
-                                      _userAction = UserAction.login;
-                                    });
-                                  },
+                      BlocBuilder<SignUpCubit, SignUpState>(
+                        builder: (context, state) {
+                          if (state.status == SignUpStatus.submitting ||
+                              state.status == SignUpStatus.success) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                CustomElevatedButton(
+                                  onTap: null,
                                   titleColor: Colors.grey,
-                                  title: 'Sign In?',
+                                  title: _userAction == UserAction.signUp
+                                      ? 'Creating Account'
+                                      : 'Signing In',
                                   buttonColor: Colors.white,
-                                  icon: FontAwesomeIcons.signInAlt,
-                                )
-                              : CustomElevatedButton(
-                                  onTap: () {
-                                    setState(() {
-                                      _userAction = UserAction.signUp;
-                                    });
-                                  },
-                                  titleColor: Colors.grey,
-                                  title: 'Sign Up?',
-                                  buttonColor: Colors.white,
+                                  icon: FontAwesomeIcons.spinner,
                                   size: Size(
-                                      MediaQuery.of(context).size.width * 0.4,
+                                      MediaQuery.of(context).size.width * 0.6,
                                       50.0),
-                                  icon: FontAwesomeIcons.userPlus,
                                 ),
-                        ],
+                              ],
+                            );
+                          }
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              _userAction == UserAction.signUp
+                                  ? CustomElevatedButton(
+                                      onTap: submitForm,
+                                      titleColor:
+                                          Theme.of(context).primaryColor,
+                                      title: 'Create Account',
+                                      buttonColor: Colors.white,
+                                      icon: FontAwesomeIcons.userPlus,
+                                    )
+                                  : CustomElevatedButton(
+                                      onTap: submitForm,
+                                      titleColor:
+                                          Theme.of(context).primaryColor,
+                                      title: 'Sign In',
+                                      buttonColor: Colors.white,
+                                      size: Size(
+                                          MediaQuery.of(context).size.width *
+                                              0.4,
+                                          50.0),
+                                      icon: FontAwesomeIcons.signInAlt,
+                                    ),
+                              _userAction == UserAction.signUp
+                                  ? CustomElevatedButton(
+                                      onTap: () {
+                                        setState(() {
+                                          _userAction = UserAction.login;
+                                        });
+                                      },
+                                      titleColor: Colors.grey,
+                                      title: 'Sign In?',
+                                      buttonColor: Colors.white,
+                                      icon: FontAwesomeIcons.signInAlt,
+                                    )
+                                  : CustomElevatedButton(
+                                      onTap: () {
+                                        setState(() {
+                                          _userAction = UserAction.signUp;
+                                        });
+                                      },
+                                      titleColor: Colors.grey,
+                                      title: 'Sign Up?',
+                                      buttonColor: Colors.white,
+                                      size: Size(
+                                          MediaQuery.of(context).size.width *
+                                              0.4,
+                                          50.0),
+                                      icon: FontAwesomeIcons.userPlus,
+                                    ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
