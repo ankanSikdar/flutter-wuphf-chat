@@ -39,7 +39,10 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  Bloc.observer = AppBlocObserver();
+
+  //* Preparing For Release
+  // Bloc.observer = AppBlocObserver();
+
   await Firebase.initializeApp();
 
 // Initializing Notifications Settings

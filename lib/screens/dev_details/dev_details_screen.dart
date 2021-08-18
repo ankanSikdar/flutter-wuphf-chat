@@ -26,7 +26,8 @@ class DevDetailsScreen extends StatelessWidget {
         forceWebView: false,
       );
     } else {
-      print('Could not launch $url');
+      //* Preparing For Release
+      // print('Could not launch $url');
     }
   }
 

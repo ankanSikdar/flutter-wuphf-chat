@@ -4,7 +4,8 @@ import 'package:wuphf_chat/screens/screens.dart';
 
 class CustomRouter {
   static Route onGenerateRoute(RouteSettings settings) {
-    print('Route: ${settings.name}');
+    //* Preparing For Release
+    // print('Route: ${settings.name}');
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(

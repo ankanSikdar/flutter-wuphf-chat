@@ -66,7 +66,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               userId: event.user.uid, token: token);
         });
       } catch (e) {
-        print('TOKEN ERROR: ${e.message}');
+        //* Preparing For Release
+        // print('TOKEN ERROR: ${e.message}');
       }
 
       yield AuthState.authenticated(user: event.user);
