@@ -70,10 +70,12 @@ class UserProfileScreen extends StatelessWidget {
                           .pushNamed(AppDetailsScreen.routeName);
                     },
                   ),
-                  SignOutButton(),
                 ],
               ),
             ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.endDocked,
+            floatingActionButton: SignOutButton(),
           );
         }
         if (state.status == LiveUserStatus.error) {
