@@ -21,23 +21,6 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   importance: Importance.high,
 );
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   await Firebase.initializeApp();
-//   print('Handling a background message ${message.messageId}');
-//   print(message.data);
-//   flutterLocalNotificationsPlugin.show(
-//       message.data.hashCode,
-//       message.data['title'],
-//       message.data['body'],
-//       NotificationDetails(
-//         android: AndroidNotificationDetails(
-//           channel.id,
-//           channel.name,
-//           channel.description,
-//         ),
-//       ));
-// }
-
 Future<void> main() async {
   /*
    The WidgetFlutterBinding is used to interact with the Flutter engine. Firebase.initializeApp() needs to call native code to initialize Firebase, and since the plugin needs to use platform channels to call the native code, which is done asynchronously therefore you have to call ensureInitialized() to make sure that you have an instance of the WidgetsBinding.
@@ -58,7 +41,6 @@ Future<void> main() async {
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
