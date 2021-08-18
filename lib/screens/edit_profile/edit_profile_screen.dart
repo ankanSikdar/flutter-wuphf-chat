@@ -55,97 +55,93 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          TwoTextAppBar(
-              title: 'Edit Profile', subtitle: 'Edit your details here'),
-          BlocConsumer<EditProfileCubit, EditProfileState>(
-            listener: (context, state) {
-              if (state.status == EditProfileStatus.error) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('${state.error}')),
-                  );
-                context.read<EditProfileCubit>().reset();
-              }
-              if (state.status == EditProfileStatus.submitting) {
-                _formkey.currentState.deactivate();
-              }
-              if (state.status == EditProfileStatus.success) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('Profile Updated')),
-                  );
-              }
-            },
-            builder: (context, state) {
-              return SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Form(
-                    key: _formkey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ChangeProfilePicture(
-                          imageUrl: state.profileImageUrl,
-                          onChanged: (File file) {
-                            context
-                                .read<EditProfileCubit>()
-                                .profileImageChanged(file);
-                          },
-                        ),
-                        SizedBox(height: 24.0),
-                        EmailWidget(
-                          initialValue: state.email,
-                          onChanged:
-                              context.read<EditProfileCubit>().emailChanged,
-                        ),
-                        SizedBox(height: 16.0),
-                        DisplayNameWidget(
-                          initialValue: state.displayName,
-                          onChanged: context
+    return BlocConsumer<EditProfileCubit, EditProfileState>(
+      listener: (context, state) {
+        if (state.status == EditProfileStatus.error) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text('${state.error}')),
+            );
+          context.read<EditProfileCubit>().reset();
+        }
+        if (state.status == EditProfileStatus.submitting) {
+          _formkey.currentState.deactivate();
+        }
+        if (state.status == EditProfileStatus.success) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text('Profile Updated')),
+            );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: CustomScrollView(slivers: [
+            TwoTextAppBar(
+                title: 'Edit Profile', subtitle: 'Edit your details here'),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ChangeProfilePicture(
+                        imageUrl: state.profileImageUrl,
+                        onChanged: (File file) {
+                          context
                               .read<EditProfileCubit>()
-                              .displayNameChanged,
-                        ),
-                        SizedBox(height: 16.0),
-                        AboutWidget(
-                          initialValue: state.bio,
-                          onChanged:
-                              context.read<EditProfileCubit>().bioChanged,
-                        ),
-                        CustomElevatedButton(
-                          onTap: state.status == EditProfileStatus.submitting
-                              ? null
-                              : () {
-                                  _submitForm();
-                                },
-                          titleColor:
-                              state.status == EditProfileStatus.submitting
-                                  ? Colors.grey
-                                  : Theme.of(context).primaryColor,
-                          title: state.status == EditProfileStatus.submitting
-                              ? 'Submitting...'
-                              : 'Submit',
-                          buttonColor: Colors.white,
-                          icon: state.status == EditProfileStatus.submitting
-                              ? FontAwesomeIcons.spinner
-                              : FontAwesomeIcons.save,
-                          size: Size(
-                              MediaQuery.of(context).size.width * 0.6, 50.0),
-                        )
-                      ],
-                    ),
+                              .profileImageChanged(file);
+                        },
+                      ),
+                      SizedBox(height: 24.0),
+                      EmailWidget(
+                        initialValue: state.email,
+                        onChanged:
+                            context.read<EditProfileCubit>().emailChanged,
+                      ),
+                      SizedBox(height: 16.0),
+                      DisplayNameWidget(
+                        initialValue: state.displayName,
+                        onChanged:
+                            context.read<EditProfileCubit>().displayNameChanged,
+                      ),
+                      SizedBox(height: 16.0),
+                      AboutWidget(
+                        initialValue: state.bio,
+                        onChanged: context.read<EditProfileCubit>().bioChanged,
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
+              ),
+            ),
+          ]),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: CustomElevatedButton(
+            onTap: state.status == EditProfileStatus.submitting
+                ? null
+                : () {
+                    _submitForm();
+                  },
+            titleColor: state.status == EditProfileStatus.submitting
+                ? Colors.grey
+                : Theme.of(context).primaryColor,
+            title: state.status == EditProfileStatus.submitting
+                ? 'Submitting...'
+                : 'Submit',
+            buttonColor: Colors.white,
+            icon: state.status == EditProfileStatus.submitting
+                ? FontAwesomeIcons.spinner
+                : FontAwesomeIcons.save,
+            size: Size(MediaQuery.of(context).size.width * 0.6, 50.0),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
