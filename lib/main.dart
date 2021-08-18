@@ -16,9 +16,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // title
-  'This channel is used for important notifications.', // description
+  'new_chat_group_notifications', // id
+  'New Chat and New Group', // title
+  'This channel is used to inform you about New Chats and New Groups.', // description
   importance: Importance.high,
 );
 
