@@ -22,7 +22,7 @@ class SearchSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 300.0,
+      expandedHeight: MediaQuery.of(context).size.height * 0.4,
       collapsedHeight: 120.0,
       floating: false,
       pinned: true,
