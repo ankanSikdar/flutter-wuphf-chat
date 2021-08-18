@@ -29,6 +29,7 @@ class ChattingBloc extends Bloc<ChattingEvent, ChattingState> {
   @override
   Future<void> close() async {
     _messagesSubscription?.cancel();
+    _messageDbExists?.cancel();
     super.close();
   }
 
