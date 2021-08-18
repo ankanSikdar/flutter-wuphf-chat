@@ -90,6 +90,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ChangeProfilePicture(
+                          label: 'Group Image',
                           imageUrl: state.groupImageUrl,
                           onChanged: context
                               .read<CreateGroupCubit>()
