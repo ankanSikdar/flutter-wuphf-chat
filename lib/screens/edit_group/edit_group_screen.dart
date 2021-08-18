@@ -58,35 +58,35 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          TwoTextAppBar(
-            title: 'Edit Group',
-            subtitle: 'Modify group details here',
-          ),
-          BlocConsumer<EditGroupCubit, EditGroupState>(
-            listener: (context, state) {
-              if (state.status == EditGroupStatus.error) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('${state.error}')),
-                  );
-                context.read<EditGroupCubit>().reset();
-              }
-              if (state.status == EditGroupStatus.success) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(content: Text('Group Details Updated')),
-                  );
-              }
-            },
-            builder: (context, state) {
-              return SliverToBoxAdapter(
+    return BlocConsumer<EditGroupCubit, EditGroupState>(
+      listener: (context, state) {
+        if (state.status == EditGroupStatus.error) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text('${state.error}')),
+            );
+          context.read<EditGroupCubit>().reset();
+        }
+        if (state.status == EditGroupStatus.success) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text('Group Details Updated')),
+            );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              TwoTextAppBar(
+                title: 'Edit Group',
+                subtitle: 'Modify group details here',
+              ),
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 100.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -106,34 +106,35 @@ class _EditGroupScreenState extends State<EditGroupScreen> {
                               context.read<EditGroupCubit>().groupNameChanged,
                         ),
                         SizedBox(height: 16.0),
-                        CustomElevatedButton(
-                          onTap: state.status == EditGroupStatus.submitting
-                              ? null
-                              : () {
-                                  _updateGroup();
-                                },
-                          titleColor: state.status == EditGroupStatus.submitting
-                              ? Colors.grey
-                              : Theme.of(context).primaryColor,
-                          icon: state.status == EditGroupStatus.submitting
-                              ? FontAwesomeIcons.spinner
-                              : FontAwesomeIcons.save,
-                          title: state.status == EditGroupStatus.submitting
-                              ? 'Submitting...'
-                              : 'Submit',
-                          buttonColor: Colors.white,
-                          size: Size(
-                              MediaQuery.of(context).size.width * 0.6, 50.0),
-                        )
                       ],
                     ),
                   ),
                 ),
-              );
-            },
+              ),
+            ],
           ),
-        ],
-      ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: CustomElevatedButton(
+            onTap: state.status == EditGroupStatus.submitting
+                ? null
+                : () {
+                    _updateGroup();
+                  },
+            titleColor: state.status == EditGroupStatus.submitting
+                ? Colors.grey
+                : Theme.of(context).primaryColor,
+            icon: state.status == EditGroupStatus.submitting
+                ? FontAwesomeIcons.spinner
+                : FontAwesomeIcons.save,
+            title: state.status == EditGroupStatus.submitting
+                ? 'Submitting...'
+                : 'Submit',
+            buttonColor: Colors.white,
+            size: Size(MediaQuery.of(context).size.width * 0.6, 50.0),
+          ),
+        );
+      },
     );
   }
 }
