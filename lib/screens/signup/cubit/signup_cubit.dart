@@ -30,7 +30,9 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   Future<void> sendPasswordResetMail() async {
     try {
+      emit(state.copyWith(status: SignUpStatus.submitting));
       await _authRepository.forgotPassword(email: state.email);
+      emit(state.copyWith(status: SignUpStatus.initial));
     } catch (e) {
       emit(state.copyWith(status: SignUpStatus.error, error: e.message));
     }
