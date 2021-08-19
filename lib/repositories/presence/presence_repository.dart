@@ -48,6 +48,15 @@ class PresenceRepository extends BasePresenceRepository {
     // Create a reference to the special '.info/connected' path in
     // Realtime Database. This path returns `true` when connected
     // and `false` when disconnected.
+
+    // On Android, the Realtime Database disconnects from the backend after
+    // 60 seconds of inactivity. Inactivity means no open listeners or pending
+    // operations. To keep the connection open, so we add a value event listener
+    // to a path besides .info/connected.
+    _databaseReference
+        .child('${DateTime.now().millisecondsSinceEpoch}')
+        .keepSynced(true);
+
     _databaseReference.child('.info/connected').onValue.listen((event) {
       // If we're not currently connected, don't do anything.
       if (event.snapshot.value == false) {
