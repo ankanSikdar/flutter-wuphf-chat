@@ -1,5 +1,4 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/repositories/presence/base_presence_repository.dart';
 
@@ -8,9 +7,7 @@ class PresenceRepository extends BasePresenceRepository {
           databaseURL: 'https://wuphf-chat-flutter-presence.firebaseio.com/')
       .reference();
 
-  final firebase_auth.FirebaseAuth _firebaseAuth;
-
-  PresenceRepository() : _firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  PresenceRepository();
 
   //* Old Solution
   // updateUserPresence() async {
@@ -34,9 +31,7 @@ class PresenceRepository extends BasePresenceRepository {
 
   //* Solution From Firebase Docs
   @override
-  updateUserPresence() async {
-    final uid = _firebaseAuth.currentUser.uid;
-
+  updateUserPresence({@required String uid}) async {
     Map<String, dynamic> presenceStatusTrue = {
       'presence': true,
     };

@@ -58,7 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         //Update user presence
         // No need for await
-        _presenceRepository.updateUserPresence();
+        _presenceRepository.updateUserPresence(uid: event.user.uid);
 
         //Update user token
         final token = await _firebaseMessaging.getToken();
