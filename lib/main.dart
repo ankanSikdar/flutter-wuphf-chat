@@ -40,6 +40,13 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.white,
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
+
   //* Preparing For Release
   // Bloc.observer = AppBlocObserver();
 
