@@ -54,7 +54,7 @@ class AppDetailsScreen extends StatelessWidget {
                       children: [
                         ProfilePictureWidget(
                           imageUrl:
-                              'https://firebasestorage.googleapis.com/v0/b/wuphf-chat-flutter.appspot.com/o/images%2Ficon%2Fapp_icon.png?alt=media&token=447b203c-6c1c-4971-86b2-b6d4329ce563',
+                              'https://firebasestorage.googleapis.com/v0/b/wuphf-chat-flutter.appspot.com/o/images%2Ficon%2Fplay_store_icon.png?alt=media&token=88c9b009-699a-4bcc-87d9-e0afef31711e',
                           isClipped: false,
                         ),
                         SizedBox(height: 32.0),
