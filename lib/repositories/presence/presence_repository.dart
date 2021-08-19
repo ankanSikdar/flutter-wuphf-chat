@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:wuphf_chat/repositories/presence/base_presence_repository.dart';
@@ -7,29 +9,10 @@ class PresenceRepository extends BasePresenceRepository {
           databaseURL: 'https://wuphf-chat-flutter-presence.firebaseio.com/')
       .reference();
 
+  StreamSubscription<Event> _rtdbConnection;
+
   PresenceRepository();
 
-  //* Old Solution
-  // updateUserPresence() async {
-  //   final uid = _firebaseAuth.currentUser.uid;
-
-  //   Map<String, dynamic> presenceStatusTrue = {
-  //     'presence': true,
-  //   };
-  //   await _databaseReference
-  //       .child(uid)
-  //       .update(presenceStatusTrue)
-  //       .whenComplete(() => print('Updated your status'))
-  //       .catchError((e) => print('Error: $e'));
-
-  //   Map<String, dynamic> presenceStatusFalse = {
-  //     'presence': false,
-  //   };
-
-  //   _databaseReference.child(uid).onDisconnect().update(presenceStatusFalse);
-  // }
-
-  //* Solution From Firebase Docs
   @override
   updateUserPresence({@required String uid}) async {
     Map<String, dynamic> presenceStatusTrue = {
@@ -52,7 +35,10 @@ class PresenceRepository extends BasePresenceRepository {
         .child('${DateTime.now().millisecondsSinceEpoch}')
         .keepSynced(true);
 
-    _databaseReference.child('.info/connected').onValue.listen((event) {
+    await _rtdbConnection?.cancel();
+
+    _rtdbConnection =
+        _databaseReference.child('.info/connected').onValue.listen((event) {
       // If we're not currently connected, don't do anything.
       if (event.snapshot.value == false) {
         return;
@@ -99,5 +85,6 @@ class PresenceRepository extends BasePresenceRepository {
     };
 
     await _databaseReference.child(uid).update(presenceStatusFalse);
+    await _rtdbConnection?.cancel();
   }
 }
