@@ -80,6 +80,24 @@ class PresenceRepository extends BasePresenceRepository {
   }
 
   @override
+  onAppInBackground({@required String uid}) async {
+    Map<String, dynamic> presenceStatusFalse = {
+      'presence': false,
+    };
+
+    await _databaseReference.child(uid).update(presenceStatusFalse);
+  }
+
+  @override
+  onAppResumed({@required String uid}) async {
+    Map<String, dynamic> presenceStatusTrue = {
+      'presence': true,
+    };
+
+    await _databaseReference.child(uid).update(presenceStatusTrue);
+  }
+
+  @override
   onUserLoggedOut({@required String uid}) async {
     Map<String, dynamic> presenceStatusFalse = {
       'presence': false,

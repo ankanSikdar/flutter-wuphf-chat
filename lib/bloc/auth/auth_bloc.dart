@@ -42,6 +42,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthUserLogOut) {
       yield* _mapAuthLogOutToState();
     }
+    if (event is AppInBackgroundUpdatePresence) {
+      yield* _mapAppInBackgroundUpdatePresence();
+    }
+    if (event is AppResumedUpdatePresence) {
+      yield* _mapAppResumedUpdatePresence();
+    }
   }
 
   Stream<AuthState> _mapAuthUserChangedToState(AuthUserChanged event) async* {
@@ -74,6 +80,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       yield AuthState.unauthenticated();
     }
+  }
+
+  Stream<AuthState> _mapAppInBackgroundUpdatePresence() async* {
+    if (state.user == null) {
+      return;
+    }
+    await _presenceRepository.onAppInBackground(uid: state.user.uid);
+  }
+
+  Stream<AuthState> _mapAppResumedUpdatePresence() async* {
+    if (state.user == null) {
+      return;
+    }
+
+    await _presenceRepository.onAppResumed(uid: state.user.uid);
   }
 
   Stream<AuthState> _mapAuthLogOutToState() async* {

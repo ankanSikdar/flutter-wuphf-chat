@@ -21,12 +21,15 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with WidgetsBindingObserver {
   RemoteMessage initialMessage;
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
 
     setupInitialMessage();
 
@@ -34,6 +37,30 @@ class _SplashScreenState extends State<SplashScreen> {
       final data = message.data;
       handleNotification(data: data);
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        context.read<AuthBloc>().add(AppResumedUpdatePresence());
+        break;
+      case AppLifecycleState.inactive:
+        // Do nothing
+        break;
+      case AppLifecycleState.paused:
+        context.read<AuthBloc>().add(AppInBackgroundUpdatePresence());
+        break;
+      case AppLifecycleState.detached:
+        // Already Handled
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   Future<void> setupInitialMessage() async {

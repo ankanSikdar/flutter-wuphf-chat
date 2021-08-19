@@ -18,4 +18,8 @@ class AuthUserChanged extends AuthEvent {
   List<Object> get props => [user];
 }
 
+class AppInBackgroundUpdatePresence extends AuthEvent {}
+
+class AppResumedUpdatePresence extends AuthEvent {}
+
 class AuthUserLogOut extends AuthEvent {}
