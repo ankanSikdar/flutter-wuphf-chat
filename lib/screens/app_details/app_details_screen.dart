@@ -42,6 +42,7 @@ class AppDetailsScreen extends StatelessWidget {
         if (state.status == AppDetailsStatus.loaded) {
           return Scaffold(
             body: CustomScrollView(
+              physics: BouncingScrollPhysics(),
               slivers: [
                 TwoTextAppBar(
                     title: 'App Details',
@@ -76,8 +77,14 @@ class AppDetailsScreen extends StatelessWidget {
                                   'https://github.com/ankanSikdar/flutter-wuphf-chat');
                             },
                             icon: FontAwesomeIcons.github,
-                            label: 'Check Source Code'),
-                        SizedBox(height: 16.0),
+                            label: 'Source Code'),
+                        DevLink(
+                            onPressed: () {
+                              _launchUrl(
+                                  'https://wuphf-chat-privacy-policy.web.app/');
+                            },
+                            icon: FontAwesomeIcons.fileAlt,
+                            label: 'Privacy Policy'),
                         Row(
                           children: [
                             InputTitle(title: 'Wuphf Meaning?'),
