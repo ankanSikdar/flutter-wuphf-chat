@@ -134,3 +134,87 @@ exports.onStartNewGroup = functions.firestore
     );
     return { success: true };
   });
+
+exports.onNewMessage = functions.firestore
+  .document("/messages/{userId}/userMessages/{recipientId}")
+  .onUpdate(async (change, context) => {
+    const userId = context.params.userId;
+    const data = change.after.data();
+    const sentBy = data.sentBy;
+    const text = data.text;
+    const imageUrl = data.imageUrl;
+
+    // User himself/herself has sent the message
+    if (userId === sentBy) {
+      console.log(`Same User Return ${userId}`);
+      return null;
+    }
+
+    const userDocSnapshot = await admin
+      .firestore()
+      .collection("users")
+      .doc(userId)
+      .get();
+    const userData = userDocSnapshot.data();
+    const token = userData.token;
+    const isOnline = userData.presence;
+
+    // No token present for user
+    if (token === "" || isOnline == true) {
+      console.log(
+        `TERMINATE No token/ User online user ${userId} ${userData.displayName}`
+      );
+      return null;
+    }
+
+    const senderDocSnapshot = await admin
+      .firestore()
+      .collection("users")
+      .doc(sentBy)
+      .get();
+    const senderUserData = senderDocSnapshot.data();
+
+    var subtitle;
+    if (text === "") {
+      // Message with only image
+      subtitle = "Sent you a picture.";
+    } else if (imageUrl != "") {
+      // Message with image and text
+      subtitle = `📷 ${text}`;
+    } else {
+      // Message with only text
+      subtitle = text;
+    }
+
+    var notification;
+    if (imageUrl === "") {
+      notification = {
+        title: `${senderUserData.displayName}`,
+        body: subtitle,
+      };
+    } else {
+      notification = {
+        title: `${senderUserData.displayName}`,
+        body: subtitle,
+        imageUrl: `${imageUrl}`,
+      };
+    }
+
+    const payload = {
+      token: token,
+      android: {
+        notification: notification,
+        data: {
+          type: "new-chat",
+          userId: sentBy,
+        },
+      },
+    };
+
+    try {
+      const response = await admin.messaging().send(payload);
+      console.log("Successfully sent message:", response);
+    } catch (error) {
+      console.log("ERROR: ", error);
+    }
+  });
