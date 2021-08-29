@@ -218,3 +218,82 @@ exports.onNewMessage = functions.firestore
       console.log("ERROR: ", error);
     }
   });
+
+exports.onNewGroupMessage = functions.firestore
+  .document("/groupsDb/{groupDbId}")
+  .onUpdate(async (change, context) => {
+    const data = change.after.data();
+    const beforeData = change.before.data();
+    const groupDbId = context.params.groupDbId;
+    const groupImage = data.groupImage;
+
+    if (data.id == beforeData.id) {
+      console.log(`TERMINATE Message Not Changed ${groupDbId}`);
+      return null;
+    }
+
+    const sentBy = data.sentBy;
+    const groupName = data.groupName;
+    const text = data.text;
+    const imageUrl = data.imageUrl;
+    const participants = data.participants;
+
+    var subtitle;
+    if (text === "") {
+      // Message with only image
+      subtitle = "📷";
+    } else if (imageUrl != "") {
+      // Message with image and text
+      subtitle = `📷 ${text}`;
+    } else {
+      // Message with only text
+      subtitle = text;
+    }
+
+    var notification;
+    if (imageUrl === "") {
+      notification = {
+        title: `${groupName}`,
+        body: subtitle,
+        imageUrl: `${groupImage}`,
+      };
+    } else {
+      notification = {
+        title: `${groupName}`,
+        body: subtitle,
+        imageUrl: `${imageUrl}`,
+      };
+    }
+
+    await Promise.all(
+      participants.map(async (participant) => {
+        if (participant != sentBy) {
+          const participantDocSnapshot = await admin
+            .firestore()
+            .collection("users")
+            .doc(participant)
+            .get();
+          const participantData = participantDocSnapshot.data();
+          if (participantData.token !== "") {
+            const payload = {
+              token: participantData.token,
+              android: {
+                notification: notification,
+                data: {
+                  type: "new-group",
+                  groupDbId: groupDbId,
+                },
+              },
+            };
+            try {
+              const response = await admin.messaging().send(payload);
+              console.log("Successfully sent message:", response);
+            } catch (error) {
+              console.log("ERROR :", error);
+            }
+          }
+        }
+      })
+    );
+    return { success: true };
+  });
