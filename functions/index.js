@@ -56,6 +56,8 @@ exports.onStartNewMessage = functions.firestore
     const payload = {
       token: token,
       android: {
+        priority: "high",
+        ttl: 600000,
         notification: {
           title: `${senderUserData.displayName}`,
           body: `Wants to chat with you.`,
@@ -111,6 +113,8 @@ exports.onStartNewGroup = functions.firestore
             const payload = {
               token: participantData.token,
               android: {
+                priority: "high",
+                ttl: 600000,
                 notification: {
                   title: `${groupName}`,
                   body: `${creatorData.displayName} added you to the group.`,
@@ -203,6 +207,8 @@ exports.onNewMessage = functions.firestore
     const payload = {
       token: token,
       android: {
+        priority: "high",
+        ttl: 600000,
         notification: notification,
         data: {
           type: "new-chat",
@@ -274,10 +280,12 @@ exports.onNewGroupMessage = functions.firestore
             .doc(participant)
             .get();
           const participantData = participantDocSnapshot.data();
-          if (participantData.token !== "") {
+          if (participantData.token !== "" && participant.presence == false) {
             const payload = {
               token: participantData.token,
               android: {
+                priority: "high",
+                ttl: 600000,
                 notification: notification,
                 data: {
                   type: "new-group",
