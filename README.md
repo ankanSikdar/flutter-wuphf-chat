@@ -7,6 +7,12 @@ Chat with friends or make new ones. Create groups to hangout. Send pics and emoj
 <p align="center">
 <a href='https://play.google.com/store/apps/details?id=dev.ankan.wuphf_chat'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='100px'/></a>
   </p>
+  
+## Built Using
+
+• BLOC State Management Library
+
+• Firebase for database and notifications support.
 
 ## Screenshots
 <img src="screenshots/ss1.png" width = 220> <img src="screenshots/ss2.png" width = 220> <img src="screenshots/ss3.png" width = 220> <img src="screenshots/ss4.png" width = 220> <img src="screenshots/ss5.png" width = 220> <img src="screenshots/ss6.png" width = 220> <img src="screenshots/ss7.png" width = 220> <img src="screenshots/ss8.png" width = 220>
@@ -20,6 +26,8 @@ Name is inspired from an episode in The Office(American Sitcom).
 • 1 to 1 Private Chats – Talk with your friends in private messaging.
 
 • Group Chats – Create groups with others and hangout.
+
+• Notifications Support – Get notifications for new messages and groups.
 
 • Send Pictures – Send pictures from your phone to a friend with just a few clicks.
 
