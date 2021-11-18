@@ -10,15 +10,15 @@ Chat with friends or make new ones. Create groups to hangout. Send pics and emoj
   
 ## Details
 
-• BLOC for State Management Library
+• [BLOC](https://github.com/felangel/bloc/tree/master/packages/flutter_bloc) for State Management Library
 
-• Firebase Auth for User Authentication
+• [Firebase Auth](https://firebase.google.com/docs/auth) for User Authentication
 
-• Cloud Firestore as the Database
+• [Cloud Firestore](https://firebase.google.com/docs/firestore) as the Database
 
-• Cloud Functions & Firebase Messaging for Notifications & User Presence
+• [Cloud Functions](https://cloud.google.com/functions) & [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) for Notifications & User Presence
 
-• RxDart for combining Streams
+• [RxDart](https://pub.dev/packages/rxdart) for combining Streams
 
 ## Screenshots
 <img src="screenshots/ss1.png" width = 220> <img src="screenshots/ss2.png" width = 220> <img src="screenshots/ss3.png" width = 220> <img src="screenshots/ss4.png" width = 220> <img src="screenshots/ss5.png" width = 220> <img src="screenshots/ss6.png" width = 220> <img src="screenshots/ss7.png" width = 220> <img src="screenshots/ss8.png" width = 220>
