@@ -8,11 +8,17 @@ Chat with friends or make new ones. Create groups to hangout. Send pics and emoj
 <a href='https://play.google.com/store/apps/details?id=dev.ankan.wuphf_chat'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='100px'/></a>
   </p>
   
-## Built Using
+## Details
 
-• BLOC State Management Library
+• BLOC for State Management Library
 
-• Firebase for database and notifications support.
+• Firebase Auth for User Authentication
+
+• Cloud Firestore as the Database
+
+• Cloud Functions & Firebase Messaging for Notifications & User Presence
+
+• RxDart for combining Streams
 
 ## Screenshots
 <img src="screenshots/ss1.png" width = 220> <img src="screenshots/ss2.png" width = 220> <img src="screenshots/ss3.png" width = 220> <img src="screenshots/ss4.png" width = 220> <img src="screenshots/ss5.png" width = 220> <img src="screenshots/ss6.png" width = 220> <img src="screenshots/ss7.png" width = 220> <img src="screenshots/ss8.png" width = 220>
