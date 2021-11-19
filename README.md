@@ -18,6 +18,8 @@ Chat with friends or make new ones. Create groups to hangout. Send pics and emoj
 
 • [Cloud Functions](https://cloud.google.com/functions) & [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) for Notifications & User Presence
 
+• [Cloud Storage](https://cloud.google.com/storage) to store all images
+
 • [RxDart](https://pub.dev/packages/rxdart) for combining Streams
 
 ## Screenshots
